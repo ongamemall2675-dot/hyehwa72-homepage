@@ -1,0 +1,2191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>혜화72 | 공인중개사 & 크리에이터 브랜드 허브</title>
+  <meta name="description" content="대학로와 혜화동, 골목의 모든 이야기를 영상으로 기록하는 공인중개사이자 크리에이터 김훈의 브랜드 허브입니다.">
+  
+  <!-- FontAwesome 6 for Brand & System Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts: Outfit (modern English) & Noto Sans KR (clean Korean) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* --- 1. DESIGN SYSTEM & CSS VARIABLES --- */
+    :root {
+      /* Luxury Gold Theme HSL */
+      --primary-hue: 43;
+      --primary-sat: 76%;
+      --primary-lightness: 53%;
+      
+      --primary: hsl(var(--primary-hue), var(--primary-sat), var(--primary-lightness));
+      --primary-light: hsl(var(--primary-hue), var(--primary-sat), 65%);
+      --primary-dark: hsl(var(--primary-hue), var(--primary-sat), 40%);
+      --primary-alpha: rgba(212, 175, 55, 0.15);
+      
+      /* Brand Accent Colors */
+      --youtube-color: #FF0000;
+      --naver-color: #03C75A;
+      --instagram-grad: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      --tiktok-color: #fe0979;
+      --kakao-color: #FEE500;
+
+      /* DEFAULT: Premium Dark Theme */
+      --bg: #070b13;
+      --bg-gradient: radial-gradient(circle at 0% 0%, #111827 0%, #05080e 100%);
+      --card-bg: rgba(13, 20, 35, 0.55);
+      --card-bg-hover: rgba(20, 30, 54, 0.7);
+      --border: rgba(255, 255, 255, 0.05);
+      --border-hover: rgba(255, 255, 255, 0.12);
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-light: #64748b;
+      --shadow: 0 15px 40px -15px rgba(0, 0, 0, 0.6);
+      --shadow-hover: 0 25px 50px -15px rgba(212, 175, 55, 0.08);
+      --blur: 20px;
+      --glow: rgba(212, 175, 55, 0.08);
+
+      --font-sans: 'Outfit', 'Noto Sans KR', sans-serif;
+      --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-normal: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      --border-radius-sm: 8px;
+      --border-radius-md: 16px;
+      --border-radius-lg: 24px;
+    }
+
+    [data-theme="light"] {
+      /* Premium Light Theme */
+      --bg: #f8fafc;
+      --bg-gradient: radial-gradient(circle at 0% 0%, #ffffff 0%, #f1f5f9 100%);
+      --card-bg: rgba(255, 255, 255, 0.65);
+      --card-bg-hover: rgba(255, 255, 255, 0.85);
+      --border: rgba(15, 23, 42, 0.06);
+      --border-hover: rgba(15, 23, 42, 0.12);
+      --text: #0f172a;
+      --text-muted: #475569;
+      --text-light: #94a3b8;
+      --shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.05);
+      --shadow-hover: 0 20px 40px -15px rgba(15, 23, 42, 0.1);
+      --blur: 16px;
+      --glow: rgba(212, 175, 55, 0.04);
+    }
+
+    /* Reset Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      background-image: var(--bg-gradient);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background-color var(--transition-normal), color var(--transition-normal);
+      padding-top: 70px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Ambient Glow Backgrounds */
+    .ambient-glows {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .glow-1, .glow-2 {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.12;
+      transition: opacity var(--transition-normal);
+    }
+
+    [data-theme="light"] .glow-1,
+    [data-theme="light"] .glow-2 {
+      opacity: 0.04;
+    }
+
+    .glow-1 {
+      top: -100px;
+      right: -50px;
+      width: 400px;
+      height: 400px;
+      background: var(--primary);
+    }
+
+    .glow-2 {
+      top: 600px;
+      left: -100px;
+      width: 500px;
+      height: 500px;
+      background: var(--naver-color);
+    }
+
+    /* --- 2. GLASSMORPHIC NAVBAR --- */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 5%;
+      background: var(--card-bg);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      transition: all var(--transition-normal);
+    }
+
+    .navbar.scrolled {
+      box-shadow: var(--shadow);
+    }
+
+    .logo {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 28px;
+    }
+
+    @media (min-width: 992px) {
+      .nav-links {
+        display: flex;
+      }
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      position: relative;
+      padding: 6px 0;
+      transition: color var(--transition-fast);
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width var(--transition-normal);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .theme-toggle-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .theme-toggle-btn:hover {
+      transform: rotate(30deg) scale(1.08);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .theme-toggle-btn .fa-sun { display: none; }
+    [data-theme="light"] .theme-toggle-btn .fa-moon { display: none; }
+    [data-theme="light"] .theme-toggle-btn .fa-sun { display: block; }
+
+    .btn-contact-top {
+      padding: 8px 18px;
+      border-radius: 50px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+      transition: all var(--transition-fast);
+    }
+
+    .btn-contact-top:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+    }
+
+    /* --- 3. PAGE CONTAINER --- */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+    }
+
+    /* Section Typography */
+    .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-header .subtitle {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--primary);
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .section-header .title {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text);
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-header .title::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 3px;
+      background: var(--primary);
+      margin: 12px auto 0;
+      border-radius: 2px;
+    }
+
+    /* --- 4. HERO SECTION --- */
+    .hero-section {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      margin-top: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .hero-section {
+        grid-template-columns: 320px 1fr;
+        align-items: start;
+      }
+    }
+
+    .profile-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      border: 1px solid var(--border);
+      border-radius: var(--border-radius-lg);
+      padding: 40px 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 90px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      z-index: 1;
+    }
+
+    .avatar-wrapper {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      border: 5px solid var(--bg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 20px;
+      z-index: 2;
+      position: relative;
+      background: #fff;
+    }
+
+    .avatar-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-card h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .profile-card .tagline-text {
+      font-size: 0.9rem;
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .profile-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+
+    .badge {
+      padding: 5px 12px;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      background: var(--border);
+      color: var(--text-muted);
+      border: 1px solid transparent;
+    }
+
+    .badge.badge-primary {
+      background: var(--primary-alpha);
+      color: var(--primary);
+      border-color: rgba(212, 175, 55, 0.2);
+    }
+
+    .profile-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      width: 100%;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-item:not(:last-child) {
+      border-right: 1px solid var(--border);
+    }
+
+    .stat-item .stat-num {
+      display: block;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .stat-item .stat-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    /* Bio Card */
+    .bio-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      border: 1px solid var(--border);
+      border-radius: var(--border-radius-lg);
+      padding: 40px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .bio-card h2 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .bio-card h2 span {
+      font-weight: 300;
+      color: var(--primary);
+    }
+
+    .bio-text {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .bio-text p {
+      margin-bottom: 12px;
+    }
+
+    .bio-history {
+      margin-bottom: 24px;
+    }
+
+    .history-item {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+    }
+
+    .history-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+
+    .history-item span {
+      color: var(--text-muted);
+      display: block;
+      font-size: 0.75rem;
+    }
+
+    /* --- 5. REAL ESTATE LISTINGS SECTION (추천 매물) --- */
+    .properties-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .properties-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .property-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--border-radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      transition: all var(--transition-normal);
+    }
+
+    .property-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--primary);
+    }
+
+    .property-thumb-link {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .property-thumb-box {
+      position: relative;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+    }
+
+    .property-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-slow);
+    }
+
+    .property-card:hover .property-thumb {
+      transform: scale(1.05);
+    }
+
+    .property-badges-overlay {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      display: flex;
+      gap: 6px;
+      z-index: 5;
+    }
+
+    .property-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 4px;
+      color: #fff;
+    }
+
+    .property-badge-type { background-color: var(--primary-dark); }
+    .property-badge-status { background-color: var(--naver-color); }
+    .property-badge-status.sold { background-color: var(--text-light); }
+
+    .property-info-box {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .property-price {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .property-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 12px;
+      color: var(--text);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex-grow: 1;
+    }
+
+    .property-specs {
+      display: flex;
+      gap: 12px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+      margin-bottom: 16px;
+    }
+
+    .property-specs span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-property-ask {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 10px;
+      background: var(--primary-alpha);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: var(--border-radius-sm);
+      color: var(--primary);
+      font-size: 0.8rem;
+      font-weight: 700;
+      transition: all var(--transition-fast);
+    }
+
+    .property-card:hover .btn-property-ask {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    /* Outlink Buttons Below Properties Grid */
+    .property-outlinks-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    @media (min-width: 576px) {
+      .property-outlinks-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .property-outlink-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--border-radius-md);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow);
+      transition: all var(--transition-normal);
+    }
+
+    .property-outlink-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--primary);
+    }
+
+    .property-outlink-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .property-outlink-icon {
+      font-size: 1.3rem;
+      color: var(--primary);
+    }
+
+    .property-outlink-card.naver-out:hover .property-outlink-icon { color: var(--naver-color); }
+    .property-outlink-card.carrot-out:hover .property-outlink-icon { color: #FF7E36; }
+
+    .property-outlink-text h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .property-outlink-text p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .property-outlink-arrow {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      transition: transform var(--transition-fast);
+    }
+
+    .property-outlink-card:hover .property-outlink-arrow {
+      transform: translateX(4px);
+      color: var(--text);
+    }
+
+    /* --- 6. YOUTUBE SECTION --- */
+    .youtube-section {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--border-radius-md);
+      box-shadow: var(--shadow);
+      background: #000;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .btn-youtube-subscribe {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 16px;
+      background-color: var(--youtube-color);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-radius: var(--border-radius-md);
+      box-shadow: 0 4px 15px rgba(255, 0, 0, 0.15);
+      transition: all var(--transition-fast);
+    }
+
+    .btn-youtube-subscribe:hover {
+      background-color: #d10000;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 0, 0, 0.35);
+    }
+
+    /* --- 7. SOCIAL CHANNELS CONTENT PREVIEW TABS --- */
+    .feed-tabs-container {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .feed-tabs-nav {
+      display: flex;
+      justify-content: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      gap: 8px;
+    }
+
+    .feed-tab-btn {
+      padding: 10px 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      transition: color var(--transition-fast);
+    }
+
+    .feed-tab-btn:hover {
+      color: var(--text);
+    }
+
+    .feed-tab-btn.active {
+      color: var(--primary);
+    }
+
+    .feed-tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -9px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--primary);
+      border-radius: 2px;
+    }
+
+    .feed-panes {
+      position: relative;
+    }
+
+    .feed-pane {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .feed-pane.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Tab: Blog Feed */
+    .blog-feed-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .blog-feed-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .blog-feed-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--border-radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow);
+      transition: all var(--transition-normal);
+    }
+
+    .blog-feed-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--naver-color);
+      background: var(--card-bg-hover);
+    }
+
+    .blog-feed-thumb-box {
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+
+    .blog-feed-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-slow);
+    }
+
+    .blog-feed-card:hover .blog-feed-thumb {
+      transform: scale(1.05);
+    }
+
+    .blog-feed-info {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .blog-feed-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.7rem;
+      margin-bottom: 10px;
+    }
+
+    .blog-feed-tag {
+      color: var(--naver-color);
+      background: rgba(3, 199, 90, 0.08);
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .blog-feed-date {
+      color: var(--text-light);
+    }
+
+    .blog-feed-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.4;
+      color: var(--text);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex-grow: 1;
+    }
+
+    .blog-feed-card:hover .blog-feed-title {
+      color: var(--naver-color);
+    }
+
+    .blog-feed-summary {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .blog-feed-more {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Tab: Instagram Feed */
+    .insta-feed-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .insta-feed-item {
+      position: relative;
+      aspect-ratio: 1/1;
+      overflow: hidden;
+      border-radius: var(--border-radius-sm);
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+
+    .insta-feed-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-slow);
+    }
+
+    .insta-feed-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+    }
+
+    .insta-feed-item:hover .insta-feed-img {
+      transform: scale(1.05);
+    }
+
+    .insta-feed-item:hover .insta-feed-overlay {
+      opacity: 1;
+    }
+
+    .insta-feed-overlay span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Tab: TikTok Feed */
+    .tiktok-feed-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 576px) {
+      .tiktok-feed-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .tiktok-feed-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--border-radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      transition: all var(--transition-normal);
+    }
+
+    .tiktok-feed-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--tiktok-color);
+    }
+
+    .tiktok-feed-thumb-box {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      background-color: #000;
+    }
+
+    .tiktok-feed-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-slow);
+    }
+
+    .tiktok-feed-card:hover .tiktok-feed-thumb {
+      transform: scale(1.05);
+    }
+
+    .tiktok-feed-play-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.35);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity var(--transition-fast);
+    }
+
+    .tiktok-feed-play-overlay i {
+      font-size: 2.2rem;
+      color: #fff;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+    }
+
+    .tiktok-feed-info {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .tiktok-feed-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--text);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 10px;
+      flex-grow: 1;
+    }
+
+    .tiktok-feed-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.7rem;
+      color: var(--text-light);
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+    }
+
+    .tiktok-feed-meta span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Small Channel Grid below the previews */
+    .mini-sns-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .mini-sns-grid {
+        grid-template-columns: repeat(6, 1fr);
+      }
+    }
+
+    .mini-sns-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--border-radius-sm);
+      padding: 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all var(--transition-fast);
+      box-shadow: var(--shadow);
+    }
+
+    .mini-sns-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--primary);
+    }
+
+    .mini-sns-btn i { font-size: 0.95rem; }
+    .mini-sns-btn.btn-yt:hover { color: var(--youtube-color); border-color: var(--youtube-color); }
+    .mini-sns-btn.btn-blog:hover { color: var(--naver-color); border-color: var(--naver-color); }
+    .mini-sns-btn.btn-insta:hover { color: #e6683c; border-color: #d6249f; }
+    .mini-sns-btn.btn-threads:hover { color: var(--text); border-color: var(--text); }
+    .mini-sns-btn.btn-tiktok:hover { color: var(--tiktok-color); border-color: var(--tiktok-color); }
+    .mini-sns-btn.btn-kakao:hover { color: #8a6d00; border-color: var(--kakao-color); }
+
+    /* --- 8. PHOTO GALLERY SECTION --- */
+    .gallery-filters {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .filter-btn {
+      padding: 6px 16px;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .filter-btn:hover {
+      border-color: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .gallery-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--border-radius-md);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      box-shadow: var(--shadow);
+      position: relative;
+      cursor: pointer;
+      transition: all var(--transition-normal);
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.02);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--primary);
+    }
+
+    .gallery-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-slow);
+    }
+
+    .gallery-item:hover .gallery-img {
+      transform: scale(1.06);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0) 100%);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-tag {
+      align-self: flex-start;
+      font-size: 0.6rem;
+      font-weight: 700;
+      background: var(--primary);
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    .gallery-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* --- 9. CONTACT SECTION --- */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .contact-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .contact-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      border: 1px solid var(--border);
+      border-radius: var(--border-radius-md);
+      padding: 24px 16px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      box-shadow: var(--shadow);
+      transition: all var(--transition-normal);
+    }
+
+    .contact-card:hover {
+      border-color: var(--primary-light);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      background: var(--card-bg-hover);
+    }
+
+    .contact-card i {
+      font-size: 1.5rem;
+      color: var(--primary);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--primary-alpha);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .contact-card .contact-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-light);
+      letter-spacing: 0.05em;
+    }
+
+    .contact-card .contact-val {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Glow Background Decoration -->
+  <div class="ambient-glows">
+    <div class="glow-1"></div>
+    <div class="glow-2"></div>
+  </div>
+
+  <!-- Sticky Glassmorphic Navbar -->
+  <nav class="navbar" id="navbar">
+    <a href="#" class="logo">
+      <i class="fa-solid fa-house-chimney-user"></i>
+      혜화72 <span>Hub</span>
+    </a>
+    
+    <div class="nav-links">
+      <a href="#about">소개</a>
+      <a href="#youtube">최신영상</a>
+      <a href="#properties">추천매물</a>
+      <a href="#feeds">소셜콘텐츠</a>
+      <a href="#gallery">갤러리</a>
+      <a href="#contact">간편문의</a>
+    </div>
+
+    <div class="nav-actions">
+      <!-- Theme Switch Toggle -->
+      <button class="theme-toggle-btn" id="theme-toggle" aria-label="테마 전환">
+        <i class="fa-solid fa-moon"></i>
+        <i class="fa-solid fa-sun"></i>
+      </button>
+      
+      <!-- Top contact link -->
+      <a href="tel:010-3160-2675" class="btn-contact-top">
+        <i class="fa-solid fa-phone"></i>
+        <span>전화 상담</span>
+      </a>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <!-- 1. Profile / Hero Section -->
+    <section id="about" class="hero-section">
+      <!-- Profile Card (Left) -->
+      <div class="profile-card">
+        <div class="avatar-wrapper">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400&h=400" alt="혜화72 김훈 대표">
+        </div>
+        <h1>김훈</h1>
+        <p class="tagline-text">공인중개사 & 골목 크리에이터</p>
+        
+        <div class="profile-badges">
+          <span class="badge badge-primary"><i class="fa-solid fa-award"></i> 대표 공인중개사</span>
+          <span class="badge"><i class="fa-solid fa-video"></i> 유튜브 크리에이터</span>
+        </div>
+        
+        <div class="profile-stats">
+          <div class="stat-item">
+            <span class="stat-num">12.4K</span>
+            <span class="stat-label">유튜브 구독자</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">5.2K</span>
+            <span class="stat-label">블로그 이웃</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">25.3K</span>
+            <span class="stat-label">틱톡 팔로워</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bio / About Details (Right) -->
+      <div class="bio-card">
+        <div>
+          <h2>안녕하세요, <br><span>대학로와 혜화동</span>의 이야기를 기록하는 김훈입니다.</h2>
+          <div class="bio-text">
+            <p>혜화동과 대학로 골목의 구석구석, 숨겨진 한옥과 역사 깊은 단독주택 그리고 개성 넘치는 상가 매물들의 아름다운 스토리와 가치를 영상으로 담아 대중과 공유합니다.</p>
+            <p>단순히 부동산 계약을 중개하는 것을 넘어, 이 매력적인 동네로 발걸음을 옮기는 분들이 골목의 일원으로 따뜻하게 녹아들고 정착할 수 있도록 안전하고 정직한 파트너가 되어 드립니다.</p>
+          </div>
+          
+          <div class="bio-history">
+            <div class="history-item">
+              <strong>대학로혜화72공인중개사사무소 대표</strong>
+              <span>혜화동·대학로 단독주택, 한옥 및 리모델링 상가 중개 전문</span>
+            </div>
+            <div class="history-item">
+              <strong>유튜브 채널 '혜화72' 크리에이터</strong>
+              <span>혜화동 골목 이야기, 건축물 투어 및 현장 분석 영상 기획·제작</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 10px;">
+          <span class="badge badge-primary"><i class="fa-solid fa-house-circle-check"></i> 자산 분석 및 거래 예방 법률 컨설팅 제공</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. YouTube Latest Video Section -->
+    <section id="youtube" class="youtube-section">
+      <div class="section-header">
+        <span class="subtitle">YOUTUBE ENGINE</span>
+        <h2 class="title">최신 영상 투어</h2>
+      </div>
+
+      <!-- Responsive Player (YouTube Shorts Embed) -->
+      <div class="video-wrapper">
+        <iframe 
+          src="https://www.youtube.com/embed/oUp1UaVAMvg?rel=0" 
+          title="혜화72 유튜브 최신 업로드 영상" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
+        <!-- Watch on YouTube Button -->
+        <a href="https://www.youtube.com/shorts/oUp1UaVAMvg" target="_blank" class="btn-youtube-subscribe">
+          <i class="fa-brands fa-youtube"></i>
+          <span>유튜브에서 이 쇼츠 영상 직접 보기</span>
+        </a>
+        <!-- Channel Subscribe Button -->
+        <a href="https://www.youtube.com/channel/UC4LUKIDmLbd3bMAjjGJ18DQ?sub_confirmation=1" target="_blank" class="btn-youtube-subscribe" style="background-color: var(--primary-dark); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);">
+          <i class="fa-solid fa-bell"></i>
+          <span>혜화72 유튜브 채널 구독하기</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 3. Real Estate Listings Section (추천 매물 쇼케이스) -->
+    <section id="properties">
+      <div class="section-header">
+        <span class="subtitle">FEATURED LISTINGS</span>
+        <h2 class="title">혜화 실시간 추천 매물</h2>
+      </div>
+
+      <div class="properties-grid">
+        <!-- Property 1 -->
+        <div class="property-card">
+          <div class="property-thumb-box">
+            <a href="https://open.kakao.com/" target="_blank" class="property-thumb-link" title="카카오톡으로 매물 실시간 상담하기">
+              <img class="property-thumb" src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=600" alt="혜화동 한옥 단독주택 매매">
+            </a>
+            <div class="property-badges-overlay">
+              <span class="property-badge property-badge-type">매매 / 한옥</span>
+              <span class="property-badge property-badge-status">중개가능</span>
+            </div>
+          </div>
+          <div class="property-info-box">
+            <div class="property-price">매매 18억 5,000만</div>
+            <h3 class="property-title">혜화동 고즈넉한 마당 깊은 보존형 한옥 단독주택</h3>
+            <div class="property-specs">
+              <span><i class="fa-solid fa-ruler-combined"></i> 대지 172㎡ (52평)</span>
+              <span><i class="fa-solid fa-bed"></i> 방 3 / 욕실 2</span>
+            </div>
+            <a href="https://open.kakao.com/" target="_blank" class="btn-property-ask">
+              <i class="fa-solid fa-comment"></i> 카카오톡 문의하기
+            </a>
+          </div>
+        </div>
+
+        <!-- Property 2 -->
+        <div class="property-card">
+          <div class="property-thumb-box">
+            <a href="https://open.kakao.com/" target="_blank" class="property-thumb-link" title="카카오톡으로 매물 실시간 상담하기">
+              <img class="property-thumb" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=600" alt="대학로 상가 임대">
+            </a>
+            <div class="property-badges-overlay">
+              <span class="property-badge property-badge-type">임대 / 상가</span>
+              <span class="property-badge property-badge-status">중개가능</span>
+            </div>
+          </div>
+          <div class="property-info-box">
+            <div class="property-price">보증금 5,000 / 월 380</div>
+            <h3 class="property-title">대학로 메인거리 코너형 통유리 상가 빌딩 1층 임대</h3>
+            <div class="property-specs">
+              <span><i class="fa-solid fa-ruler-combined"></i> 전용 115㎡ (35평)</span>
+              <span><i class="fa-solid fa-store"></i> 권리금 없음</span>
+            </div>
+            <a href="https://open.kakao.com/" target="_blank" class="btn-property-ask">
+              <i class="fa-solid fa-comment"></i> 카카오톡 문의하기
+            </a>
+          </div>
+        </div>
+
+        <!-- Property 3 -->
+        <div class="property-card">
+          <div class="property-thumb-box">
+            <a href="https://open.kakao.com/" target="_blank" class="property-thumb-link" title="카카오톡으로 매물 실시간 상담하기">
+              <img class="property-thumb" src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=600" alt="혜화역 인근 단독주택 전세">
+            </a>
+            <div class="property-badges-overlay">
+              <span class="property-badge property-badge-type">전세 / 단독</span>
+              <span class="property-badge property-badge-status sold">계약완료</span>
+            </div>
+          </div>
+          <div class="property-info-box">
+            <div class="property-price">전세 6억</div>
+            <h3 class="property-title">혜화역 도보 3분 복층 남향 테라스형 단독주택 전세</h3>
+            <div class="property-specs">
+              <span><i class="fa-solid fa-ruler-combined"></i> 연면적 98㎡ (30평)</span>
+              <span><i class="fa-solid fa-bed"></i> 방 3 / 욕실 2</span>
+            </div>
+            <a href="https://open.kakao.com/" target="_blank" class="btn-property-ask">
+              <i class="fa-solid fa-comment"></i> 계약완료 / 상담요청
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Outlinks -->
+      <div class="property-outlinks-grid">
+        <a href="https://m.land.naver.com/search/result/혜화동" target="_blank" class="property-outlink-card naver-out">
+          <div class="property-outlink-left">
+            <i class="fa-solid fa-map-location-dot property-outlink-icon"></i>
+            <div class="property-outlink-text">
+              <h4>네이버 부동산에서 혜화동 매물 더 보기</h4>
+              <p>네이버 부동산에 등록된 혜화역 인근 실시간 전체 매물 목록</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-chevron-right property-outlink-arrow"></i>
+        </a>
+
+        <a href="https://www.daangn.com/search/혜화동 부동산/" target="_blank" class="property-outlink-card carrot-out">
+          <div class="property-outlink-left">
+            <i class="fa-solid fa-carrot property-outlink-icon"></i>
+            <div class="property-outlink-text">
+              <h4>당근 부동산에서 혜화동 소식 찾기</h4>
+              <p>당근마켓 이웃들이 추천하는 직거래 및 부동산 매물</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-chevron-right property-outlink-arrow"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- 4. Social Channels Content Preview Tabs -->
+    <section id="feeds" class="feed-tabs-section">
+      <div class="section-header">
+        <span class="subtitle">SOCIAL CONTENT FEEDS</span>
+        <h2 class="title">채널별 최신 콘텐츠 피드</h2>
+      </div>
+
+      <div class="feed-tabs-container">
+        <!-- Tabs Navigation -->
+        <div class="feed-tabs-nav">
+          <button class="feed-tab-btn active" data-tab="blog"><i class="fa-solid fa-blog"></i> Naver Blog</button>
+          <button class="feed-tab-btn" data-tab="instagram"><i class="fa-brands fa-instagram"></i> Instagram</button>
+          <button class="feed-tab-btn" data-tab="tiktok"><i class="fa-brands fa-tiktok"></i> TikTok</button>
+        </div>
+
+        <!-- Panes -->
+        <div class="feed-panes">
+          <!-- Naver Blog Pane -->
+          <div class="feed-pane active" id="tab-blog">
+            <div class="blog-feed-grid">
+              <!-- Post 1 -->
+              <a href="https://blog.naver.com/ongamemall/223253775461" target="_blank" class="blog-feed-card">
+                <div class="blog-feed-thumb-box">
+                  <img class="blog-feed-thumb" src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=300" alt="블로그 포스트 썸네일">
+                </div>
+                <div class="blog-feed-info">
+                  <div class="blog-feed-header">
+                    <span class="blog-feed-tag">중개일지</span>
+                    <span class="blog-feed-date">2026. 06. 02</span>
+                  </div>
+                  <h3 class="blog-feed-title">혜화동 한옥 상가 임대차 계약 완료 후기 & 인테리어 트렌드 분석</h3>
+                  <p class="blog-feed-summary">최근 계약을 마친 혜화역 인근 한옥 상가의 임대차 계약 과정과 한옥 개조 상업 시설의 트렌드를 소개합니다...</p>
+                  <span class="blog-feed-more">블로그 글 상세 페이지 이동 <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+              </a>
+
+              <!-- Post 2 -->
+              <a href="https://blog.naver.com/ongamemall/223253775462" target="_blank" class="blog-feed-card">
+                <div class="blog-feed-thumb-box">
+                  <img class="blog-feed-thumb" src="https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=300" alt="블로그 포스트 썸네일">
+                </div>
+                <div class="blog-feed-info">
+                  <div class="blog-feed-header">
+                    <span class="blog-feed-tag">지원 정책</span>
+                    <span class="blog-feed-date">2026. 05. 24</span>
+                  </div>
+                  <h3 class="blog-feed-title">2026년 종로구 단독주택·한옥 보존 및 개보수 정부 보조금 신청 가이드</h3>
+                  <p class="blog-feed-summary">외관 공사 비용의 최대 70%, 최고 6천만 원까지 무상 보조금을 지원하는 사업 일정 및 필요 서류 총정리...</p>
+                  <span class="blog-feed-more">블로그 글 상세 페이지 이동 <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Instagram Pane -->
+          <div class="feed-pane" id="tab-instagram">
+            <div class="insta-feed-grid">
+              <!-- Item 1 -->
+              <a href="https://www.instagram.com/realhyehwa72/" target="_blank" class="insta-feed-item" title="인스타그램에서 포스트 확인하기">
+                <img class="insta-feed-img" src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=300" alt="인스타그램 사진">
+                <div class="insta-feed-overlay">
+                  <span><i class="fa-solid fa-heart"></i> 142</span>
+                  <span><i class="fa-solid fa-comment"></i> 18</span>
+                </div>
+              </a>
+              <!-- Item 2 -->
+              <a href="https://www.instagram.com/realhyehwa72/" target="_blank" class="insta-feed-item" title="인스타그램에서 포스트 확인하기">
+                <img class="insta-feed-img" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=300" alt="인스타그램 사진">
+                <div class="insta-feed-overlay">
+                  <span><i class="fa-solid fa-heart"></i> 256</span>
+                  <span><i class="fa-solid fa-comment"></i> 32</span>
+                </div>
+              </a>
+              <!-- Item 3 -->
+              <a href="https://www.instagram.com/realhyehwa72/" target="_blank" class="insta-feed-item" title="인스타그램에서 포스트 확인하기">
+                <img class="insta-feed-img" src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&q=80&w=300" alt="인스타그램 사진">
+                <div class="insta-feed-overlay">
+                  <span><i class="fa-solid fa-heart"></i> 188</span>
+                  <span><i class="fa-solid fa-comment"></i> 12</span>
+                </div>
+              </a>
+              <!-- Item 4 -->
+              <a href="https://www.instagram.com/realhyehwa72/" target="_blank" class="insta-feed-item" title="인스타그램에서 포스트 확인하기">
+                <img class="insta-feed-img" src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=300" alt="인스타그램 사진">
+                <div class="insta-feed-overlay">
+                  <span><i class="fa-solid fa-heart"></i> 312</span>
+                  <span><i class="fa-solid fa-comment"></i> 45</span>
+                </div>
+              </a>
+              <!-- Item 5 -->
+              <a href="https://www.instagram.com/realhyehwa72/" target="_blank" class="insta-feed-item" title="인스타그램에서 포스트 확인하기">
+                <img class="insta-feed-img" src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=300" alt="인스타그램 사진">
+                <div class="insta-feed-overlay">
+                  <span><i class="fa-solid fa-heart"></i> 98</span>
+                  <span><i class="fa-solid fa-comment"></i> 8</span>
+                </div>
+              </a>
+              <!-- Item 6 -->
+              <a href="https://www.instagram.com/realhyehwa72/" target="_blank" class="insta-feed-item" title="인스타그램에서 포스트 확인하기">
+                <img class="insta-feed-img" src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=300" alt="인스타그램 사진">
+                <div class="insta-feed-overlay">
+                  <span><i class="fa-solid fa-heart"></i> 220</span>
+                  <span><i class="fa-solid fa-comment"></i> 27</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- TikTok Pane -->
+          <div class="feed-pane" id="tab-tiktok">
+            <div class="tiktok-feed-grid">
+              <!-- Video 1 -->
+              <a href="https://www.tiktok.com/@ongamemall" target="_blank" class="tiktok-feed-card" title="틱톡에서 동영상 재생하기">
+                <div class="tiktok-feed-thumb-box">
+                  <img class="tiktok-feed-thumb" src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=300&h=400" alt="틱톡 썸네일">
+                  <div class="tiktok-feed-play-overlay"><i class="fa-solid fa-circle-play"></i></div>
+                </div>
+                <div class="tiktok-feed-info">
+                  <h4 class="tiktok-feed-title">대문 열자마자 숲 속 마당이? 혜화동 한옥 주택 내부 실사 투어</h4>
+                  <div class="tiktok-feed-meta">
+                    <span><i class="fa-solid fa-eye"></i> 14.8K회</span>
+                    <span>5일 전</span>
+                  </div>
+                </div>
+              </a>
+
+              <!-- Video 2 -->
+              <a href="https://www.tiktok.com/@ongamemall" target="_blank" class="tiktok-feed-card" title="틱톡에서 동영상 재생하기">
+                <div class="tiktok-feed-thumb-box">
+                  <img class="tiktok-feed-thumb" src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&q=80&w=300&h=400" alt="틱톡 썸네일">
+                  <div class="tiktok-feed-play-overlay"><i class="fa-solid fa-circle-play"></i></div>
+                </div>
+                <div class="tiktok-feed-info">
+                  <h4 class="tiktok-feed-title">상가 구하는 초보 창업자가 종로 임장할 때 반드시 피해야 할 리스크 3가지</h4>
+                  <div class="tiktok-feed-meta">
+                    <span><i class="fa-solid fa-eye"></i> 25.1K회</span>
+                    <span>1주 전</span>
+                  </div>
+                </div>
+              </a>
+
+              <!-- Video 3 -->
+              <a href="https://www.tiktok.com/@ongamemall" target="_blank" class="tiktok-feed-card" title="틱톡에서 동영상 재생하기">
+                <div class="tiktok-feed-thumb-box">
+                  <img class="tiktok-feed-thumb" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=300&h=400" alt="틱톡 썸네일">
+                  <div class="tiktok-feed-play-overlay"><i class="fa-solid fa-circle-play"></i></div>
+                </div>
+                <div class="tiktok-feed-info">
+                  <h4 class="tiktok-feed-title">혜화로 골목 모퉁이에 숨은 한옥 리모델링 카페 인테리어 분석</h4>
+                  <div class="tiktok-feed-meta">
+                    <span><i class="fa-solid fa-eye"></i> 18.9K회</span>
+                    <span>2주 전</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Platform Redirect Grid -->
+      <div class="mini-sns-grid">
+        <a href="https://www.youtube.com/channel/UC4LUKIDmLbd3bMAjjGJ18DQ" target="_blank" class="mini-sns-btn btn-yt"><i class="fa-brands fa-youtube"></i> YouTube</a>
+        <a href="https://blog.naver.com/ongamemall" target="_blank" class="mini-sns-btn btn-blog"><i class="fa-solid fa-blog"></i> Blog</a>
+        <a href="https://www.instagram.com/realhyehwa72/" target="_blank" class="mini-sns-btn btn-insta"><i class="fa-brands fa-instagram"></i> Instagram</a>
+        <a href="https://www.threads.com/@realhyehwa72" target="_blank" class="mini-sns-btn btn-threads"><i class="fa-solid fa-at"></i> Threads</a>
+        <a href="https://www.tiktok.com/@ongamemall" target="_blank" class="mini-sns-btn btn-tiktok"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+        <a href="https://open.kakao.com/" target="_blank" class="mini-sns-btn btn-kakao" style="grid-column: span 2;"><i class="fa-solid fa-comment"></i> Kakao Open Chat</a>
+      </div>
+    </section>
+
+    <!-- 5. Photo Gallery Section -->
+    <section id="gallery">
+      <div class="section-header">
+        <span class="subtitle">VISUAL GALLERY</span>
+        <h2 class="title">매물 및 현장 스케치</h2>
+      </div>
+
+      <!-- Filters -->
+      <div class="gallery-filters">
+        <button class="filter-btn active" data-filter="all">전체보기</button>
+        <button class="filter-btn" data-filter="house">단독/한옥</button>
+        <button class="filter-btn" data-filter="interior">인테리어</button>
+        <button class="filter-btn" data-filter="daily">중개일지</button>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="gallery-grid" id="gallery-container">
+        <!-- Item 1 -->
+        <div class="gallery-item" data-category="house">
+          <img class="gallery-img" src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=600" alt="혜화동 모던 타운하우스 매물">
+          <div class="gallery-overlay">
+            <span class="gallery-tag">단독/한옥</span>
+            <h3 class="gallery-title">혜화동 모던 단독주택 매물</h3>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="gallery-item" data-category="interior">
+          <img class="gallery-img" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=600" alt="고급 한옥 스타일 다이닝룸 인테리어">
+          <div class="gallery-overlay">
+            <span class="gallery-tag">인테리어</span>
+            <h3 class="gallery-title">내추럴 오리엔탈 다이닝 인테리어</h3>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="gallery-item" data-category="daily">
+          <img class="gallery-img" src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=600" alt="혜화동 한옥 카페 상가 실사 계약 완료">
+          <div class="gallery-overlay">
+            <span class="gallery-tag">중개일지</span>
+            <h3 class="gallery-title">혜화동 한옥 상가 임대차 계약 현장</h3>
+          </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="gallery-item" data-category="house">
+          <img class="gallery-img" src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=600" alt="전통 한옥 매매 매물 외관">
+          <div class="gallery-overlay">
+            <span class="gallery-tag">단독/한옥</span>
+            <h3 class="gallery-title">종로구 혜화로 전통 보존형 한옥</h3>
+          </div>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="gallery-item" data-category="interior">
+          <img class="gallery-img" src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&q=80&w=600" alt="한옥 창살 디자인 침실">
+          <div class="gallery-overlay">
+            <span class="gallery-tag">인테리어</span>
+            <h3 class="gallery-title">전통 창살 오브제 모던 안방</h3>
+          </div>
+        </div>
+
+        <!-- Item 6 -->
+        <div class="gallery-item" data-category="daily">
+          <img class="gallery-img" src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&q=80&w=600" alt="혜화동 낙산성곽 저녁 풍경">
+          <div class="gallery-overlay">
+            <span class="gallery-tag">중개일지</span>
+            <h3 class="gallery-title">낙산성곽길 인근 토지 분석 야외 임장</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Contact Hub Section -->
+    <section id="contact">
+      <div class="section-header">
+        <span class="subtitle">QUICK CONTACT</span>
+        <h2 class="title">김훈 대표 간편 문의</h2>
+      </div>
+
+      <div class="contact-grid">
+        <!-- Call -->
+        <a href="tel:010-3160-2675" class="contact-card">
+          <i class="fa-solid fa-phone"></i>
+          <span class="contact-label">대표 휴대폰</span>
+          <span class="contact-val">010-3160-2675</span>
+        </a>
+
+        <!-- SMS -->
+        <a href="sms:010-3160-2675" class="contact-card">
+          <i class="fa-solid fa-envelope-open-text"></i>
+          <span class="contact-label">문자 문의</span>
+          <span class="contact-val">메시지 보내기</span>
+        </a>
+
+        <!-- Landline -->
+        <a href="tel:02-766-0720" class="contact-card">
+          <i class="fa-solid fa-building-user"></i>
+          <span class="contact-label">사무실 전화</span>
+          <span class="contact-val">02-766-0720</span>
+        </a>
+
+        <!-- Map Location -->
+        <a href="https://map.naver.com/v5/search/서울%20종로구%20창경궁로%20266" target="_blank" class="contact-card">
+          <i class="fa-solid fa-location-dot"></i>
+          <span class="contact-label">사무실 오시는 길</span>
+          <span class="contact-val">창경궁로 266 1층</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Sticky Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div>
+        <h3 class="footer-logo">
+          <i class="fa-solid fa-house-chimney-user"></i>
+          대학로혜화72<span>공인중개사</span>
+        </h3>
+        <p class="footer-info">
+          상호: 대학로혜화72공인중개사사무소 | 대표: 김훈 | 개설등록번호: 제 11110-2021-00036 호<br>
+          주소: 서울 종로구 창경궁로 266 (혜화동) 1층 | 연락처: 010-3160-2675, 02-766-0720
+        </p>
+      </div>
+      <div>
+        <p style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px;">김훈 대표 이메일</p>
+        <p>ongamemall@naver.com</p>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      &copy; 2026 Daehakro Hyehwa72 Real Estate. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- --- GALLERY LIGHTBOX PORTAL --- -->
+  <div class="lightbox-modal" id="lightbox-modal">
+    <button class="lightbox-close" id="lightbox-close" aria-label="닫기">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    
+    <button class="lightbox-btn lightbox-prev" id="lightbox-prev" aria-label="이전 이미지">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    
+    <div class="lightbox-wrapper">
+      <div class="lightbox-img-box">
+        <img src="" id="lightbox-img" alt="">
+      </div>
+      <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+
+    <button class="lightbox-btn lightbox-next" id="lightbox-next" aria-label="다음 이미지">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+
+  <script>
+    // --- 1. CONFIGURATION ---
+    // Cloudflare Worker 프록시 주소 (배포 후 주소 기입, 예: 'https://rss-proxy.hyehwa72.workers.dev')
+    // 주소가 비어있으면(기본값) 소스코드 내의 고화질 템플릿(Mock) 데이터가 노출됩니다.
+    const PROXY_URL = ""; 
+    const NAVER_BLOG_ID = "ongamemall";
+    const YOUTUBE_CHANNEL_ID = "UC4LUKIDmLbd3bMAjjGJ18DQ";
+
+    // --- 2. STATE VARIABLES ---
+    let currentTheme = localStorage.getItem("theme") || "dark";
+    let activeGalleryItems = [];
+    let lightboxIndex = 0;
+
+    // --- 3. DOM ELEMENTS ---
+    const htmlEl = document.documentElement;
+    const themeToggleBtn = document.getElementById("theme-toggle");
+    const navbar = document.getElementById("navbar");
+    
+    // Gallery
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const galleryItems = document.querySelectorAll(".gallery-item");
+    
+    // Lightbox
+    const lightboxModal = document.getElementById("lightbox-modal");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const lightboxCaption = document.getElementById("lightbox-caption");
+    const lightboxCloseBtn = document.getElementById("lightbox-close");
+    const lightboxPrevBtn = document.getElementById("lightbox-prev");
+    const lightboxNextBtn = document.getElementById("lightbox-next");
+
+    // Social Feed Tabs
+    const feedTabs = document.querySelectorAll(".feed-tab-btn");
+    const feedPanes = document.querySelectorAll(".feed-pane");
+
+    // --- 4. THEME TOGGLE LOGIC ---
+    function setTheme(theme) {
+      htmlEl.setAttribute("data-theme", theme);
+      localStorage.setItem("theme", theme);
+      currentTheme = theme;
+    }
+
+    setTheme(currentTheme);
+
+    themeToggleBtn.addEventListener("click", () => {
+      const targetTheme = currentTheme === "dark" ? "light" : "dark";
+      setTheme(targetTheme);
+    });
+
+    // Navbar Scroll Background shadow
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 20) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
+    });
+
+    // --- 5. SOCIAL FEED TAB SWITCHING ---
+    feedTabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        feedTabs.forEach(t => t.classList.remove("active"));
+        feedPanes.forEach(p => p.classList.remove("active"));
+        
+        tab.classList.add("active");
+        const targetPane = document.getElementById(`tab-${tab.dataset.tab}`);
+        if (targetPane) targetPane.classList.add("active");
+      });
+    });
+
+    // --- 6. REAL-TIME NAVER BLOG RSS SCRAPING & RENDERING ---
+    async function loadNaverBlogFeed() {
+      if (!PROXY_URL) {
+        console.log("블로그: 프록시 주소가 지정되지 않아 하드코딩 썸네일 카드를 유지합니다.");
+        return;
+      }
+      
+      try {
+        const url = `${PROXY_URL}/naver?blogId=${NAVER_BLOG_ID}`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("네트워크 응답 에러");
+        
+        const xmlText = await response.text();
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+        
+        const items = xmlDoc.getElementsByTagName("item");
+        const blogGrid = document.querySelector(".blog-feed-grid");
+        
+        if (items.length > 0 && blogGrid) {
+          blogGrid.innerHTML = "";
+          // 최신 글 2개 노출
+          const limit = Math.min(items.length, 2);
+          for (let i = 0; i < limit; i++) {
+            const item = items[i];
+            const title = item.querySelector("title")?.textContent || "새로운 블로그 글";
+            const link = item.querySelector("link")?.textContent || "https://blog.naver.com/" + NAVER_BLOG_ID;
+            const pubDateStr = item.querySelector("pubDate")?.textContent || "";
+            const rawDesc = item.querySelector("description")?.textContent || "";
+            
+            // 본문 내용 중 첫 번째 이미지 태그의 src 추출 (썸네일 자동 연동)
+            const imgRegex = /<img[^>]+src="([^">]+)"/i;
+            const imgMatch = imgRegex.exec(rawDesc);
+            const thumbnail = imgMatch ? imgMatch[1] : "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=300";
+            
+            // HTML 태그 제거 및 텍스트 슬라이스
+            const tempDiv = document.createElement("div");
+            tempDiv.innerHTML = rawDesc;
+            const cleanDesc = (tempDiv.textContent || tempDiv.innerText || "").replace(/\s+/g, " ").substring(0, 100) + "...";
+            
+            // 날짜 포맷팅 (YYYY. MM. DD)
+            let formattedDate = pubDateStr;
+            const dateObj = new Date(pubDateStr);
+            if (!isNaN(dateObj)) {
+              formattedDate = `${dateObj.getFullYear()}. ${String(dateObj.getMonth() + 1).padStart(2, '0')}. ${String(dateObj.getDate()).padStart(2, '0')}`;
+            }
+            
+            const card = document.createElement("a");
+            card.href = link;
+            card.target = "_blank";
+            card.className = "blog-feed-card";
+            card.innerHTML = `
+              <div class="blog-feed-thumb-box">
+                <img class="blog-feed-thumb" src="${thumbnail}" alt="블로그 포스트 썸네일">
+              </div>
+              <div class="blog-feed-info">
+                <div class="blog-feed-header">
+                  <span class="blog-feed-tag">중개일지</span>
+                  <span class="blog-feed-date">${formattedDate}</span>
+                </div>
+                <h3 class="blog-feed-title">${escapeHtml(title)}</h3>
+                <p class="blog-feed-summary">${escapeHtml(cleanDesc)}</p>
+                <span class="blog-feed-more">블로그 글 상세 페이지 이동 <i class="fa-solid fa-arrow-right"></i></span>
+              </div>
+            `;
+            blogGrid.appendChild(card);
+          }
+          console.log(`네이버 블로그 최신 글 ${limit}개가 자동으로 반영되었습니다.`);
+        }
+      } catch (error) {
+        console.warn("네이버 블로그 RSS 피드 로드 실패 (기본 카드를 노출합니다):", error.message);
+      }
+    }
+
+    // --- 7. REAL-TIME YOUTUBE LATEST VIDEO SCRAPING & PLAYER AUTO-UPDATE ---
+    async function loadYoutubeFeed() {
+      if (!PROXY_URL) {
+        console.log("유튜브: 프록시 주소가 지정되지 않아 지정 쇼츠 영상을 플레이어에 유지합니다.");
+        return;
+      }
+      
+      try {
+        const url = `${PROXY_URL}/youtube?channelId=${YOUTUBE_CHANNEL_ID}`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("네트워크 응답 에러");
+        
+        const xmlText = await response.text();
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+        
+        const entries = xmlDoc.getElementsByTagName("entry");
+        if (entries.length > 0) {
+          const entry = entries[0]; // 최신 비디오 1개 선택
+          
+          // 비디오 ID 추출
+          let videoId = "";
+          const videoIdNodes = entry.getElementsByTagName("yt:videoId");
+          if (videoIdNodes.length > 0) {
+            videoId = videoIdNodes[0].textContent;
+          } else {
+            const fallbackNodes = entry.getElementsByTagName("videoId");
+            if (fallbackNodes.length > 0) {
+              videoId = fallbackNodes[0].textContent;
+            }
+          }
+          
+          if (videoId) {
+            // 메인 유튜브 플레이어 iframe src 자동 갱신
+            const iframe = document.querySelector(".video-wrapper iframe");
+            if (iframe) {
+              iframe.src = `https://www.youtube.com/embed/${videoId}?rel=0`;
+            }
+            
+            // 유튜브 영상 직접보기 버튼 링크 갱신
+            const watchBtn = document.querySelector(".youtube-section .btn-youtube-subscribe");
+            if (watchBtn) {
+              watchBtn.href = `https://www.youtube.com/watch?v=${videoId}`;
+              watchBtn.querySelector("span").textContent = "유튜브에서 최신 영상 직접 보기";
+            }
+            console.log(`유튜브 최신 비디오(${videoId})가 자동으로 메인 플레이어에 반영되었습니다.`);
+          }
+        }
+      } catch (error) {
+        console.warn("유튜브 RSS 로드 실패 (기본 쇼츠 영상을 플레이어에 유지합니다):", error.message);
+      }
+    }
+
+    // --- 8. GALLERY CATEGORY FILTERING ---
+    filterButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        filterButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        
+        const filterVal = btn.getAttribute("data-filter");
+        
+        galleryItems.forEach(item => {
+          const category = item.getAttribute("data-category");
+          if (filterVal === "all" || category === filterVal) {
+            item.style.display = "block";
+            setTimeout(() => {
+              item.style.opacity = "1";
+              item.style.transform = "scale(1)";
+            }, 50);
+          } else {
+            item.style.opacity = "0";
+            item.style.transform = "scale(0.95)";
+            setTimeout(() => {
+              item.style.display = "none";
+            }, 300);
+          }
+        });
+        
+        setTimeout(updateActiveGalleryItems, 350);
+      });
+    });
+
+    function updateActiveGalleryItems() {
+      activeGalleryItems = Array.from(galleryItems).filter(item => item.style.display !== "none");
+    }
+
+    // --- 9. GALLERY LIGHTBOX OVERLAY ---
+    function openLightbox(index) {
+      lightboxIndex = index;
+      const activeItem = activeGalleryItems[lightboxIndex];
+      if (!activeItem) return;
+      
+      const img = activeItem.querySelector(".gallery-img");
+      const title = activeItem.querySelector(".gallery-title");
+      
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightboxCaption.textContent = title.textContent;
+      
+      lightboxModal.classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+      lightboxModal.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+
+    function navigateLightbox(direction) {
+      lightboxIndex += direction;
+      if (lightboxIndex < 0) {
+        lightboxIndex = activeGalleryItems.length - 1;
+      } else if (lightboxIndex >= activeGalleryItems.length) {
+        lightboxIndex = 0;
+      }
+      openLightbox(lightboxIndex);
+    }
+
+    galleryItems.forEach(item => {
+      item.addEventListener("click", () => {
+        updateActiveGalleryItems();
+        const activeIndex = activeGalleryItems.indexOf(item);
+        openLightbox(activeIndex !== -1 ? activeIndex : 0);
+      });
+    });
+
+    lightboxCloseBtn.addEventListener("click", closeLightbox);
+    lightboxPrevBtn.addEventListener("click", () => navigateLightbox(-1));
+    lightboxNextBtn.addEventListener("click", () => navigateLightbox(1));
+
+    lightboxModal.addEventListener("click", (e) => {
+      if (e.target === lightboxModal || e.target.classList.contains("lightbox-img-box")) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (lightboxModal.classList.contains("active")) {
+        if (e.key === "Escape") closeLightbox();
+        if (e.key === "ArrowLeft") navigateLightbox(-1);
+        if (e.key === "ArrowRight") navigateLightbox(1);
+      }
+    });
+
+    // --- 10. HELPERS ---
+    function escapeHtml(unsafe) {
+      return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // --- 11. INITIALIZATION ---
+    document.addEventListener("DOMContentLoaded", () => {
+      updateActiveGalleryItems();
+      loadNaverBlogFeed();
+      loadYoutubeFeed();
+    });
+  </script>
+</body>
+</html>
