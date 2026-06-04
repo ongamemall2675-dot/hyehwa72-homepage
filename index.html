@@ -1985,7 +1985,11 @@
             // 본문 내용 중 첫 번째 이미지 태그의 src 추출 (썸네일 자동 연동)
             const imgRegex = /<img[^>]+src="([^">]+)"/i;
             const imgMatch = imgRegex.exec(rawDesc);
-            const thumbnail = imgMatch ? imgMatch[1] : "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=300";
+            let thumbnail = "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=300";
+            if (imgMatch) {
+              const rawImgUrl = imgMatch[1];
+              thumbnail = PROXY_URL ? `${PROXY_URL}/image?url=${encodeURIComponent(rawImgUrl)}` : rawImgUrl;
+            }
             
             // HTML 태그 제거 및 텍스트 슬라이스
             const tempDiv = document.createElement("div");
