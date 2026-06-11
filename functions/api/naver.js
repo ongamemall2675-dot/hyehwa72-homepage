@@ -1,7 +1,12 @@
 export async function onRequest(context) {
   const { searchParams } = new URL(context.request.url);
   const blogId = searchParams.get('blogId') || 'ongamemall';
-  const url = `https://rss.blog.naver.com/${blogId}.xml`;
+  const categoryNo = searchParams.get('categoryNo');
+  
+  let url = `https://rss.blog.naver.com/${blogId}.xml`;
+  if (categoryNo) {
+    url += `?categoryNo=${categoryNo}`;
+  }
   
   try {
     const response = await fetch(url, {

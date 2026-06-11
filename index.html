@@ -6,6 +6,27 @@
   <title>혜화72 | 공인중개사 & 크리에이터 브랜드 허브</title>
   <meta name="description" content="대학로와 혜화동, 골목의 모든 이야기를 영상으로 기록하는 공인중개사이자 크리에이터 김훈의 브랜드 허브입니다.">
   
+  <!-- Canonical & SEO Tags -->
+  <link rel="canonical" href="https://hyehwa72.org/">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hyehwa72.org/">
+  <meta property="og:title" content="혜화72 | 공인중개사 & 크리에이터 브랜드 허브">
+  <meta property="og:description" content="대학로와 혜화동, 골목의 모든 이야기를 영상으로 기록하는 공인중개사이자 크리에이터 김훈의 브랜드 허브입니다.">
+  <meta property="og:image" content="https://hyehwa72.org/profile.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hyehwa72.org/">
+  <meta property="twitter:title" content="혜화72 | 공인중개사 & 크리에이터 브랜드 허브">
+  <meta property="twitter:description" content="대학로와 혜화동, 골목의 모든 이야기를 영상으로 기록하는 공인중개사이자 크리에이터 김훈의 브랜드 허브입니다.">
+  <meta property="twitter:image" content="https://hyehwa72.org/profile.jpg">
+
+  <!-- Search Engine Verification Tags (구글/네이버에서 발급받은 키를 아래 content 속성에 붙여넣으세요) -->
+  <meta name="google-site-verification" content="NJTQur8f1-jMgeUfETw8C-EQhmNYVKTsCMrl3dMeHvQ">
+  <meta name="naver-site-verification" content="6ae3eec8e459cb9294e265f88b8d1aeb8ac2a867">
+  
   <!-- FontAwesome 6 for Brand & System Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
@@ -13,6 +34,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Modern Korean Font: Paperlogy -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy.css" type="text/css"/>
 
   <style>
     /* --- 1. DESIGN SYSTEM & CSS VARIABLES --- */
@@ -27,6 +51,11 @@
       --primary-dark: hsl(var(--primary-hue), var(--primary-sat), 40%);
       --primary-alpha: rgba(212, 175, 55, 0.15);
       
+      --accent: hsl(var(--primary-hue), var(--primary-sat), var(--primary-lightness));
+      --accent-light: hsl(var(--primary-hue), var(--primary-sat), 65%);
+      --accent-dark: hsl(var(--primary-hue), var(--primary-sat), 40%);
+      --accent-alpha: rgba(212, 175, 55, 0.1);
+      
       /* Brand Accent Colors */
       --youtube-color: #FF0000;
       --naver-color: #03C75A;
@@ -34,22 +63,22 @@
       --tiktok-color: #fe0979;
       --kakao-color: #FEE500;
 
-      /* DEFAULT: Premium Dark Theme */
+      /* DEFAULT: Premium Slate Dark Theme (gptparkai.com style) */
       --bg: #070b13;
-      --bg-gradient: radial-gradient(circle at 0% 0%, #111827 0%, #05080e 100%);
+      --bg-gradient: radial-gradient(circle at 50% 0%, #111827 0%, #05080e 100%);
       --card-bg: rgba(13, 20, 35, 0.55);
       --card-bg-hover: rgba(20, 30, 54, 0.7);
       --border: rgba(255, 255, 255, 0.05);
-      --border-hover: rgba(255, 255, 255, 0.12);
+      --border-hover: rgba(212, 175, 55, 0.35);
       --text: #f1f5f9;
       --text-muted: #94a3b8;
       --text-light: #64748b;
       --shadow: 0 15px 40px -15px rgba(0, 0, 0, 0.6);
-      --shadow-hover: 0 25px 50px -15px rgba(212, 175, 55, 0.08);
+      --shadow-hover: 0 20px 40px -10px rgba(212, 175, 55, 0.15);
       --blur: 20px;
       --glow: rgba(212, 175, 55, 0.08);
 
-      --font-sans: 'Outfit', 'Noto Sans KR', sans-serif;
+      --font-sans: 'Paperlogy', 'Outfit', 'Noto Sans KR', sans-serif;
       --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       --transition-normal: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
       --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -61,16 +90,16 @@
     [data-theme="light"] {
       /* Premium Light Theme */
       --bg: #f8fafc;
-      --bg-gradient: radial-gradient(circle at 0% 0%, #ffffff 0%, #f1f5f9 100%);
+      --bg-gradient: radial-gradient(circle at 50% 0%, #fff 0%, #f1f5f9 100%);
       --card-bg: rgba(255, 255, 255, 0.65);
       --card-bg-hover: rgba(255, 255, 255, 0.85);
       --border: rgba(15, 23, 42, 0.06);
-      --border-hover: rgba(15, 23, 42, 0.12);
+      --border-hover: rgba(212, 175, 55, 0.25);
       --text: #0f172a;
       --text-muted: #475569;
       --text-light: #94a3b8;
       --shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.05);
-      --shadow-hover: 0 20px 40px -15px rgba(15, 23, 42, 0.1);
+      --shadow-hover: 0 20px 40px -15px rgba(212, 175, 55, 0.1);
       --blur: 16px;
       --glow: rgba(212, 175, 55, 0.04);
     }
@@ -142,7 +171,7 @@
       left: -100px;
       width: 500px;
       height: 500px;
-      background: var(--naver-color);
+      background: var(--accent);
     }
 
     /* --- 2. GLASSMORPHIC NAVBAR --- */
@@ -227,6 +256,47 @@
       gap: 16px;
     }
 
+    /* Modern Expandable Search Bar */
+    .search-box-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-input {
+      width: 120px;
+      height: 38px;
+      padding: 8px 16px 8px 36px;
+      font-size: 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      background: var(--card-bg);
+      color: var(--text);
+      outline: none;
+      font-family: var(--font-sans);
+      transition: all var(--transition-normal);
+    }
+
+    .search-input:focus {
+      width: 200px;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+      background: var(--card-bg-hover);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      color: var(--text-light);
+      font-size: 0.8rem;
+      pointer-events: none;
+      transition: color var(--transition-fast);
+    }
+
+    .search-input:focus + .search-icon {
+      color: var(--primary);
+    }
+
     .theme-toggle-btn {
       width: 42px;
       height: 42px;
@@ -262,14 +332,14 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.25);
       transition: all var(--transition-fast);
     }
 
     .btn-contact-top:hover {
       background: var(--primary-light);
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
     }
 
     /* --- 3. PAGE CONTAINER --- */
@@ -412,7 +482,7 @@
     .badge.badge-primary {
       background: var(--primary-alpha);
       color: var(--primary);
-      border-color: rgba(212, 175, 55, 0.2);
+      border-color: rgba(59, 130, 246, 0.2);
     }
 
     .profile-stats {
@@ -634,7 +704,7 @@
       width: 100%;
       padding: 10px;
       background: var(--primary-alpha);
-      border: 1px solid rgba(212, 175, 55, 0.25);
+      border: 1px solid rgba(59, 130, 246, 0.25);
       border-radius: var(--border-radius-sm);
       color: var(--primary);
       font-size: 0.8rem;
@@ -723,6 +793,66 @@
       gap: 20px;
     }
 
+    .youtube-grid-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 992px) {
+      .youtube-grid-container {
+        grid-template-columns: 1.2fr 0.8fr;
+        align-items: start;
+      }
+    }
+
+    .youtube-player-col {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .youtube-main-info {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--border-radius-md);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .youtube-main-info h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .youtube-main-info p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      white-space: pre-line;
+      max-height: 120px;
+      overflow-y: auto;
+      padding-right: 8px;
+    }
+
+    .youtube-buttons-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    @media (min-width: 576px) {
+      .youtube-buttons-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
     .video-wrapper {
       position: relative;
       padding-bottom: 56.25%;
@@ -749,20 +879,206 @@
       justify-content: center;
       gap: 10px;
       width: 100%;
-      padding: 16px;
+      padding: 14px;
       background-color: var(--youtube-color);
       color: #FFFFFF;
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       border-radius: var(--border-radius-md);
       box-shadow: 0 4px 15px rgba(255, 0, 0, 0.15);
       transition: all var(--transition-fast);
+      cursor: pointer;
     }
 
     .btn-youtube-subscribe:hover {
       background-color: #d10000;
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(255, 0, 0, 0.35);
+    }
+
+    /* List Column Styles */
+    .youtube-list-col {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--border-radius-lg);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      box-shadow: var(--shadow);
+      box-sizing: border-box;
+      max-height: 600px;
+    }
+
+    .yt-tabs-header {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: var(--border-radius-sm);
+      padding: 4px;
+      border: 1px solid var(--border);
+    }
+
+    .yt-tab-btn {
+      padding: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      border-radius: var(--border-radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all var(--transition-fast);
+    }
+
+    .yt-tab-btn.active {
+      background: var(--primary);
+      color: #070b13;
+      box-shadow: 0 4px 12px var(--primary-alpha);
+    }
+
+    .yt-list-wrapper {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .yt-video-list-pane {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .yt-video-list-pane.active {
+      display: flex;
+    }
+
+    /* Video Item Card */
+    .yt-video-item {
+      display: flex;
+      gap: 12px;
+      padding: 10px;
+      border-radius: var(--border-radius-md);
+      border: 1px solid transparent;
+      background: rgba(255, 255, 255, 0.02);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .yt-video-item:hover {
+      background: var(--card-bg-hover);
+      border-color: var(--border-hover);
+      transform: translateX(4px);
+    }
+
+    .yt-video-item.active {
+      background: var(--primary-alpha);
+      border-color: var(--primary);
+    }
+
+    .yt-video-item-thumb {
+      width: 100px;
+      aspect-ratio: 16/9;
+      border-radius: var(--border-radius-sm);
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+      background: #000;
+    }
+
+    .yt-video-item-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .yt-video-item-badge {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      background: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      font-size: 0.6rem;
+      font-weight: 700;
+      padding: 2px 4px;
+      border-radius: 2px;
+    }
+
+    .yt-video-item-badge.shorts-badge {
+      background: var(--youtube-color);
+    }
+
+    .yt-video-item-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      overflow: hidden;
+    }
+
+    .yt-video-item-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .yt-video-item.active .yt-video-item-title {
+      color: var(--primary);
+    }
+
+    .yt-video-item-date {
+      font-size: 0.7rem;
+      color: var(--text-light);
+    }
+
+    /* Scrollbar Styling for custom list */
+    .yt-list-wrapper::-webkit-scrollbar,
+    .youtube-main-info p::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .yt-list-wrapper::-webkit-scrollbar-track,
+    .youtube-main-info p::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    .yt-list-wrapper::-webkit-scrollbar-thumb,
+    .youtube-main-info p::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 10px;
+    }
+
+    .yt-list-wrapper::-webkit-scrollbar-thumb:hover,
+    .youtube-main-info p::-webkit-scrollbar-thumb:hover {
+      background: var(--primary-light);
+    }
+
+    /* Empty state */
+    .yt-empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-light);
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .yt-empty-state i {
+      font-size: 1.8rem;
+      color: var(--border-hover);
     }
 
     /* --- 7. SOCIAL CHANNELS CONTENT PREVIEW TABS --- */
@@ -1314,6 +1630,21 @@
       color: var(--text);
     }
 
+    /* Filter out class for search functionality */
+    .filtered-out {
+      opacity: 0 !important;
+      transform: scale(0.95) !important;
+      pointer-events: none !important;
+      position: absolute !important;
+      width: 0 !important;
+      height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+      overflow: hidden !important;
+      transition: all var(--transition-normal);
+    }
+
   </style>
 </head>
 <body>
@@ -1341,6 +1672,12 @@
     </div>
 
     <div class="nav-actions">
+      <!-- Expandable Search Bar -->
+      <div class="search-box-container">
+        <input type="text" id="search-input" class="search-input" placeholder="매물, 블로그 검색..." aria-label="검색">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      </div>
+
       <!-- Theme Switch Toggle -->
       <button class="theme-toggle-btn" id="theme-toggle" aria-label="테마 전환">
         <i class="fa-solid fa-moon"></i>
@@ -1422,27 +1759,53 @@
         <h2 class="title">최신 영상 투어</h2>
       </div>
 
-      <!-- Responsive Player (YouTube Shorts Embed) -->
-      <div class="video-wrapper">
-        <iframe 
-          src="https://www.youtube.com/embed/oUp1UaVAMvg?rel=0" 
-          title="혜화72 유튜브 최신 업로드 영상" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-          allowfullscreen>
-        </iframe>
-      </div>
+      <div class="youtube-grid-container">
+        <!-- Left Column: Player & Info -->
+        <div class="youtube-player-col">
+          <div class="video-wrapper">
+            <iframe 
+              id="yt-main-player"
+              src="https://www.youtube.com/embed/oUp1UaVAMvg?rel=0" 
+              title="혜화72 유튜브 최신 업로드 영상" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="youtube-main-info">
+            <h3 id="yt-main-title">로딩 중...</h3>
+            <p id="yt-main-desc">유튜브 채널에서 최신 부동산 매물 및 임장 분석 영상을 가져오는 중입니다.</p>
+            <div class="youtube-buttons-row">
+              <a id="yt-btn-watch" href="https://www.youtube.com/channel/UC4LUKIDmLbd3bMAjjGJ18DQ" target="_blank" class="btn-youtube-subscribe">
+                <i class="fa-brands fa-youtube"></i>
+                <span>유튜브에서 이 영상 직접 보기</span>
+              </a>
+              <a href="https://www.youtube.com/channel/UC4LUKIDmLbd3bMAjjGJ18DQ?sub_confirmation=1" target="_blank" class="btn-youtube-subscribe" style="background-color: var(--primary-dark); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);">
+                <i class="fa-solid fa-bell"></i>
+                <span>혜화72 유튜브 채널 구독하기</span>
+              </a>
+            </div>
+          </div>
+        </div>
 
-      <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
-        <!-- Watch on YouTube Button -->
-        <a href="https://www.youtube.com/shorts/oUp1UaVAMvg" target="_blank" class="btn-youtube-subscribe">
-          <i class="fa-brands fa-youtube"></i>
-          <span>유튜브에서 이 쇼츠 영상 직접 보기</span>
-        </a>
-        <!-- Channel Subscribe Button -->
-        <a href="https://www.youtube.com/channel/UC4LUKIDmLbd3bMAjjGJ18DQ?sub_confirmation=1" target="_blank" class="btn-youtube-subscribe" style="background-color: var(--primary-dark); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);">
-          <i class="fa-solid fa-bell"></i>
-          <span>혜화72 유튜브 채널 구독하기</span>
-        </a>
+        <!-- Right Column: Video Tabs & List -->
+        <div class="youtube-list-col">
+          <div class="yt-tabs-header">
+            <button class="yt-tab-btn active" id="yt-tab-long" onclick="switchYoutubeTab('long')">
+              <i class="fa-solid fa-video"></i> 일반 영상
+            </button>
+            <button class="yt-tab-btn" id="yt-tab-short" onclick="switchYoutubeTab('short')">
+              <i class="fa-solid fa-bolt"></i> 쇼츠
+            </button>
+          </div>
+          <div class="yt-list-wrapper">
+            <div id="yt-list-long-container" class="yt-video-list-pane active">
+              <!-- Dynamically populated -->
+            </div>
+            <div id="yt-list-short-container" class="yt-video-list-pane">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1453,11 +1816,11 @@
         <h2 class="title">혜화 실시간 추천 매물</h2>
       </div>
 
-      <div class="properties-grid">
+      <div class="properties-grid" id="properties-grid">
         <!-- Property 1 -->
         <div class="property-card">
           <div class="property-thumb-box">
-            <a href="https://open.kakao.com/" target="_blank" class="property-thumb-link" title="카카오톡으로 매물 실시간 상담하기">
+            <a href="http://pf.kakao.com/_Mwxftxb/chat" target="_blank" class="property-thumb-link" title="카카오톡으로 매물 실시간 상담하기">
               <img class="property-thumb" src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=600" alt="혜화동 한옥 단독주택 매매">
             </a>
             <div class="property-badges-overlay">
@@ -1472,7 +1835,7 @@
               <span><i class="fa-solid fa-ruler-combined"></i> 대지 172㎡ (52평)</span>
               <span><i class="fa-solid fa-bed"></i> 방 3 / 욕실 2</span>
             </div>
-            <a href="https://open.kakao.com/" target="_blank" class="btn-property-ask">
+            <a href="http://pf.kakao.com/_Mwxftxb/chat" target="_blank" class="btn-property-ask">
               <i class="fa-solid fa-comment"></i> 카카오톡 문의하기
             </a>
           </div>
@@ -1481,7 +1844,7 @@
         <!-- Property 2 -->
         <div class="property-card">
           <div class="property-thumb-box">
-            <a href="https://open.kakao.com/" target="_blank" class="property-thumb-link" title="카카오톡으로 매물 실시간 상담하기">
+            <a href="http://pf.kakao.com/_Mwxftxb/chat" target="_blank" class="property-thumb-link" title="카카오톡으로 매물 실시간 상담하기">
               <img class="property-thumb" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=600" alt="대학로 상가 임대">
             </a>
             <div class="property-badges-overlay">
@@ -1496,7 +1859,7 @@
               <span><i class="fa-solid fa-ruler-combined"></i> 전용 115㎡ (35평)</span>
               <span><i class="fa-solid fa-store"></i> 권리금 없음</span>
             </div>
-            <a href="https://open.kakao.com/" target="_blank" class="btn-property-ask">
+            <a href="http://pf.kakao.com/_Mwxftxb/chat" target="_blank" class="btn-property-ask">
               <i class="fa-solid fa-comment"></i> 카카오톡 문의하기
             </a>
           </div>
@@ -1505,7 +1868,7 @@
         <!-- Property 3 -->
         <div class="property-card">
           <div class="property-thumb-box">
-            <a href="https://open.kakao.com/" target="_blank" class="property-thumb-link" title="카카오톡으로 매물 실시간 상담하기">
+            <a href="http://pf.kakao.com/_Mwxftxb/chat" target="_blank" class="property-thumb-link" title="카카오톡으로 매물 실시간 상담하기">
               <img class="property-thumb" src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=600" alt="혜화역 인근 단독주택 전세">
             </a>
             <div class="property-badges-overlay">
@@ -1520,7 +1883,7 @@
               <span><i class="fa-solid fa-ruler-combined"></i> 연면적 98㎡ (30평)</span>
               <span><i class="fa-solid fa-bed"></i> 방 3 / 욕실 2</span>
             </div>
-            <a href="https://open.kakao.com/" target="_blank" class="btn-property-ask">
+            <a href="http://pf.kakao.com/_Mwxftxb/chat" target="_blank" class="btn-property-ask">
               <i class="fa-solid fa-comment"></i> 계약완료 / 상담요청
             </a>
           </div>
@@ -1529,7 +1892,7 @@
 
       <!-- Outlinks -->
       <div class="property-outlinks-grid">
-        <a href="https://m.land.naver.com/search/result/혜화동" target="_blank" class="property-outlink-card naver-out">
+        <a href="https://new.land.naver.com/houses?ms=2AMLqo,3ziDez,19&amp;a=DDDGG:JWJT:SGJT:VL&amp;e=RETAIL&amp;articleNo=2627544486&amp;realtorId=sungshinhana" target="_blank" class="property-outlink-card naver-out">
           <div class="property-outlink-left">
             <i class="fa-solid fa-map-location-dot property-outlink-icon"></i>
             <div class="property-outlink-text">
@@ -1540,7 +1903,7 @@
           <i class="fa-solid fa-chevron-right property-outlink-arrow"></i>
         </a>
 
-        <a href="https://www.daangn.com/search/혜화동 부동산/" target="_blank" class="property-outlink-card carrot-out">
+        <a href="https://realty.daangn.com/biz-profiles/2961831?referrer=realty-web&amp;referrer_from=link_copy_biz_profile" target="_blank" class="property-outlink-card carrot-out">
           <div class="property-outlink-left">
             <i class="fa-solid fa-carrot property-outlink-icon"></i>
             <div class="property-outlink-text">
@@ -1609,7 +1972,7 @@
         <a href="https://www.instagram.com/realhyehwa72/" target="_blank" class="mini-sns-btn btn-insta"><i class="fa-brands fa-instagram"></i> Instagram</a>
         <a href="https://www.threads.com/@realhyehwa72" target="_blank" class="mini-sns-btn btn-threads"><i class="fa-solid fa-at"></i> Threads</a>
         <a href="https://www.tiktok.com/@ongamemall" target="_blank" class="mini-sns-btn btn-tiktok"><i class="fa-brands fa-tiktok"></i> TikTok</a>
-        <a href="https://open.kakao.com/" target="_blank" class="mini-sns-btn btn-kakao" style="grid-column: span 2;"><i class="fa-solid fa-comment"></i> Kakao Open Chat</a>
+        <a href="http://pf.kakao.com/_Mwxftxb/chat" target="_blank" class="mini-sns-btn btn-kakao" style="grid-column: span 2;"><i class="fa-solid fa-comment"></i> Kakao Channel Chat</a>
       </div>
     </section>
 
@@ -1779,6 +2142,12 @@
     const PROXY_URL = "/api"; 
     const NAVER_BLOG_ID = "ongamemall";
     const YOUTUBE_CHANNEL_ID = "UC4LUKIDmLbd3bMAjjGJ18DQ";
+    
+    // 네이버 블로그 추천 매물 카테고리 연동 설정
+    // NAVER_BLOG_PROPERTY_CATEGORY_NO: 특정 카테고리 번호가 있다면 기입 (예: '12' 또는 12). 비어있으면 전체 글 중 필터링합니다.
+    // PROPERTY_CATEGORY_NAME: 방안 A 한글 카테고리명 매칭 필터 (전체 피드에서 이 카테고리의 글만 추출)
+    const NAVER_BLOG_PROPERTY_CATEGORY_NO = ""; 
+    const PROPERTY_CATEGORY_NAME = "추천매물";
 
     // --- 2. STATE VARIABLES ---
     let currentTheme = localStorage.getItem("theme") || "dark";
@@ -1897,21 +2266,26 @@
             blogGrid.appendChild(card);
           }
           console.log(`네이버 블로그 최신 글 ${limit}개가 자동으로 반영되었습니다.`);
+          applySearchFilter();
         }
       } catch (error) {
         console.warn("네이버 블로그 RSS 피드 로드 실패 (기본 카드를 노출합니다):", error.message);
       }
     }
 
-    // --- 7. REAL-TIME YOUTUBE LATEST VIDEO SCRAPING & PLAYER AUTO-UPDATE ---
-    async function loadYoutubeFeed() {
+    // --- 6-2. REAL-TIME PROPERTIES FROM NAVER BLOG CATEGORY ---
+    async function loadPropertiesFeed() {
       if (!PROXY_URL) {
-        console.log("유튜브: 프록시 주소가 지정되지 않아 지정 쇼츠 영상을 플레이어에 유지합니다.");
+        console.log("추천매물: 프록시 주소가 지정되지 않아 기본 매물 카드 데이터를 유지합니다.");
         return;
       }
       
       try {
-        const url = `${PROXY_URL}/youtube?channelId=${YOUTUBE_CHANNEL_ID}`;
+        let url = `${PROXY_URL}/naver?blogId=${NAVER_BLOG_ID}`;
+        if (NAVER_BLOG_PROPERTY_CATEGORY_NO) {
+          url += `&categoryNo=${NAVER_BLOG_PROPERTY_CATEGORY_NO}`;
+        }
+        
         const response = await fetch(url);
         if (!response.ok) throw new Error("네트워크 응답 에러");
         
@@ -1919,40 +2293,341 @@
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(xmlText, "text/xml");
         
-        const entries = xmlDoc.getElementsByTagName("entry");
-        if (entries.length > 0) {
-          const entry = entries[0]; // 최신 비디오 1개 선택
+        const items = xmlDoc.getElementsByTagName("item");
+        const propertiesGrid = document.getElementById("properties-grid");
+        
+        if (items.length > 0 && propertiesGrid) {
+          const matchedItems = [];
           
-          // 비디오 ID 추출
-          let videoId = "";
-          const videoIdNodes = entry.getElementsByTagName("yt:videoId");
-          if (videoIdNodes.length > 0) {
-            videoId = videoIdNodes[0].textContent;
-          } else {
-            const fallbackNodes = entry.getElementsByTagName("videoId");
-            if (fallbackNodes.length > 0) {
-              videoId = fallbackNodes[0].textContent;
+          for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            const category = item.querySelector("category")?.textContent || "";
+            
+            // 만약 categoryNo로 직접 불러온 것이면 전체 노출, 아니면 PROPERTY_CATEGORY_NAME 매칭 필터링
+            if (NAVER_BLOG_PROPERTY_CATEGORY_NO || !PROPERTY_CATEGORY_NAME || category.trim() === PROPERTY_CATEGORY_NAME.trim()) {
+              matchedItems.push(item);
             }
           }
           
-          if (videoId) {
-            // 메인 유튜브 플레이어 iframe src 자동 갱신
-            const iframe = document.querySelector(".video-wrapper iframe");
-            if (iframe) {
-              iframe.src = `https://www.youtube.com/embed/${videoId}?rel=0`;
+          if (matchedItems.length > 0) {
+            propertiesGrid.innerHTML = "";
+            // 최대 3개 추천매물 카드 노출
+            const limit = Math.min(matchedItems.length, 3);
+            for (let i = 0; i < limit; i++) {
+              const item = matchedItems[i];
+              const title = item.querySelector("title")?.textContent || "새로운 매물";
+              const link = item.querySelector("link")?.textContent || "https://blog.naver.com/" + NAVER_BLOG_ID;
+              const pubDateStr = item.querySelector("pubDate")?.textContent || "";
+              const rawDesc = item.querySelector("description")?.textContent || "";
+              const category = item.querySelector("category")?.textContent || "추천매물";
+              
+              // 본문 내 이미지 추출
+              const imgRegex = /<img[^>]+src="([^">]+)"/i;
+              const imgMatch = imgRegex.exec(rawDesc);
+              let thumbnail = "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=600";
+              if (imgMatch) {
+                const rawImgUrl = imgMatch[1];
+                thumbnail = PROXY_URL ? `${PROXY_URL}/image?url=${encodeURIComponent(rawImgUrl)}` : rawImgUrl;
+              }
+              
+              // 텍스트 요약
+              const tempDiv = document.createElement("div");
+              tempDiv.innerHTML = rawDesc;
+              const cleanDesc = (tempDiv.textContent || tempDiv.innerText || "").replace(/\s+/g, " ").substring(0, 80) + "...";
+              
+              // 날짜 포맷
+              let formattedDate = pubDateStr;
+              const dateObj = new Date(pubDateStr);
+              if (!isNaN(dateObj)) {
+                formattedDate = `${dateObj.getFullYear()}. ${String(dateObj.getMonth() + 1).padStart(2, '0')}. ${String(dateObj.getDate()).padStart(2, '0')}`;
+              }
+              
+              // 제목 대괄호 내 가격/스펙 추출 파싱
+              let priceText = category;
+              let cleanTitle = title;
+              const bracketRegex = /\[([^\]]+)\]/;
+              const match = bracketRegex.exec(title);
+              if (match) {
+                priceText = match[1];
+                cleanTitle = title.replace(bracketRegex, "").trim();
+              }
+              
+              const card = document.createElement("div");
+              card.className = "property-card";
+              card.innerHTML = `
+                <div class="property-thumb-box">
+                  <a href="${link}" target="_blank" class="property-thumb-link" title="블로그에서 매물 상세 보기 및 문의">
+                    <img class="property-thumb" src="${thumbnail}" referrerpolicy="no-referrer" alt="${escapeHtml(cleanTitle)}">
+                  </a>
+                  <div class="property-badges-overlay">
+                    <span class="property-badge property-badge-type">${escapeHtml(category)}</span>
+                    <span class="property-badge property-badge-status">중개가능</span>
+                  </div>
+                </div>
+                <div class="property-info-box">
+                  <div class="property-price">${escapeHtml(priceText)}</div>
+                  <h3 class="property-title">${escapeHtml(cleanTitle)}</h3>
+                  <div class="property-specs">
+                    <span><i class="fa-solid fa-calendar-days"></i> ${formattedDate}</span>
+                    <span><i class="fa-solid fa-ruler-combined"></i> 블로그 확인</span>
+                  </div>
+                  <a href="${link}" target="_blank" class="btn-property-ask">
+                    <i class="fa-solid fa-comment"></i> 블로그 상세보기 & 문의
+                  </a>
+                </div>
+              `;
+              propertiesGrid.appendChild(card);
             }
-            
-            // 유튜브 영상 직접보기 버튼 링크 갱신
-            const watchBtn = document.querySelector(".youtube-section .btn-youtube-subscribe");
-            if (watchBtn) {
-              watchBtn.href = `https://www.youtube.com/watch?v=${videoId}`;
-              watchBtn.querySelector("span").textContent = "유튜브에서 최신 영상 직접 보기";
-            }
-            console.log(`유튜브 최신 비디오(${videoId})가 자동으로 메인 플레이어에 반영되었습니다.`);
+            console.log(`네이버 블로그 추천매물 카테고리 글 ${limit}개가 실시간 추천매물 영역에 반영되었습니다.`);
+            applySearchFilter();
+          } else {
+            console.log("추천매물 카테고리에 매칭되는 블로그 글이 없어 기본 템플릿 매물을 유지합니다.");
           }
         }
       } catch (error) {
-        console.warn("유튜브 RSS 로드 실패 (기본 쇼츠 영상을 플레이어에 유지합니다):", error.message);
+        console.warn("추천매물 블로그 RSS 피드 로드 실패 (기본 매물 카드를 유지합니다):", error.message);
+      }
+    }
+
+    // --- 7. REAL-TIME YOUTUBE LATEST VIDEO SCRAPING & PLAYER AUTO-UPDATE ---
+    const DEFAULT_YOUTUBE_VIDEOS = [
+      {
+        videoId: "cyuJQmU26x4",
+        title: "보증금 3억에 월 1,600만원? 혜화역 대로변 복층 상가 실화냐?",
+        published: "2026-06-09T02:07:50+00:00",
+        description: "혜화역 대로변 복층 상가 나왔습니다 🔥\n\n보증금 3억 / 월 1,600만원\n196㎡ (약 59평) | 1·2층 복층\n권리금 없음\n\n대로변 전면 통유리 + 내부계단 구조\n혜화역 1번 출구 바로 앞\n\n자세한 문의는 대학로 혜화72 부동산으로 연락 주세요.\n\n☎ 02-766-0720 / 010-3160-2675\n\n본 매물은 컨텐츠 제작 당시에 거래가 이루어지지 않은 매물입니다.",
+        thumbnail: "https://i4.ytimg.com/vi/cyuJQmU26x4/hqdefault.jpg",
+        isShort: true
+      },
+      {
+        videoId: "U1BNGS5idDc",
+        title: "혜화역 도보 5분, 관리비·권리금 없는 3층 사무실 #혜화역사무실 #서울대병원사무실",
+        published: "2026-06-08T04:25:46+00:00",
+        description: "📍 서울 종로구 이화동\n📐 40.97㎡ (약 12.4평) | 3층\n💰 보증금 1,000만원 / 월세 90만원\n✅ 관리비·권리금 없음\n🛋️ 에어컨·세탁기·인덕션·냉장고 옵션\n🚶‍♂️ 혜화역 도보 5분\n📅 즉시 입주 가능\n\n재택근무 사무실이나 소규모 사무실로 추천합니다.\n\n자세한 문의는 대학로혜화72공인중개사사무소로 연락 주세요.\n\n☎ 010-2358-2176 / 02-766-0720",
+        thumbnail: "https://i2.ytimg.com/vi/U1BNGS5idDc/hqdefault.jpg",
+        isShort: true
+      },
+      {
+        videoId: "kdypVaGtpzM",
+        title: "숲세권 살 수 있는 가장 저렴한 아파트 찾았습니다 #서울부동산 #꿀팁 (거래완료)",
+        published: "2026-06-06T08:08:10+00:00",
+        description: "본 매물은 거래 완료되었습니다. ㅜㅜ\n관심 가져주신 분들께 감사드립니다.\n\n★ 안녕하세요. 대학로 혜화역 전문 혜화 ‘72 부동산입니다.\n★ 혜화역 일대(명륜동, 혜화동, 동숭동, 이화동) 주택, 오피스텔 전,월세/매매 전문입니다.\n\n* 3룸, 1욕실, 거실, 베란다\n* 올수리 다 되어 있는 상태 최상급 아파트 입니다.\n* 보증금 2억6천/월세 20만 (만기일 27년 9월 14일)\n* 혜화역, 버스정류장 8분이내 거리로 교통 편리 합니다.\n* 낙산이 바로 눈 앞에 보여 자연과 함께하는 이쁜 집 입니다.\n* 바로 뒤에가 낙산 산책로가 있어 여유로운 시간을 보내실수 있고 공기가 맑고 좋습니다.",
+        thumbnail: "https://i4.ytimg.com/vi/kdypVaGtpzM/hqdefault.jpg",
+        isShort: true
+      },
+      {
+        videoId: "oUp1UaVAMvg",
+        title: "혜화역 4번출구 먹자라인 22평 1층 상가 | 권리금 없이 바로 입주!",
+        published: "2026-05-28T07:43:22+00:00",
+        description: "안녕하세요. 대학로 혜화72 김훈입니다.\n혜화역 4번 출구 먹자라인에 위치한 실매물 1층 상가 소개해드립니다.\n✅ 전용 72.73㎡ (22평)\n✅ 보증금 5천 / 월 330만원 (관리비 포함)\n✅ 즉시 입주 가능\n✅ 권리금 없음\n✅ 전면 넓고 출입구 방향 좋음 (동향)\n✅ 현재 일반음식점 운영 중\n\n추천 업종\n고기집, 횟집, 이자카야, 술집, 카페 등 먹자골목에 잘 맞는 업종 최고!\n혜화역 4번 출구에서 나와서 바로 먹자라인이 시작되는 자리라 유동인구가 정말 좋습니다.",
+        thumbnail: "https://i4.ytimg.com/vi/oUp1UaVAMvg/hqdefault.jpg",
+        isShort: true
+      },
+      {
+        videoId: "boSFPGcrHAk",
+        title: "대학로 혜화72 부동산은 어떤 부동산일까?",
+        published: "2026-05-19T09:08:38+00:00",
+        description: "대학로 혜화72 부동산은 어떤 부동산일까?\n\n대학로혜화72공인중개사사무소 대표 김훈의 공식 소개 및 브랜드 스토리 영상입니다.\n혜화동 골목 이야기와 부동산 매물, 자산 컨설팅 정보들을 유튜브 채널에서 다룹니다.\n많은 구독과 알림 설정 부탁드립니다!",
+        thumbnail: "https://i3.ytimg.com/vi/boSFPGcrHAk/hqdefault.jpg",
+        isShort: true
+      },
+      // Mock Long-form videos to populate the long-form tab beautifully
+      {
+        videoId: "mock_long_1",
+        title: "[준비 중] 혜화동 고즈넉한 한옥 단독주택 매매 현장 투어",
+        published: "2026-06-11T12:00:00+00:00",
+        description: "혜화동 골목에 숨겨진 보물 같은 한옥 주택 내부 실사 투어 영상입니다.\n리모델링 한옥 주택의 외관과 전통 중정 마당, 내부 편의 시설을 상세히 분석합니다.\n(현재 편집 중이며 곧 유튜브에 업로드될 예정입니다.)",
+        thumbnail: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=600",
+        isShort: false,
+        isMock: true
+      },
+      {
+        videoId: "mock_long_2",
+        title: "[준비 중] 대학로 상권 분석 및 1층 상가 임대 계약 법률 컨설팅",
+        published: "2026-06-10T12:00:00+00:00",
+        description: "대학로 1층 상가 임대 및 권리 계약 진행 시 반드시 알아야 할 법률 체크리스트와 상권 트렌드 분석 강의입니다.\n공인중개사 김훈 대표의 꿀팁이 담겨 있습니다.\n(현재 기획 중이며 곧 만나보실 수 있습니다.)",
+        thumbnail: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=600",
+        isShort: false,
+        isMock: true
+      }
+    ];
+
+    let youtubeVideos = [];
+
+    async function loadYoutubeFeed() {
+      try {
+        let loadedVideos = [];
+        if (PROXY_URL) {
+          const url = `${PROXY_URL}/youtube?channelId=${YOUTUBE_CHANNEL_ID}`;
+          const response = await fetch(url);
+          if (response.ok) {
+            loadedVideos = await response.json();
+          }
+        }
+        
+        // If API fails or returns empty, load default mocks
+        if (!loadedVideos || loadedVideos.length === 0 || loadedVideos.error) {
+          console.log("유튜브: API 로드 실패 또는 데이터 없음. 기본 Mock 데이터를 사용합니다.");
+          youtubeVideos = [...DEFAULT_YOUTUBE_VIDEOS];
+        } else {
+          // Merge loaded videos from API and check if we have any long form
+          const hasLongForm = loadedVideos.some(v => !v.isShort);
+          if (!hasLongForm) {
+            // Add mock long-form videos so the long-form tab is not empty
+            const mockLongs = DEFAULT_YOUTUBE_VIDEOS.filter(v => !v.isShort);
+            youtubeVideos = [...loadedVideos, ...mockLongs];
+          } else {
+            youtubeVideos = loadedVideos;
+          }
+        }
+      } catch (error) {
+        console.warn("유튜브 RSS 로드 중 예외 발생, 기본 데이터를 유지합니다:", error.message);
+        youtubeVideos = [...DEFAULT_YOUTUBE_VIDEOS];
+      }
+      
+      renderYoutubeVideos();
+      
+      // Auto play the first available video (prefer normal videos or first video)
+      if (youtubeVideos.length > 0) {
+        // Find first short or long
+        const defaultVideo = youtubeVideos.find(v => v.isShort) || youtubeVideos[0];
+        playYoutubeVideo(defaultVideo.videoId);
+      }
+    }
+
+    function renderYoutubeVideos() {
+      const longContainer = document.getElementById("yt-list-long-container");
+      const shortContainer = document.getElementById("yt-list-short-container");
+      
+      if (!longContainer || !shortContainer) return;
+      
+      longContainer.innerHTML = "";
+      shortContainer.innerHTML = "";
+      
+      const longs = youtubeVideos.filter(v => !v.isShort);
+      const shorts = youtubeVideos.filter(v => v.isShort);
+      
+      // Render Long-forms
+      if (longs.length === 0) {
+        longContainer.innerHTML = `
+          <div class="yt-empty-state">
+            <i class="fa-solid fa-video-slash"></i>
+            <p>업로드된 일반 영상이 없습니다.</p>
+          </div>
+        `;
+      } else {
+        longs.forEach(video => {
+          const item = createYoutubeItemElement(video);
+          longContainer.appendChild(item);
+        });
+      }
+      
+      // Render Shorts
+      if (shorts.length === 0) {
+        shortContainer.innerHTML = `
+          <div class="yt-empty-state">
+            <i class="fa-solid fa-bolt-slash"></i>
+            <p>업로드된 쇼츠 영상이 없습니다.</p>
+          </div>
+        `;
+      } else {
+        shorts.forEach(video => {
+          const item = createYoutubeItemElement(video);
+          shortContainer.appendChild(item);
+        });
+      }
+    }
+
+    function createYoutubeItemElement(video) {
+      const card = document.createElement("div");
+      card.className = "yt-video-item";
+      card.setAttribute("data-video-id", video.videoId);
+      card.onclick = () => playYoutubeVideo(video.videoId);
+      
+      let badgeHtml = "";
+      if (video.isShort) {
+        badgeHtml = `<span class="yt-video-item-badge shorts-badge">Shorts</span>`;
+      } else if (video.isMock) {
+        badgeHtml = `<span class="yt-video-item-badge" style="background-color: var(--primary);">준비중</span>`;
+      }
+      
+      let dateText = "";
+      if (video.published) {
+        const dateObj = new Date(video.published);
+        if (!isNaN(dateObj)) {
+          dateText = `${dateObj.getFullYear()}. ${String(dateObj.getMonth() + 1).padStart(2, '0')}. ${String(dateObj.getDate()).padStart(2, '0')}`;
+        }
+      }
+      
+      card.innerHTML = `
+        <div class="yt-video-item-thumb">
+          <img src="${video.thumbnail}" referrerpolicy="no-referrer" alt="${escapeHtml(video.title)}">
+          ${badgeHtml}
+        </div>
+        <div class="yt-video-item-info">
+          <h4 class="yt-video-item-title">${escapeHtml(video.title)}</h4>
+          <span class="yt-video-item-date">${dateText}</span>
+        </div>
+      `;
+      return card;
+    }
+
+    function playYoutubeVideo(videoId) {
+      const video = youtubeVideos.find(v => v.videoId === videoId);
+      if (!video) return;
+      
+      // Update active class in list
+      document.querySelectorAll(".yt-video-item").forEach(item => {
+        if (item.getAttribute("data-video-id") === videoId) {
+          item.classList.add("active");
+        } else {
+          item.classList.remove("active");
+        }
+      });
+      
+      // Update Main Player
+      const player = document.getElementById("yt-main-player");
+      const titleEl = document.getElementById("yt-main-title");
+      const descEl = document.getElementById("yt-main-desc");
+      const watchBtn = document.getElementById("yt-btn-watch");
+      
+      if (player) {
+        // If it's a mock video, play the introduction video boSFPGcrHAk as a fallback instead of loading a broken iframe
+        const playId = video.isMock ? "boSFPGcrHAk" : video.videoId;
+        player.src = `https://www.youtube.com/embed/${playId}?rel=0&autoplay=0`;
+      }
+      
+      if (titleEl) titleEl.textContent = video.title;
+      if (descEl) descEl.textContent = video.description || "상세 영상 정보가 없습니다.";
+      
+      if (watchBtn) {
+        const watchUrl = video.isShort 
+          ? `https://www.youtube.com/shorts/${video.videoId}`
+          : `https://www.youtube.com/watch?v=${video.videoId}`;
+        
+        watchBtn.href = video.isMock ? `https://www.youtube.com/channel/${YOUTUBE_CHANNEL_ID}` : watchUrl;
+        watchBtn.querySelector("span").textContent = video.isShort 
+          ? "유튜브에서 이 쇼츠 영상 직접 보기" 
+          : "유튜브에서 이 영상 직접 보기";
+      }
+    }
+
+    function switchYoutubeTab(tabType) {
+      const longBtn = document.getElementById("yt-tab-long");
+      const shortBtn = document.getElementById("yt-tab-short");
+      const longPane = document.getElementById("yt-list-long-container");
+      const shortPane = document.getElementById("yt-list-short-container");
+      
+      if (tabType === "long") {
+        longBtn.classList.add("active");
+        shortBtn.classList.remove("active");
+        longPane.classList.add("active");
+        shortPane.classList.remove("active");
+      } else {
+        longBtn.classList.remove("active");
+        shortBtn.classList.add("active");
+        longPane.classList.remove("active");
+        shortPane.classList.add("active");
       }
     }
 
@@ -2047,7 +2722,67 @@
       }
     });
 
-    // --- 10. HELPERS ---
+    // --- 10. REAL-TIME SEARCH FILTERING ---
+    function applySearchFilter() {
+      const searchInput = document.getElementById("search-input");
+      if (!searchInput) return;
+      
+      const query = searchInput.value.toLowerCase().trim();
+      
+      // 1. Filter Property Cards
+      const propertyCards = document.querySelectorAll(".property-card");
+      propertyCards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (text.includes(query)) {
+          card.classList.remove("filtered-out");
+        } else {
+          card.classList.add("filtered-out");
+        }
+      });
+      
+      // 2. Filter Blog Cards
+      const blogCards = document.querySelectorAll(".blog-feed-card");
+      blogCards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (text.includes(query)) {
+          card.classList.remove("filtered-out");
+        } else {
+          card.classList.add("filtered-out");
+        }
+      });
+      
+      // 3. Filter Gallery Items
+      const galleryItemsList = document.querySelectorAll(".gallery-item");
+      galleryItemsList.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        if (text.includes(query)) {
+          const activeFilter = document.querySelector(".filter-btn.active")?.getAttribute("data-filter") || "all";
+          const category = item.getAttribute("data-category");
+          if (activeFilter === "all" || category === activeFilter) {
+            item.style.display = "block";
+            setTimeout(() => {
+              item.style.opacity = "1";
+              item.style.transform = "scale(1)";
+            }, 50);
+          }
+        } else {
+          item.style.opacity = "0";
+          item.style.transform = "scale(0.95)";
+          setTimeout(() => {
+            item.style.display = "none";
+          }, 300);
+        }
+      });
+      
+      setTimeout(updateActiveGalleryItems, 350);
+    }
+
+    const searchInputElement = document.getElementById("search-input");
+    if (searchInputElement) {
+      searchInputElement.addEventListener("input", applySearchFilter);
+    }
+
+    // --- 11. HELPERS ---
     function escapeHtml(unsafe) {
       return unsafe
         .replace(/&/g, "&amp;")
@@ -2061,7 +2796,9 @@
     document.addEventListener("DOMContentLoaded", () => {
       updateActiveGalleryItems();
       loadNaverBlogFeed();
+      loadPropertiesFeed();
       loadYoutubeFeed();
+      applySearchFilter();
     });
   </script>
 </body>
