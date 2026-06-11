@@ -2303,8 +2303,11 @@
             const item = items[i];
             const category = item.querySelector("category")?.textContent || "";
             
-            // 만약 categoryNo로 직접 불러온 것이면 전체 노출, 아니면 PROPERTY_CATEGORY_NAME 매칭 필터링
-            if (NAVER_BLOG_PROPERTY_CATEGORY_NO || !PROPERTY_CATEGORY_NAME || category.trim() === PROPERTY_CATEGORY_NAME.trim()) {
+            // 띄어쓰기 오차 무력화 (예: '추천 매물' vs '추천매물' 매칭 가능하도록 공백 제거 비교)
+            const cleanCategory = category.replace(/\s+/g, "");
+            const cleanFilter = PROPERTY_CATEGORY_NAME.replace(/\s+/g, "");
+            
+            if (NAVER_BLOG_PROPERTY_CATEGORY_NO || !PROPERTY_CATEGORY_NAME || cleanCategory === cleanFilter) {
               matchedItems.push(item);
             }
           }
@@ -2345,11 +2348,17 @@
               // 제목 대괄호 내 가격/스펙 추출 파싱
               let priceText = category;
               let cleanTitle = title;
+              
+              // [대학로 혜화 72 부동산] 같은 브랜딩 대괄호 제거
+              const brandingRegex = /\[(?:대학로\s*)?혜화\s*72\s*(?:부동산|공인중개사)?\]/g;
+              cleanTitle = cleanTitle.replace(brandingRegex, "").trim();
+              
+              // 남은 대괄호(예: [매매 13억]) 중 첫 대괄호를 매물 가격표로 설정
               const bracketRegex = /\[([^\]]+)\]/;
-              const match = bracketRegex.exec(title);
+              const match = bracketRegex.exec(cleanTitle);
               if (match) {
-                priceText = match[1];
-                cleanTitle = title.replace(bracketRegex, "").trim();
+                priceText = match[1].trim();
+                cleanTitle = cleanTitle.replace(bracketRegex, "").trim();
               }
               
               const card = document.createElement("div");
