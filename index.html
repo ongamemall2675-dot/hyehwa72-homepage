@@ -2369,7 +2369,7 @@
           while ((match = imgRegex.exec(rawDesc)) !== null) {
             const src = match[1];
             if (!src.includes("storep-phinf") && src.includes("pstatic.net")) {
-              thumbnail = src.replace(/^http:\/\//i, 'https://').split("?")[0];
+              thumbnail = src.replace(/^http:\/\//i, 'https://').replace('blogthumb.pstatic.net', 'blogfiles.pstatic.net').split("?")[0];
               break;
             }
           }
@@ -2554,7 +2554,7 @@
             while ((match = imgRegex.exec(rawDesc)) !== null) {
               const src = match[1];
               if (!src.includes("storep-phinf") && src.includes("pstatic.net")) {
-                thumbnail = src.replace(/^http:\/\//i, 'https://').split("?")[0];
+                thumbnail = src.replace(/^http:\/\//i, 'https://').replace('blogthumb.pstatic.net', 'blogfiles.pstatic.net').split("?")[0];
                 break;
               }
             }
