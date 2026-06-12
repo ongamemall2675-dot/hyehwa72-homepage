@@ -2030,31 +2030,6 @@
       </div>
     </section>
 
-    <!-- 2. YouTube Latest Video Section -->
-    <section id="youtube" class="youtube-section">
-      <div class="section-header">
-        <span class="subtitle">YOUTUBE CHANNEL</span>
-        <h2 class="title">대학로 혜화72 부동산 영상</h2>
-      </div>
-
-      <!-- 3x3 Video Grid -->
-      <div class="yt-grid-9" id="yt-grid-container">
-        <!-- Dynamically populated by JS -->
-      </div>
-
-      <!-- Channel CTA -->
-      <div class="yt-channel-cta">
-        <a href="https://www.youtube.com/channel/UC4LUKIDmLbd3bMAjjGJ18DQ" target="_blank" class="btn-youtube-subscribe">
-          <i class="fa-brands fa-youtube"></i>
-          <span>채널 전체 영상 보기</span>
-        </a>
-        <a href="https://www.youtube.com/channel/UC4LUKIDmLbd3bMAjjGJ18DQ?sub_confirmation=1" target="_blank" class="btn-youtube-subscribe" style="background-color: var(--primary-dark); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);">
-          <i class="fa-solid fa-bell"></i>
-          <span>채널 구독하기</span>
-        </a>
-      </div>
-    </section>
-
     <!-- 3. Real Estate Listings Section (추천 매물 쇼케이스) -->
     <section id="properties">
       <div class="section-header">
@@ -2222,6 +2197,31 @@
       </div>
     </section>
 
+    <!-- 2. YouTube Latest Video Section -->
+    <section id="youtube" class="youtube-section">
+      <div class="section-header">
+        <span class="subtitle">YOUTUBE CHANNEL</span>
+        <h2 class="title">대학로 혜화72 부동산 영상</h2>
+      </div>
+
+      <!-- 3x3 Video Grid -->
+      <div class="yt-grid-9" id="yt-grid-container">
+        <!-- Dynamically populated by JS -->
+      </div>
+
+      <!-- Channel CTA -->
+      <div class="yt-channel-cta">
+        <a href="https://www.youtube.com/channel/UC4LUKIDmLbd3bMAjjGJ18DQ" target="_blank" class="btn-youtube-subscribe">
+          <i class="fa-brands fa-youtube"></i>
+          <span>채널 전체 영상 보기</span>
+        </a>
+        <a href="https://www.youtube.com/channel/UC4LUKIDmLbd3bMAjjGJ18DQ?sub_confirmation=1" target="_blank" class="btn-youtube-subscribe" style="background-color: var(--primary-dark); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);">
+          <i class="fa-solid fa-bell"></i>
+          <span>채널 구독하기</span>
+        </a>
+      </div>
+    </section>
+
     <!-- 5. 혜화동 일상 (Vlog) Section -->
     <section id="gallery">
       <div class="section-header">
@@ -2338,6 +2338,17 @@
   </div>
 
   <script>
+    // Utility function
+    function escapeHtml(unsafe) {
+      if (!unsafe) return '';
+      return unsafe
+           .replace(/&/g, "&amp;")
+           .replace(/</g, "&lt;")
+           .replace(/>/g, "&gt;")
+           .replace(/"/g, "&quot;")
+           .replace(/'/g, "&#039;");
+    }
+
     // --- 1. CONFIGURATION ---
     // Cloudflare Worker 프록시 주소 (배포 후 주소 기입, 예: 'https://rss-proxy.hyehwa72.workers.dev')
     // 주소가 비어있으면(기본값) 소스코드 내의 고화질 템플릿(Mock) 데이터가 노출됩니다.
