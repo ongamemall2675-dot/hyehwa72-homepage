@@ -485,33 +485,45 @@
       border-color: rgba(59, 130, 246, 0.2);
     }
 
-    .profile-stats {
+    .profile-contacts {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
       width: 100%;
       border-top: 1px solid var(--border);
       padding-top: 20px;
     }
 
-    .stat-item {
-      text-align: center;
-    }
-
-    .stat-item:not(:last-child) {
-      border-right: 1px solid var(--border);
-    }
-
-    .stat-item .stat-num {
-      display: block;
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: var(--text);
-      margin-bottom: 2px;
-    }
-
-    .stat-item .stat-label {
-      font-size: 0.7rem;
+    .profile-contact-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 0;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
       color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .profile-contact-btn i {
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+
+    .profile-contact-btn:hover {
+      background: var(--primary-alpha);
+      color: var(--primary);
+      border-color: rgba(212, 175, 55, 0.3);
+    }
+
+    .profile-contact-btn:hover i {
+      color: var(--primary);
     }
 
     /* Bio Card */
@@ -786,25 +798,139 @@
       color: var(--text);
     }
 
-    /* --- 6. YOUTUBE SECTION --- */
+    /* --- 6. YOUTUBE SECTION — 3×3 Grid --- */
     .youtube-section {
       display: flex;
       flex-direction: column;
-      gap: 20px;
-    }
-
-    .youtube-grid-container {
-      display: grid;
-      grid-template-columns: 1fr;
       gap: 24px;
     }
 
-    @media (min-width: 992px) {
-      .youtube-grid-container {
-        grid-template-columns: 1.2fr 0.8fr;
-        align-items: start;
+    /* 3×3 thumbnail grid */
+    .yt-grid-9 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .yt-grid-9 {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
+
+    @media (max-width: 480px) {
+      .yt-grid-9 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Individual video card in the 3x3 grid */
+    .yt-grid-card {
+      position: relative;
+      aspect-ratio: 16/9;
+      border-radius: var(--border-radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      background: #000;
+      transition: all var(--transition-normal);
+    }
+
+    .yt-grid-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--primary);
+    }
+
+    .yt-grid-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity var(--transition-fast), transform var(--transition-slow);
+    }
+
+    .yt-grid-card:hover img {
+      opacity: 0.75;
+      transform: scale(1.05);
+    }
+
+    /* Play button overlay on grid card */
+    .yt-grid-card-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 12px;
+      background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.15) 50%, transparent 100%);
+      opacity: 1;
+      transition: background var(--transition-fast);
+    }
+
+    .yt-grid-card:hover .yt-grid-card-overlay {
+      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.05) 100%);
+    }
+
+    .yt-grid-card-play {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.7);
+      width: 44px;
+      height: 44px;
+      background: rgba(212, 175, 55, 0.85);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #070b13;
+      font-size: 1rem;
+      transition: transform var(--transition-fast), background var(--transition-fast);
+      padding-left: 3px;
+    }
+
+    .yt-grid-card:hover .yt-grid-card-play {
+      transform: translate(-50%, -50%) scale(1);
+      background: var(--primary);
+    }
+
+    .yt-grid-card-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .yt-grid-card-badge {
+      display: inline-block;
+      background: var(--youtube-color);
+      color: #fff;
+      font-size: 0.6rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 3px;
+      margin-bottom: 5px;
+      align-self: flex-start;
+    }
+
+    /* Channel CTA row */
+    .yt-channel-cta {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 560px) {
+      .yt-channel-cta {
+        grid-template-columns: 1fr;
+      }
+    }
+
 
     .youtube-player-col {
       display: flex;
@@ -1538,17 +1664,18 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0) 100%);
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.30) 50%, rgba(0,0,0,0) 100%);
       padding: 16px;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      opacity: 0;
-      transition: opacity var(--transition-fast);
+      opacity: 1;
+      z-index: 6;
+      transition: background var(--transition-fast);
     }
 
     .gallery-item:hover .gallery-overlay {
-      opacity: 1;
+      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.45) 60%, rgba(0,0,0,0.1) 100%);
     }
 
     .gallery-tag {
@@ -1645,6 +1772,157 @@
       transition: all var(--transition-normal);
     }
 
+    /* --- 12. GALLERY LIGHTBOX OVERLAY --- */
+    .lightbox-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(7, 11, 19, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .lightbox-modal.active {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+      z-index: 2010;
+      transition: all var(--transition-fast);
+    }
+
+    .lightbox-close:hover {
+      color: var(--primary);
+      transform: scale(1.1);
+    }
+
+    .lightbox-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      color: #fff;
+      width: 54px;
+      height: 54px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.25rem;
+      cursor: pointer;
+      z-index: 2010;
+      transition: all var(--transition-fast);
+    }
+
+    .lightbox-btn:hover {
+      background: var(--primary-alpha);
+      border-color: var(--primary);
+      color: var(--primary);
+      box-shadow: 0 0 15px var(--primary-alpha);
+    }
+
+    .lightbox-prev {
+      left: 24px;
+    }
+
+    .lightbox-next {
+      right: 24px;
+    }
+
+    .lightbox-wrapper {
+      max-width: 85%;
+      max-height: 85%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .lightbox-img-box {
+      position: relative;
+      max-width: 100%;
+      max-height: 75vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox-img-box img {
+      max-width: 100%;
+      max-height: 75vh;
+      object-fit: contain;
+      border-radius: var(--border-radius-md);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .lightbox-caption {
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .lightbox-video-container {
+      width: 800px;
+      max-width: 80vw;
+      aspect-ratio: 16/9;
+      border-radius: var(--border-radius-md);
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .lightbox-video-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Video Item Play Overlay in Gallery */
+    .gallery-item.video-item {
+      position: relative;
+    }
+
+    .gallery-item.video-item::before {
+      content: '\f144'; /* FontAwesome play-circle */
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      font-size: 3rem;
+      color: rgba(212, 175, 55, 0.85); /* Premium Gold color */
+      z-index: 5;
+      pointer-events: none;
+      transition: all var(--transition-normal);
+      opacity: 0.9;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+    }
+
+    .gallery-item.video-item:hover::before {
+      transform: translate(-50%, -50%) scale(1.15);
+      color: rgba(212, 175, 55, 1);
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -1709,19 +1987,19 @@
           <span class="badge"><i class="fa-solid fa-video"></i> 유튜브 크리에이터</span>
         </div>
         
-        <div class="profile-stats">
-          <div class="stat-item">
-            <span class="stat-num">12.4K</span>
-            <span class="stat-label">유튜브 구독자</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-num">5.2K</span>
-            <span class="stat-label">블로그 이웃</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-num">25.3K</span>
-            <span class="stat-label">틱톡 팔로워</span>
-          </div>
+        <div class="profile-contacts">
+          <a href="tel:010-3160-2675" class="profile-contact-btn">
+            <i class="fa-solid fa-phone"></i>
+            <span>전화 상담</span>
+          </a>
+          <a href="http://pf.kakao.com/_Mwxftxb/chat" target="_blank" class="profile-contact-btn">
+            <i class="fa-solid fa-comment" style="color: #FEE500;"></i>
+            <span>카톡 문의</span>
+          </a>
+          <a href="sms:010-3160-2675" class="profile-contact-btn">
+            <i class="fa-solid fa-envelope"></i>
+            <span>문자 전송</span>
+          </a>
         </div>
       </div>
 
@@ -1755,57 +2033,25 @@
     <!-- 2. YouTube Latest Video Section -->
     <section id="youtube" class="youtube-section">
       <div class="section-header">
-        <span class="subtitle">YOUTUBE ENGINE</span>
-        <h2 class="title">최신 영상 투어</h2>
+        <span class="subtitle">YOUTUBE CHANNEL</span>
+        <h2 class="title">대학로 혜화72 부동산 영상</h2>
       </div>
 
-      <div class="youtube-grid-container">
-        <!-- Left Column: Player & Info -->
-        <div class="youtube-player-col">
-          <div class="video-wrapper">
-            <iframe 
-              id="yt-main-player"
-              src="https://www.youtube.com/embed/oUp1UaVAMvg?rel=0" 
-              title="혜화72 유튜브 최신 업로드 영상" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowfullscreen>
-            </iframe>
-          </div>
-          <div class="youtube-main-info">
-            <h3 id="yt-main-title">로딩 중...</h3>
-            <p id="yt-main-desc">유튜브 채널에서 최신 부동산 매물 및 임장 분석 영상을 가져오는 중입니다.</p>
-            <div class="youtube-buttons-row">
-              <a id="yt-btn-watch" href="https://www.youtube.com/channel/UC4LUKIDmLbd3bMAjjGJ18DQ" target="_blank" class="btn-youtube-subscribe">
-                <i class="fa-brands fa-youtube"></i>
-                <span>유튜브에서 이 영상 직접 보기</span>
-              </a>
-              <a href="https://www.youtube.com/channel/UC4LUKIDmLbd3bMAjjGJ18DQ?sub_confirmation=1" target="_blank" class="btn-youtube-subscribe" style="background-color: var(--primary-dark); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);">
-                <i class="fa-solid fa-bell"></i>
-                <span>혜화72 유튜브 채널 구독하기</span>
-              </a>
-            </div>
-          </div>
-        </div>
+      <!-- 3x3 Video Grid -->
+      <div class="yt-grid-9" id="yt-grid-container">
+        <!-- Dynamically populated by JS -->
+      </div>
 
-        <!-- Right Column: Video Tabs & List -->
-        <div class="youtube-list-col">
-          <div class="yt-tabs-header">
-            <button class="yt-tab-btn active" id="yt-tab-long" onclick="switchYoutubeTab('long')">
-              <i class="fa-solid fa-video"></i> 일반 영상
-            </button>
-            <button class="yt-tab-btn" id="yt-tab-short" onclick="switchYoutubeTab('short')">
-              <i class="fa-solid fa-bolt"></i> 쇼츠
-            </button>
-          </div>
-          <div class="yt-list-wrapper">
-            <div id="yt-list-long-container" class="yt-video-list-pane active">
-              <!-- Dynamically populated -->
-            </div>
-            <div id="yt-list-short-container" class="yt-video-list-pane">
-              <!-- Dynamically populated -->
-            </div>
-          </div>
-        </div>
+      <!-- Channel CTA -->
+      <div class="yt-channel-cta">
+        <a href="https://www.youtube.com/channel/UC4LUKIDmLbd3bMAjjGJ18DQ" target="_blank" class="btn-youtube-subscribe">
+          <i class="fa-brands fa-youtube"></i>
+          <span>채널 전체 영상 보기</span>
+        </a>
+        <a href="https://www.youtube.com/channel/UC4LUKIDmLbd3bMAjjGJ18DQ?sub_confirmation=1" target="_blank" class="btn-youtube-subscribe" style="background-color: var(--primary-dark); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);">
+          <i class="fa-solid fa-bell"></i>
+          <span>채널 구독하기</span>
+        </a>
       </div>
     </section>
 
@@ -1976,78 +2222,31 @@
       </div>
     </section>
 
-    <!-- 5. Photo Gallery Section -->
+    <!-- 5. 혜화동 일상 (Vlog) Section -->
     <section id="gallery">
       <div class="section-header">
-        <span class="subtitle">VISUAL GALLERY</span>
-        <h2 class="title">매물 및 현장 스케치</h2>
+        <span class="subtitle">DAILY VLOG CHANNEL</span>
+        <h2 class="title">혜화동 일상</h2>
       </div>
 
-      <!-- Filters -->
-      <div class="gallery-filters">
-        <button class="filter-btn active" data-filter="all">전체보기</button>
-        <button class="filter-btn" data-filter="house">단독/한옥</button>
-        <button class="filter-btn" data-filter="interior">인테리어</button>
-        <button class="filter-btn" data-filter="daily">중개일지</button>
-      </div>
-
-      <!-- Gallery Grid -->
+      <!-- Gallery Grid — Vlog only, populated by loadDailyVlogFeed() -->
       <div class="gallery-grid" id="gallery-container">
-        <!-- Item 1 -->
-        <div class="gallery-item" data-category="house">
-          <img class="gallery-img" src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=600" alt="혜화동 모던 타운하우스 매물">
-          <div class="gallery-overlay">
-            <span class="gallery-tag">단독/한옥</span>
-            <h3 class="gallery-title">혜화동 모던 단독주택 매물</h3>
-          </div>
-        </div>
+        <!-- Dynamically populated -->
+      </div>
 
-        <!-- Item 2 -->
-        <div class="gallery-item" data-category="interior">
-          <img class="gallery-img" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=600" alt="고급 한옥 스타일 다이닝룸 인테리어">
-          <div class="gallery-overlay">
-            <span class="gallery-tag">인테리어</span>
-            <h3 class="gallery-title">내추럴 오리엔탈 다이닝 인테리어</h3>
-          </div>
-        </div>
-
-        <!-- Item 3 -->
-        <div class="gallery-item" data-category="daily">
-          <img class="gallery-img" src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=600" alt="혜화동 한옥 카페 상가 실사 계약 완료">
-          <div class="gallery-overlay">
-            <span class="gallery-tag">중개일지</span>
-            <h3 class="gallery-title">혜화동 한옥 상가 임대차 계약 현장</h3>
-          </div>
-        </div>
-
-        <!-- Item 4 -->
-        <div class="gallery-item" data-category="house">
-          <img class="gallery-img" src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=600" alt="전통 한옥 매매 매물 외관">
-          <div class="gallery-overlay">
-            <span class="gallery-tag">단독/한옥</span>
-            <h3 class="gallery-title">종로구 혜화로 전통 보존형 한옥</h3>
-          </div>
-        </div>
-
-        <!-- Item 5 -->
-        <div class="gallery-item" data-category="interior">
-          <img class="gallery-img" src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&q=80&w=600" alt="한옥 창살 디자인 침실">
-          <div class="gallery-overlay">
-            <span class="gallery-tag">인테리어</span>
-            <h3 class="gallery-title">전통 창살 오브제 모던 안방</h3>
-          </div>
-        </div>
-
-        <!-- Item 6 -->
-        <div class="gallery-item" data-category="daily">
-          <img class="gallery-img" src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&q=80&w=600" alt="혜화동 낙산성곽 저녁 풍경">
-          <div class="gallery-overlay">
-            <span class="gallery-tag">중개일지</span>
-            <h3 class="gallery-title">낙산성곽길 인근 토지 분석 야외 임장</h3>
-          </div>
-        </div>
+      <!-- Vlog Channel CTA -->
+      <div class="yt-channel-cta" style="margin-top: 24px;">
+        <a href="https://www.youtube.com/channel/UCukzU8IRbbMBVV9ogNtUORg" target="_blank" class="btn-youtube-subscribe">
+          <i class="fa-brands fa-youtube"></i>
+          <span>혜화동 일상 채널 전체 보기</span>
+        </a>
+        <a href="https://www.youtube.com/channel/UCukzU8IRbbMBVV9ogNtUORg?sub_confirmation=1" target="_blank" class="btn-youtube-subscribe" style="background-color: var(--primary-dark); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);">
+          <i class="fa-solid fa-bell"></i>
+          <span>일상 채널 구독하기</span>
+        </a>
       </div>
     </section>
+
 
     <!-- 6. Contact Hub Section -->
     <section id="contact">
@@ -2126,6 +2325,9 @@
     <div class="lightbox-wrapper">
       <div class="lightbox-img-box">
         <img src="" id="lightbox-img" alt="">
+        <div id="lightbox-video-container" class="lightbox-video-container" style="display: none;">
+          <iframe id="lightbox-iframe" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
       </div>
       <div class="lightbox-caption" id="lightbox-caption"></div>
     </div>
@@ -2141,13 +2343,15 @@
     // 주소가 비어있으면(기본값) 소스코드 내의 고화질 템플릿(Mock) 데이터가 노출됩니다.
     const PROXY_URL = "/api"; 
     const NAVER_BLOG_ID = "ongamemall";
-    const YOUTUBE_CHANNEL_ID = "UCukzU8IRbbMBVV9ogNtUORg";
+    const YOUTUBE_CHANNEL_ID = "UC4LUKIDmLbd3bMAjjGJ18DQ";
+    const DAILY_YOUTUBE_CHANNEL_ID = "UCukzU8IRbbMBVV9ogNtUORg";
     
     // 네이버 블로그 추천 매물 카테고리 연동 설정
     // NAVER_BLOG_PROPERTY_CATEGORY_NO: 특정 카테고리 번호가 있다면 기입 (예: '12' 또는 12). 비어있으면 전체 글 중 필터링합니다.
     // PROPERTY_CATEGORY_NAME: 방안 A 한글 카테고리명 매칭 필터 (전체 피드에서 이 카테고리의 글만 추출)
+    // RSS 실제 카테고리명 '추천 매물' (공백 있음) - 공백 제거 후 비교하므로 '추천매물' 또는 '추천 매물' 모두 가능
     const NAVER_BLOG_PROPERTY_CATEGORY_NO = ""; 
-    const PROPERTY_CATEGORY_NAME = "추천매물";
+    const PROPERTY_CATEGORY_NAME = "추천 매물";
 
     // --- 2. STATE VARIABLES ---
     let currentTheme = localStorage.getItem("theme") || "dark";
@@ -2161,11 +2365,13 @@
     
     // Gallery
     const filterButtons = document.querySelectorAll(".filter-btn");
-    const galleryItems = document.querySelectorAll(".gallery-item");
+    let galleryItems = document.querySelectorAll(".gallery-item");
     
     // Lightbox
     const lightboxModal = document.getElementById("lightbox-modal");
     const lightboxImg = document.getElementById("lightbox-img");
+    const lightboxVideoContainer = document.getElementById("lightbox-video-container");
+    const lightboxIframe = document.getElementById("lightbox-iframe");
     const lightboxCaption = document.getElementById("lightbox-caption");
     const lightboxCloseBtn = document.getElementById("lightbox-close");
     const lightboxPrevBtn = document.getElementById("lightbox-prev");
@@ -2195,207 +2401,313 @@
     });
 
     // --- 6. REAL-TIME NAVER BLOG RSS SCRAPING & RENDERING ---
-    async function loadNaverBlogFeed() {
-      if (!PROXY_URL) {
-        console.log("블로그: 프록시 주소가 지정되지 않아 하드코딩 썸네일 카드를 유지합니다.");
-        return;
-      }
+    // 네이버 RSS XML을 파싱하여 블로그 카드를 생성하는 공통 함수
+    function parseNaverRssAndRenderBlog(xmlText) {
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+      const items = xmlDoc.getElementsByTagName("item");
+      const blogGrid = document.querySelector(".blog-feed-grid");
       
+      if (items.length > 0 && blogGrid) {
+        blogGrid.innerHTML = "";
+        // 최신 글 4개 노출
+        const limit = Math.min(items.length, 4);
+        for (let i = 0; i < limit; i++) {
+          const item = items[i];
+          const titleRaw = item.querySelector("title")?.textContent || "새로운 블로그 글";
+          const title = titleRaw.replace(/^\[.*?\]\s*/, "").trim() || titleRaw;
+          const link = item.querySelector("link")?.textContent || "https://blog.naver.com/" + NAVER_BLOG_ID;
+          const pubDateStr = item.querySelector("pubDate")?.textContent || "";
+          const rawDesc = item.querySelector("description")?.textContent || "";
+          const category = item.querySelector("category")?.textContent || "블로그";
+          
+          // 본문 내용 중 첫 번째 이미지 태그의 src 추출 (썸네일 자동 연동)
+          const imgRegex = /<img[^>]+src="([^">]+)"/i;
+          const imgMatch = imgRegex.exec(rawDesc);
+          let thumbnail = "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=600";
+          if (imgMatch) {
+            thumbnail = imgMatch[1];
+          }
+          
+          // HTML 태그 제거 및 텍스트 슬라이스
+          const tempDiv = document.createElement("div");
+          tempDiv.innerHTML = rawDesc;
+          const cleanDesc = (tempDiv.textContent || tempDiv.innerText || "").replace(/\s+/g, " ").trim().substring(0, 120) + "...";
+          
+          // 날짜 포맷팅 (YYYY. MM. DD)
+          let formattedDate = pubDateStr;
+          const dateObj = new Date(pubDateStr);
+          if (!isNaN(dateObj)) {
+            formattedDate = `${dateObj.getFullYear()}. ${String(dateObj.getMonth() + 1).padStart(2, '0')}. ${String(dateObj.getDate()).padStart(2, '0')}`;
+          }
+          
+          const card = document.createElement("a");
+          card.href = link;
+          card.target = "_blank";
+          card.rel = "noopener noreferrer";
+          card.className = "blog-feed-card";
+          card.innerHTML = `
+            <div class="blog-feed-thumb-box">
+              <img class="blog-feed-thumb" src="${thumbnail}" referrerpolicy="no-referrer" alt="${escapeHtml(title)}" onerror="this.src='https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=600'">
+            </div>
+            <div class="blog-feed-info">
+              <div class="blog-feed-header">
+                <span class="blog-feed-tag">${escapeHtml(category)}</span>
+                <span class="blog-feed-date">${formattedDate}</span>
+              </div>
+              <h3 class="blog-feed-title">${escapeHtml(title)}</h3>
+              <p class="blog-feed-summary">${escapeHtml(cleanDesc)}</p>
+              <span class="blog-feed-more">블로그 글 상세 페이지 이동 <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+          `;
+          blogGrid.appendChild(card);
+        }
+        console.log(`네이버 블로그 최신 글 ${limit}개가 자동으로 반영되었습니다.`);
+        applySearchFilter();
+        return true;
+      }
+      return false;
+    }
+
+    async function loadNaverBlogFeed() {
+      // 전략: 로컬 JSON 캐시를 먼저 즉시 로드하여 화면 노출, 이후 실시간 RSS로 업데이트
+      const rssUrl = `https://rss.blog.naver.com/${NAVER_BLOG_ID}.xml`;
+      const corsProxies = [
+        `https://corsproxy.io/?${encodeURIComponent(rssUrl)}`,
+        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(rssUrl)}`
+      ];
+
+      // 1단계: 로컬 JSON 캐시를 먼저 즉시 로드 (무조건 빠름)
+      let localLoaded = false;
       try {
-        const url = `${PROXY_URL}/naver?blogId=${NAVER_BLOG_ID}`;
-        const response = await fetch(url);
-        if (!response.ok) throw new Error("네트워크 응답 에러");
+        const response = await fetch('./naver_blog_posts.json', { signal: AbortSignal.timeout(2000) });
+        if (response.ok) {
+          const posts = await response.json();
+          const blogGrid = document.querySelector(".blog-feed-grid");
+          if (posts.length > 0 && blogGrid) {
+            blogGrid.innerHTML = "";
+            const limit = Math.min(posts.length, 4);
+            for (let i = 0; i < limit; i++) {
+              const post = posts[i];
+              const card = document.createElement("a");
+              card.href = post.link || "https://blog.naver.com/" + NAVER_BLOG_ID;
+              card.target = "_blank";
+              card.rel = "noopener noreferrer";
+              card.className = "blog-feed-card";
+              card.innerHTML = `
+                <div class="blog-feed-thumb-box">
+                  <img class="blog-feed-thumb" src="${post.thumbnail || ''}" referrerpolicy="no-referrer" alt="${escapeHtml(post.title || '')}" onerror="this.src='https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=600'">
+                </div>
+                <div class="blog-feed-info">
+                  <div class="blog-feed-header">
+                    <span class="blog-feed-tag">${escapeHtml(post.category || '블로그')}</span>
+                    <span class="blog-feed-date">${post.date || ''}</span>
+                  </div>
+                  <h3 class="blog-feed-title">${escapeHtml(post.title || '')}</h3>
+                  <p class="blog-feed-summary">${escapeHtml(post.summary || '')}</p>
+                  <span class="blog-feed-more">블로그 글 상세 페이지 이동 <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+              `;
+              blogGrid.appendChild(card);
+            }
+            console.log(`로컬 JSON 캐시에서 블로그 글 ${limit}개 즉시 로드.`);
+            applySearchFilter();
+            localLoaded = true;
+          }
+        }
+      } catch (e) {
+        console.log("로컬 JSON 실패:", e.message);
+      }
+
+      // 2단계: 백그라운드로 실시간 RSS 업데이트 시도
+      const tryLiveUpdate = async () => {
+        // 1순위: Cloudflare Functions 프록시
+        if (PROXY_URL) {
+          try {
+            const url = `${PROXY_URL}/naver?blogId=${NAVER_BLOG_ID}`;
+            const response = await fetch(url, { signal: AbortSignal.timeout(5000) });
+            if (response.ok) {
+              const xmlText = await response.text();
+              if (parseNaverRssAndRenderBlog(xmlText)) {
+                console.log("실시간 RSS(내부 프록시)로 업데이트 완료.");
+                return;
+              }
+            }
+          } catch (e) {
+            console.log("내부 프록시 실패:", e.message);
+          }
+        }
+
+        // 2순위: 공개 CORS 프록시 순차 시도
+        for (const proxyUrl of corsProxies) {
+          try {
+            const response = await fetch(proxyUrl, { signal: AbortSignal.timeout(6000) });
+            if (response.ok) {
+              const xmlText = await response.text();
+              // XML 유효성 검증
+              if (xmlText.includes('<rss') || xmlText.includes('<channel>') || xmlText.includes('<item>')) {
+                if (parseNaverRssAndRenderBlog(xmlText)) {
+                  console.log(`실시간 RSS(${proxyUrl})로 업데이트 완료.`);
+                  return;
+                }
+              }
+            }
+          } catch (e) {
+            console.log(`CORS 프록시 실패(${proxyUrl}):`, e.message);
+          }
+        }
+      };
+
+      // 실시간 업데이트를 비동기로 실행 (로켨 로드를 블록하지 않음)
+      setTimeout(tryLiveUpdate, localLoaded ? 500 : 0);
+    }
+
+    // --- 6-2. REAL-TIME PROPERTIES FROM NAVER BLOG CATEGORY ---
+    // 네이버 RSS XML을 파싱하여 추천 매물 카드를 생성하는 공통 함수
+    function parseNaverRssAndRenderProperties(xmlText) {
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+      const items = xmlDoc.getElementsByTagName("item");
+      const propertiesGrid = document.getElementById("properties-grid");
+      
+      if (items.length > 0 && propertiesGrid) {
+        const matchedItems = [];
         
-        const xmlText = await response.text();
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+        for (let i = 0; i < items.length; i++) {
+          const item = items[i];
+          const category = item.querySelector("category")?.textContent || "";
+          
+          // 띄어쓰기 오차 무력화: '추천 매물' vs '추천매물' 모두 매칭
+          const cleanCategory = category.replace(/\s+/g, "");
+          const cleanFilter = PROPERTY_CATEGORY_NAME.replace(/\s+/g, "");
+          
+          if (NAVER_BLOG_PROPERTY_CATEGORY_NO || !PROPERTY_CATEGORY_NAME || cleanCategory === cleanFilter) {
+            matchedItems.push(item);
+          }
+        }
         
-        const items = xmlDoc.getElementsByTagName("item");
-        const blogGrid = document.querySelector(".blog-feed-grid");
-        
-        if (items.length > 0 && blogGrid) {
-          blogGrid.innerHTML = "";
-          // 최신 글 2개 노출
-          const limit = Math.min(items.length, 2);
+        if (matchedItems.length > 0) {
+          propertiesGrid.innerHTML = "";
+          // 최대 3개 추천매물 카드 노출
+          const limit = Math.min(matchedItems.length, 3);
           for (let i = 0; i < limit; i++) {
-            const item = items[i];
-            const title = item.querySelector("title")?.textContent || "새로운 블로그 글";
+            const item = matchedItems[i];
+            const title = item.querySelector("title")?.textContent || "새로운 매물";
             const link = item.querySelector("link")?.textContent || "https://blog.naver.com/" + NAVER_BLOG_ID;
             const pubDateStr = item.querySelector("pubDate")?.textContent || "";
             const rawDesc = item.querySelector("description")?.textContent || "";
+            const category = item.querySelector("category")?.textContent || "추천 매물";
             
-            // 본문 내용 중 첫 번째 이미지 태그의 src 추출 (썸네일 자동 연동)
+            // 본문 내 이미지 추출
             const imgRegex = /<img[^>]+src="([^">]+)"/i;
             const imgMatch = imgRegex.exec(rawDesc);
-            let thumbnail = "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=300";
+            let thumbnail = "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=600";
             if (imgMatch) {
-              const rawImgUrl = imgMatch[1];
-              thumbnail = PROXY_URL ? `${PROXY_URL}/image?url=${encodeURIComponent(rawImgUrl)}` : rawImgUrl;
+              thumbnail = imgMatch[1];
             }
             
-            // HTML 태그 제거 및 텍스트 슬라이스
+            // 텍스트 요약
             const tempDiv = document.createElement("div");
             tempDiv.innerHTML = rawDesc;
-            const cleanDesc = (tempDiv.textContent || tempDiv.innerText || "").replace(/\s+/g, " ").substring(0, 100) + "...";
+            const cleanDesc = (tempDiv.textContent || tempDiv.innerText || "").replace(/\s+/g, " ").trim().substring(0, 100) + "...";
             
-            // 날짜 포맷팅 (YYYY. MM. DD)
+            // 날짜 포맷
             let formattedDate = pubDateStr;
             const dateObj = new Date(pubDateStr);
             if (!isNaN(dateObj)) {
               formattedDate = `${dateObj.getFullYear()}. ${String(dateObj.getMonth() + 1).padStart(2, '0')}. ${String(dateObj.getDate()).padStart(2, '0')}`;
             }
             
-            const card = document.createElement("a");
-            card.href = link;
-            card.target = "_blank";
-            card.className = "blog-feed-card";
+            // 제목 대괄호 내 가격/스펙 추출 파싱
+            let priceText = category;
+            let cleanTitle = title;
+            
+            // [대학로 혜화 72 부동산] 같은 브랜딩 대괄호 제거 (다양한 변형 포함)
+            const brandingRegex = /\[(?:대학로\s*)?혜화\s*72\s*(?:부동산|공인중개사|중개사)?\]/gi;
+            cleanTitle = cleanTitle.replace(brandingRegex, "").trim();
+            
+            // 남은 대괄호(예: [매매 13억]) 중 첫 대괄호를 매물 가격표로 설정
+            const bracketRegex = /\[([^\]]+)\]/;
+            const match = bracketRegex.exec(cleanTitle);
+            if (match) {
+              priceText = match[1].trim();
+              cleanTitle = cleanTitle.replace(bracketRegex, "").trim();
+            }
+            
+            const card = document.createElement("div");
+            card.className = "property-card";
             card.innerHTML = `
-              <div class="blog-feed-thumb-box">
-                <img class="blog-feed-thumb" src="${thumbnail}" referrerpolicy="no-referrer" alt="블로그 포스트 썸네일">
-              </div>
-              <div class="blog-feed-info">
-                <div class="blog-feed-header">
-                  <span class="blog-feed-tag">중개일지</span>
-                  <span class="blog-feed-date">${formattedDate}</span>
+              <div class="property-thumb-box">
+                <a href="${link}" target="_blank" rel="noopener noreferrer" class="property-thumb-link" title="블로그에서 매물 상세 보기 및 문의">
+                  <img class="property-thumb" src="${thumbnail}" referrerpolicy="no-referrer" alt="${escapeHtml(cleanTitle)}" onerror="this.src='https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=600'">
+                </a>
+                <div class="property-badges-overlay">
+                  <span class="property-badge property-badge-type">${escapeHtml(category)}</span>
+                  <span class="property-badge property-badge-status">중개가능</span>
                 </div>
-                <h3 class="blog-feed-title">${escapeHtml(title)}</h3>
-                <p class="blog-feed-summary">${escapeHtml(cleanDesc)}</p>
-                <span class="blog-feed-more">블로그 글 상세 페이지 이동 <i class="fa-solid fa-arrow-right"></i></span>
+              </div>
+              <div class="property-info-box">
+                <div class="property-price">${escapeHtml(priceText)}</div>
+                <h3 class="property-title">${escapeHtml(cleanTitle)}</h3>
+                <div class="property-specs">
+                  <span><i class="fa-solid fa-calendar-days"></i> ${formattedDate}</span>
+                  <span><i class="fa-solid fa-ruler-combined"></i> 블로그 확인</span>
+                </div>
+                <a href="${link}" target="_blank" rel="noopener noreferrer" class="btn-property-ask">
+                  <i class="fa-solid fa-comment"></i> 블로그 상세보기 & 문의
+                </a>
               </div>
             `;
-            blogGrid.appendChild(card);
+            propertiesGrid.appendChild(card);
           }
-          console.log(`네이버 블로그 최신 글 ${limit}개가 자동으로 반영되었습니다.`);
+          console.log(`네이버 블로그 추천매물 카테고리 글 ${limit}개가 실시간 추천매물 영역에 반영되었습니다.`);
           applySearchFilter();
+          return true;
+        } else {
+          console.log("추천매물 카테고리에 매칭되는 블로그 글이 없어 기본 템플릿 매물을 유지합니다.");
         }
-      } catch (error) {
-        console.warn("네이버 블로그 RSS 피드 로드 실패 (기본 카드를 노출합니다):", error.message);
       }
+      return false;
     }
 
-    // --- 6-2. REAL-TIME PROPERTIES FROM NAVER BLOG CATEGORY ---
     async function loadPropertiesFeed() {
-      if (!PROXY_URL) {
-        console.log("추천매물: 프록시 주소가 지정되지 않아 기본 매물 카드 데이터를 유지합니다.");
-        return;
-      }
-      
-      try {
-        let url = `${PROXY_URL}/naver?blogId=${NAVER_BLOG_ID}`;
-        if (NAVER_BLOG_PROPERTY_CATEGORY_NO) {
-          url += `&categoryNo=${NAVER_BLOG_PROPERTY_CATEGORY_NO}`;
-        }
-        
-        const response = await fetch(url);
-        if (!response.ok) throw new Error("네트워크 응답 에러");
-        
-        const xmlText = await response.text();
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xmlText, "text/xml");
-        
-        const items = xmlDoc.getElementsByTagName("item");
-        const propertiesGrid = document.getElementById("properties-grid");
-        
-        if (items.length > 0 && propertiesGrid) {
-          const matchedItems = [];
-          
-          for (let i = 0; i < items.length; i++) {
-            const item = items[i];
-            const category = item.querySelector("category")?.textContent || "";
-            
-            // 띄어쓰기 오차 무력화 (예: '추천 매물' vs '추천매물' 매칭 가능하도록 공백 제거 비교)
-            const cleanCategory = category.replace(/\s+/g, "");
-            const cleanFilter = PROPERTY_CATEGORY_NAME.replace(/\s+/g, "");
-            
-            if (NAVER_BLOG_PROPERTY_CATEGORY_NO || !PROPERTY_CATEGORY_NAME || cleanCategory === cleanFilter) {
-              matchedItems.push(item);
-            }
+      const rssUrl = `https://rss.blog.naver.com/${NAVER_BLOG_ID}.xml`;
+      const corsProxies = [
+        `https://corsproxy.io/?${encodeURIComponent(rssUrl)}`,
+        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(rssUrl)}`
+      ];
+
+      // 1순위: 내부 Cloudflare Pages Functions 프록시
+      if (PROXY_URL) {
+        try {
+          let url = `${PROXY_URL}/naver?blogId=${NAVER_BLOG_ID}`;
+          if (NAVER_BLOG_PROPERTY_CATEGORY_NO) {
+            url += `&categoryNo=${NAVER_BLOG_PROPERTY_CATEGORY_NO}`;
           }
-          
-          if (matchedItems.length > 0) {
-            propertiesGrid.innerHTML = "";
-            // 최대 3개 추천매물 카드 노출
-            const limit = Math.min(matchedItems.length, 3);
-            for (let i = 0; i < limit; i++) {
-              const item = matchedItems[i];
-              const title = item.querySelector("title")?.textContent || "새로운 매물";
-              const link = item.querySelector("link")?.textContent || "https://blog.naver.com/" + NAVER_BLOG_ID;
-              const pubDateStr = item.querySelector("pubDate")?.textContent || "";
-              const rawDesc = item.querySelector("description")?.textContent || "";
-              const category = item.querySelector("category")?.textContent || "추천매물";
-              
-              // 본문 내 이미지 추출
-              const imgRegex = /<img[^>]+src="([^">]+)"/i;
-              const imgMatch = imgRegex.exec(rawDesc);
-              let thumbnail = "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=600";
-              if (imgMatch) {
-                const rawImgUrl = imgMatch[1];
-                thumbnail = PROXY_URL ? `${PROXY_URL}/image?url=${encodeURIComponent(rawImgUrl)}` : rawImgUrl;
-              }
-              
-              // 텍스트 요약
-              const tempDiv = document.createElement("div");
-              tempDiv.innerHTML = rawDesc;
-              const cleanDesc = (tempDiv.textContent || tempDiv.innerText || "").replace(/\s+/g, " ").substring(0, 80) + "...";
-              
-              // 날짜 포맷
-              let formattedDate = pubDateStr;
-              const dateObj = new Date(pubDateStr);
-              if (!isNaN(dateObj)) {
-                formattedDate = `${dateObj.getFullYear()}. ${String(dateObj.getMonth() + 1).padStart(2, '0')}. ${String(dateObj.getDate()).padStart(2, '0')}`;
-              }
-              
-              // 제목 대괄호 내 가격/스펙 추출 파싱
-              let priceText = category;
-              let cleanTitle = title;
-              
-              // [대학로 혜화 72 부동산] 같은 브랜딩 대괄호 제거
-              const brandingRegex = /\[(?:대학로\s*)?혜화\s*72\s*(?:부동산|공인중개사)?\]/g;
-              cleanTitle = cleanTitle.replace(brandingRegex, "").trim();
-              
-              // 남은 대괄호(예: [매매 13억]) 중 첫 대괄호를 매물 가격표로 설정
-              const bracketRegex = /\[([^\]]+)\]/;
-              const match = bracketRegex.exec(cleanTitle);
-              if (match) {
-                priceText = match[1].trim();
-                cleanTitle = cleanTitle.replace(bracketRegex, "").trim();
-              }
-              
-              const card = document.createElement("div");
-              card.className = "property-card";
-              card.innerHTML = `
-                <div class="property-thumb-box">
-                  <a href="${link}" target="_blank" class="property-thumb-link" title="블로그에서 매물 상세 보기 및 문의">
-                    <img class="property-thumb" src="${thumbnail}" referrerpolicy="no-referrer" alt="${escapeHtml(cleanTitle)}">
-                  </a>
-                  <div class="property-badges-overlay">
-                    <span class="property-badge property-badge-type">${escapeHtml(category)}</span>
-                    <span class="property-badge property-badge-status">중개가능</span>
-                  </div>
-                </div>
-                <div class="property-info-box">
-                  <div class="property-price">${escapeHtml(priceText)}</div>
-                  <h3 class="property-title">${escapeHtml(cleanTitle)}</h3>
-                  <div class="property-specs">
-                    <span><i class="fa-solid fa-calendar-days"></i> ${formattedDate}</span>
-                    <span><i class="fa-solid fa-ruler-combined"></i> 블로그 확인</span>
-                  </div>
-                  <a href="${link}" target="_blank" class="btn-property-ask">
-                    <i class="fa-solid fa-comment"></i> 블로그 상세보기 & 문의
-                  </a>
-                </div>
-              `;
-              propertiesGrid.appendChild(card);
-            }
-            console.log(`네이버 블로그 추천매물 카테고리 글 ${limit}개가 실시간 추천매물 영역에 반영되었습니다.`);
-            applySearchFilter();
-          } else {
-            console.log("추천매물 카테고리에 매칭되는 블로그 글이 없어 기본 템플릿 매물을 유지합니다.");
+          const response = await fetch(url, { signal: AbortSignal.timeout(5000) });
+          if (response.ok) {
+            const xmlText = await response.text();
+            if (parseNaverRssAndRenderProperties(xmlText)) return;
           }
+        } catch (e) {
+          console.log("추천매물 내부 프록시 실패, CORS 프록시로 fallback:", e.message);
         }
-      } catch (error) {
-        console.warn("추천매물 블로그 RSS 피드 로드 실패 (기본 매물 카드를 유지합니다):", error.message);
       }
+
+      // 2순위: CORS 프록시들 순차 시도
+      for (const proxyUrl of corsProxies) {
+        try {
+          const response = await fetch(proxyUrl, { signal: AbortSignal.timeout(8000) });
+          if (response.ok) {
+            const xmlText = await response.text();
+            if (parseNaverRssAndRenderProperties(xmlText)) return;
+          }
+        } catch (e) {
+          console.log(`추천매물 CORS 프록시 실패 (${proxyUrl}):`, e.message);
+        }
+      }
+
+      console.warn("추천매물 블로그 RSS 피드 로드 실패 (기본 매물 카드를 유지합니다)");
     }
 
     // --- 7. REAL-TIME YOUTUBE LATEST VIDEO SCRAPING & PLAYER AUTO-UPDATE ---
@@ -2496,180 +2808,60 @@
       
       renderYoutubeVideos();
       
-      // Auto play the first available video (prefer normal videos or first video)
-      if (youtubeVideos.length > 0) {
-        // Find first short or long
-        const defaultVideo = youtubeVideos.find(v => v.isShort) || youtubeVideos[0];
-        playYoutubeVideo(defaultVideo.videoId);
-      }
     }
+
+    // Render 9 videos in a 3×3 grid
 
     function renderYoutubeVideos() {
-      const longContainer = document.getElementById("yt-list-long-container");
-      const shortContainer = document.getElementById("yt-list-short-container");
-      
-      if (!longContainer || !shortContainer) return;
-      
-      longContainer.innerHTML = "";
-      shortContainer.innerHTML = "";
-      
-      const longs = youtubeVideos.filter(v => !v.isShort);
-      const shorts = youtubeVideos.filter(v => v.isShort);
-      
-      // Render Long-forms
-      if (longs.length === 0) {
-        longContainer.innerHTML = `
-          <div class="yt-empty-state">
-            <i class="fa-solid fa-video-slash"></i>
-            <p>업로드된 일반 영상이 없습니다.</p>
+      const grid = document.getElementById("yt-grid-container");
+      if (!grid) return;
+      grid.innerHTML = "";
+
+      // Show up to 9 videos (fill with mocks if fewer)
+      const toShow = youtubeVideos.slice(0, 9);
+
+      if (toShow.length === 0) {
+        grid.innerHTML = `<div class="yt-empty-state" style="grid-column:span 3;"><i class="fa-solid fa-video-slash"></i><p>영상을 불러오는 중입니다.</p></div>`;
+        return;
+      }
+
+      toShow.forEach(video => {
+        const card = document.createElement("div");
+        card.className = "yt-grid-card";
+        card.setAttribute("data-video-id", video.videoId);
+
+        const badgeHtml = video.isShort
+          ? `<span class="yt-grid-card-badge">Shorts</span>`
+          : (video.isMock ? `<span class="yt-grid-card-badge" style="background:var(--primary);color:#070b13;">준비중</span>` : "");
+
+        card.innerHTML = `
+          <img src="${video.thumbnail}" referrerpolicy="no-referrer" alt="${escapeHtml(video.title)}" loading="lazy">
+          <div class="yt-grid-card-play"><i class="fa-solid fa-play"></i></div>
+          <div class="yt-grid-card-overlay">
+            ${badgeHtml}
+            <p class="yt-grid-card-title">${escapeHtml(video.title)}</p>
           </div>
         `;
-      } else {
-        longs.forEach(video => {
-          const item = createYoutubeItemElement(video);
-          longContainer.appendChild(item);
-        });
-      }
-      
-      // Render Shorts
-      if (shorts.length === 0) {
-        shortContainer.innerHTML = `
-          <div class="yt-empty-state">
-            <i class="fa-solid fa-bolt-slash"></i>
-            <p>업로드된 쇼츠 영상이 없습니다.</p>
-          </div>
-        `;
-      } else {
-        shorts.forEach(video => {
-          const item = createYoutubeItemElement(video);
-          shortContainer.appendChild(item);
-        });
-      }
-    }
 
-    function createYoutubeItemElement(video) {
-      const card = document.createElement("div");
-      card.className = "yt-video-item";
-      card.setAttribute("data-video-id", video.videoId);
-      card.onclick = () => playYoutubeVideo(video.videoId);
-      
-      let badgeHtml = "";
-      if (video.isShort) {
-        badgeHtml = `<span class="yt-video-item-badge shorts-badge">Shorts</span>`;
-      } else if (video.isMock) {
-        badgeHtml = `<span class="yt-video-item-badge" style="background-color: var(--primary);">준비중</span>`;
-      }
-      
-      let dateText = "";
-      if (video.published) {
-        const dateObj = new Date(video.published);
-        if (!isNaN(dateObj)) {
-          dateText = `${dateObj.getFullYear()}. ${String(dateObj.getMonth() + 1).padStart(2, '0')}. ${String(dateObj.getDate()).padStart(2, '0')}`;
-        }
-      }
-      
-      card.innerHTML = `
-        <div class="yt-video-item-thumb">
-          <img src="${video.thumbnail}" referrerpolicy="no-referrer" alt="${escapeHtml(video.title)}">
-          ${badgeHtml}
-        </div>
-        <div class="yt-video-item-info">
-          <h4 class="yt-video-item-title">${escapeHtml(video.title)}</h4>
-          <span class="yt-video-item-date">${dateText}</span>
-        </div>
-      `;
-      return card;
-    }
+        // Click: open lightbox with embedded video
+        card.addEventListener("click", () => {
+          const playId = video.isMock ? "boSFPGcrHAk" : video.videoId;
+          lightboxImg.style.display = "none";
+          lightboxVideoContainer.style.display = "block";
+          lightboxIframe.src = `https://www.youtube.com/embed/${playId}?autoplay=1&rel=0`;
+          lightboxCaption.textContent = video.title;
+          lightboxModal.classList.add("active");
+          document.body.style.overflow = "hidden";
+        });
 
-    function playYoutubeVideo(videoId) {
-      const video = youtubeVideos.find(v => v.videoId === videoId);
-      if (!video) return;
-      
-      // Update active class in list
-      document.querySelectorAll(".yt-video-item").forEach(item => {
-        if (item.getAttribute("data-video-id") === videoId) {
-          item.classList.add("active");
-        } else {
-          item.classList.remove("active");
-        }
+        grid.appendChild(card);
       });
-      
-      // Update Main Player
-      const player = document.getElementById("yt-main-player");
-      const titleEl = document.getElementById("yt-main-title");
-      const descEl = document.getElementById("yt-main-desc");
-      const watchBtn = document.getElementById("yt-btn-watch");
-      
-      if (player) {
-        // If it's a mock video, play the introduction video boSFPGcrHAk as a fallback instead of loading a broken iframe
-        const playId = video.isMock ? "boSFPGcrHAk" : video.videoId;
-        player.src = `https://www.youtube.com/embed/${playId}?rel=0&autoplay=0`;
-      }
-      
-      if (titleEl) titleEl.textContent = video.title;
-      if (descEl) descEl.textContent = video.description || "상세 영상 정보가 없습니다.";
-      
-      if (watchBtn) {
-        const watchUrl = video.isShort 
-          ? `https://www.youtube.com/shorts/${video.videoId}`
-          : `https://www.youtube.com/watch?v=${video.videoId}`;
-        
-        watchBtn.href = video.isMock ? `https://www.youtube.com/channel/${YOUTUBE_CHANNEL_ID}` : watchUrl;
-        watchBtn.querySelector("span").textContent = video.isShort 
-          ? "유튜브에서 이 쇼츠 영상 직접 보기" 
-          : "유튜브에서 이 영상 직접 보기";
-      }
     }
 
-    function switchYoutubeTab(tabType) {
-      const longBtn = document.getElementById("yt-tab-long");
-      const shortBtn = document.getElementById("yt-tab-short");
-      const longPane = document.getElementById("yt-list-long-container");
-      const shortPane = document.getElementById("yt-list-short-container");
-      
-      if (tabType === "long") {
-        longBtn.classList.add("active");
-        shortBtn.classList.remove("active");
-        longPane.classList.add("active");
-        shortPane.classList.remove("active");
-      } else {
-        longBtn.classList.remove("active");
-        shortBtn.classList.add("active");
-        longPane.classList.remove("active");
-        shortPane.classList.add("active");
-      }
-    }
-
-    // --- 8. GALLERY CATEGORY FILTERING ---
-    filterButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        filterButtons.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        
-        const filterVal = btn.getAttribute("data-filter");
-        
-        galleryItems.forEach(item => {
-          const category = item.getAttribute("data-category");
-          if (filterVal === "all" || category === filterVal) {
-            item.style.display = "block";
-            setTimeout(() => {
-              item.style.opacity = "1";
-              item.style.transform = "scale(1)";
-            }, 50);
-          } else {
-            item.style.opacity = "0";
-            item.style.transform = "scale(0.95)";
-            setTimeout(() => {
-              item.style.display = "none";
-            }, 300);
-          }
-        });
-        
-        setTimeout(updateActiveGalleryItems, 350);
-      });
-    });
+    // --- 8. GALLERY (VLOG ONLY — no category filter buttons) ---
 
     function updateActiveGalleryItems() {
+      galleryItems = document.querySelectorAll(".gallery-item");
       activeGalleryItems = Array.from(galleryItems).filter(item => item.style.display !== "none");
     }
 
@@ -2681,11 +2873,27 @@
       
       const img = activeItem.querySelector(".gallery-img");
       const title = activeItem.querySelector(".gallery-title");
+      const videoId = activeItem.getAttribute("data-video-id");
       
-      lightboxImg.src = img.src;
-      lightboxImg.alt = img.alt;
-      lightboxCaption.textContent = title.textContent;
+      if (videoId) {
+        // Show video container, hide image
+        lightboxImg.style.display = "none";
+        lightboxVideoContainer.style.display = "block";
+        
+        // If it's a mock, play the introduction video boSFPGcrHAk as a fallback
+        const playId = activeItem.getAttribute("data-is-mock") === "true" ? "boSFPGcrHAk" : videoId;
+        lightboxIframe.src = `https://www.youtube.com/embed/${playId}?autoplay=1&rel=0`;
+      } else {
+        // Show image, hide video container
+        lightboxImg.style.display = "block";
+        lightboxVideoContainer.style.display = "none";
+        lightboxIframe.src = "";
+        
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+      }
       
+      lightboxCaption.textContent = title ? title.textContent : "";
       lightboxModal.classList.add("active");
       document.body.style.overflow = "hidden";
     }
@@ -2693,6 +2901,8 @@
     function closeLightbox() {
       lightboxModal.classList.remove("active");
       document.body.style.overflow = "";
+      // Reset iframe src to stop video audio playback
+      lightboxIframe.src = "";
     }
 
     function navigateLightbox(direction) {
@@ -2705,20 +2915,26 @@
       openLightbox(lightboxIndex);
     }
 
-    galleryItems.forEach(item => {
-      item.addEventListener("click", () => {
-        updateActiveGalleryItems();
-        const activeIndex = activeGalleryItems.indexOf(item);
-        openLightbox(activeIndex !== -1 ? activeIndex : 0);
+    // Event delegation for gallery item clicks (handles static & dynamic items)
+    const galleryContainer = document.getElementById("gallery-container");
+    if (galleryContainer) {
+      galleryContainer.addEventListener("click", (e) => {
+        const item = e.target.closest(".gallery-item");
+        if (item) {
+          updateActiveGalleryItems();
+          const activeIndex = activeGalleryItems.indexOf(item);
+          openLightbox(activeIndex !== -1 ? activeIndex : 0);
+        }
       });
-    });
+    }
 
     lightboxCloseBtn.addEventListener("click", closeLightbox);
     lightboxPrevBtn.addEventListener("click", () => navigateLightbox(-1));
     lightboxNextBtn.addEventListener("click", () => navigateLightbox(1));
 
     lightboxModal.addEventListener("click", (e) => {
-      if (e.target === lightboxModal || e.target.classList.contains("lightbox-img-box")) {
+      // Close if clicking outside the media elements
+      if (e.target === lightboxModal || e.target.classList.contains("lightbox-img-box") || e.target.id === "lightbox-video-container") {
         closeLightbox();
       }
     });
@@ -2760,20 +2976,16 @@
         }
       });
       
-      // 3. Filter Gallery Items
+      // 3. Filter Gallery Items (Vlog only — no category filter)
       const galleryItemsList = document.querySelectorAll(".gallery-item");
       galleryItemsList.forEach(item => {
         const text = item.textContent.toLowerCase();
         if (text.includes(query)) {
-          const activeFilter = document.querySelector(".filter-btn.active")?.getAttribute("data-filter") || "all";
-          const category = item.getAttribute("data-category");
-          if (activeFilter === "all" || category === activeFilter) {
-            item.style.display = "block";
-            setTimeout(() => {
-              item.style.opacity = "1";
-              item.style.transform = "scale(1)";
-            }, 50);
-          }
+          item.style.display = "block";
+          setTimeout(() => {
+            item.style.opacity = "1";
+            item.style.transform = "scale(1)";
+          }, 50);
         } else {
           item.style.opacity = "0";
           item.style.transform = "scale(0.95)";
@@ -2801,12 +3013,81 @@
         .replace(/'/g, "&#039;");
     }
 
-    // --- 11. INITIALIZATION ---
+    // --- 12. DAILY VLOG LOAD & RENDER ---
+    const DEFAULT_DAILY_VLOGS = [
+      {
+        videoId: "HdSKnqfzQDg",
+        title: "미친 양꼬치 혜화점 오픈 날",
+        thumbnail: "https://i1.ytimg.com/vi/HdSKnqfzQDg/hqdefault.jpg",
+        isMock: false
+      }
+    ];
+
+    async function loadDailyVlogFeed() {
+      try {
+        let loadedVideos = [];
+        if (PROXY_URL) {
+          const url = `${PROXY_URL}/youtube?channelId=${DAILY_YOUTUBE_CHANNEL_ID}`;
+          const response = await fetch(url);
+          if (response.ok) {
+            loadedVideos = await response.json();
+          }
+        }
+        
+        if (!loadedVideos || loadedVideos.length === 0 || loadedVideos.error) {
+          console.log("일상영상: API 로드 실패 또는 데이터 없음. 기본 Mock 일상 데이터를 사용합니다.");
+          renderDailyVlogs(DEFAULT_DAILY_VLOGS);
+        } else {
+          console.log(`일상영상: API 로드 성공 (${loadedVideos.length}개)`);
+          renderDailyVlogs(loadedVideos);
+        }
+      } catch (error) {
+        console.warn("일상영상 로드 중 예외 발생, 기본 데이터를 유지합니다:", error.message);
+        renderDailyVlogs(DEFAULT_DAILY_VLOGS);
+      }
+    }
+
+    function renderDailyVlogs(vlogs) {
+      const gc = document.getElementById("gallery-container");
+      if (!gc) return;
+      
+      // Remove any existing vlog items
+      const existingVlogs = gc.querySelectorAll('.gallery-item[data-category="vlog"]');
+      existingVlogs.forEach(el => el.remove());
+      
+      vlogs.forEach(vlog => {
+        const item = document.createElement("div");
+        item.className = "gallery-item video-item";
+        item.setAttribute("data-category", "vlog");
+        item.setAttribute("data-video-id", vlog.videoId);
+        if (vlog.isMock) {
+          item.setAttribute("data-is-mock", "true");
+        }
+        
+        item.innerHTML = `
+          <img class="gallery-img" src="${vlog.thumbnail}" referrerpolicy="no-referrer" alt="${escapeHtml(vlog.title)}">
+          <div class="gallery-overlay">
+            <span class="gallery-tag">일상영상(Vlog)</span>
+            <h3 class="gallery-title">${escapeHtml(vlog.title)}</h3>
+          </div>
+        `;
+        
+        gc.appendChild(item);
+      });
+      
+      // Refresh gallery items and active list
+      updateActiveGalleryItems();
+      
+      console.log(`일상영상(Vlog) ${vlogs.length}개가 갤러리에 추가 완료되었습니다.`);
+    }
+
+    // --- 13. INITIALIZATION ---
     document.addEventListener("DOMContentLoaded", () => {
       updateActiveGalleryItems();
       loadNaverBlogFeed();
       loadPropertiesFeed();
       loadYoutubeFeed();
+      loadDailyVlogFeed();
       applySearchFilter();
     });
   </script>
