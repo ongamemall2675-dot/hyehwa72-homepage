@@ -2581,9 +2581,9 @@
             
             // 남은 대괄호(예: [매매 13억]) 중 첫 대괄호를 매물 가격표로 설정
             const bracketRegex = /\[([^\]]+)\]/;
-            const match = bracketRegex.exec(cleanTitle);
-            if (match) {
-              priceText = match[1].trim();
+            const bracketMatch = bracketRegex.exec(cleanTitle);
+            if (bracketMatch) {
+              priceText = bracketMatch[1].trim();
               cleanTitle = cleanTitle.replace(bracketRegex, "").trim();
             }
             
