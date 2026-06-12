@@ -2364,7 +2364,7 @@
           
           // 본문 내용 중 이미지 태그의 src 추출 (썸네일 자동 연동)
           let thumbnail = "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=600";
-          const imgRegex = /<img[^>]+src=["']([^"'>\\s]+)["']/ig;
+          const imgRegex = /<img[^>]+src=["']([^"'>\s]+)["']/ig;
           let match;
           while ((match = imgRegex.exec(rawDesc)) !== null) {
             const src = match[1];
@@ -2549,7 +2549,7 @@
             
             // 본문 내 이미지 추출
             let thumbnail = "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=600";
-            const imgRegex = /<img[^>]+src=["']([^"'>\\s]+)["']/ig;
+            const imgRegex = /<img[^>]+src=["']([^"'>\s]+)["']/ig;
             let match;
             while ((match = imgRegex.exec(rawDesc)) !== null) {
               const src = match[1];
