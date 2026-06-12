@@ -1942,9 +1942,9 @@
     
     <div class="nav-links">
       <a href="#about">소개</a>
-      <a href="#youtube">최신영상</a>
       <a href="#properties">추천매물</a>
       <a href="#feeds">소셜콘텐츠</a>
+      <a href="#youtube">최신영상</a>
       <a href="#gallery">갤러리</a>
       <a href="#contact">간편문의</a>
     </div>
@@ -2033,82 +2033,12 @@
     <!-- 3. Real Estate Listings Section (추천 매물 쇼케이스) -->
     <section id="properties">
       <div class="section-header">
-        <span class="subtitle">FEATURED LISTINGS</span>
-        <h2 class="title">혜화 실시간 추천 매물</h2>
+        <span class="subtitle">NAVER BLOG LISTINGS</span>
+        <h2 class="title">네이버 블로그 추천 매물</h2>
       </div>
 
       <div class="properties-grid" id="properties-grid">
-        <!-- Property 1 -->
-        <div class="property-card">
-          <div class="property-thumb-box">
-            <a href="http://pf.kakao.com/_Mwxftxb/chat" target="_blank" class="property-thumb-link" title="카카오톡으로 매물 실시간 상담하기">
-              <img class="property-thumb" src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=600" alt="혜화동 한옥 단독주택 매매">
-            </a>
-            <div class="property-badges-overlay">
-              <span class="property-badge property-badge-type">매매 / 한옥</span>
-              <span class="property-badge property-badge-status">중개가능</span>
-            </div>
-          </div>
-          <div class="property-info-box">
-            <div class="property-price">매매 18억 5,000만</div>
-            <h3 class="property-title">혜화동 고즈넉한 마당 깊은 보존형 한옥 단독주택</h3>
-            <div class="property-specs">
-              <span><i class="fa-solid fa-ruler-combined"></i> 대지 172㎡ (52평)</span>
-              <span><i class="fa-solid fa-bed"></i> 방 3 / 욕실 2</span>
-            </div>
-            <a href="http://pf.kakao.com/_Mwxftxb/chat" target="_blank" class="btn-property-ask">
-              <i class="fa-solid fa-comment"></i> 카카오톡 문의하기
-            </a>
-          </div>
-        </div>
-
-        <!-- Property 2 -->
-        <div class="property-card">
-          <div class="property-thumb-box">
-            <a href="http://pf.kakao.com/_Mwxftxb/chat" target="_blank" class="property-thumb-link" title="카카오톡으로 매물 실시간 상담하기">
-              <img class="property-thumb" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=600" alt="대학로 상가 임대">
-            </a>
-            <div class="property-badges-overlay">
-              <span class="property-badge property-badge-type">임대 / 상가</span>
-              <span class="property-badge property-badge-status">중개가능</span>
-            </div>
-          </div>
-          <div class="property-info-box">
-            <div class="property-price">보증금 5,000 / 월 380</div>
-            <h3 class="property-title">대학로 메인거리 코너형 통유리 상가 빌딩 1층 임대</h3>
-            <div class="property-specs">
-              <span><i class="fa-solid fa-ruler-combined"></i> 전용 115㎡ (35평)</span>
-              <span><i class="fa-solid fa-store"></i> 권리금 없음</span>
-            </div>
-            <a href="http://pf.kakao.com/_Mwxftxb/chat" target="_blank" class="btn-property-ask">
-              <i class="fa-solid fa-comment"></i> 카카오톡 문의하기
-            </a>
-          </div>
-        </div>
-
-        <!-- Property 3 -->
-        <div class="property-card">
-          <div class="property-thumb-box">
-            <a href="http://pf.kakao.com/_Mwxftxb/chat" target="_blank" class="property-thumb-link" title="카카오톡으로 매물 실시간 상담하기">
-              <img class="property-thumb" src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=600" alt="혜화역 인근 단독주택 전세">
-            </a>
-            <div class="property-badges-overlay">
-              <span class="property-badge property-badge-type">전세 / 단독</span>
-              <span class="property-badge property-badge-status sold">계약완료</span>
-            </div>
-          </div>
-          <div class="property-info-box">
-            <div class="property-price">전세 6억</div>
-            <h3 class="property-title">혜화역 도보 3분 복층 남향 테라스형 단독주택 전세</h3>
-            <div class="property-specs">
-              <span><i class="fa-solid fa-ruler-combined"></i> 연면적 98㎡ (30평)</span>
-              <span><i class="fa-solid fa-bed"></i> 방 3 / 욕실 2</span>
-            </div>
-            <a href="http://pf.kakao.com/_Mwxftxb/chat" target="_blank" class="btn-property-ask">
-              <i class="fa-solid fa-comment"></i> 계약완료 / 상담요청
-            </a>
-          </div>
-        </div>
+        <!-- 네이버 블로그 추천 매물 카테고리의 글이 이곳에 렌더링됩니다. -->
       </div>
 
       <!-- Outlinks -->
@@ -2543,7 +2473,9 @@
             const response = await fetch(url, { signal: AbortSignal.timeout(5000) });
             if (response.ok) {
               const xmlText = await response.text();
-              if (parseNaverRssAndRenderBlog(xmlText)) {
+              const blogOk = parseNaverRssAndRenderBlog(xmlText);
+              parseNaverRssAndRenderProperties(xmlText);
+              if (blogOk) {
                 console.log("실시간 RSS(내부 프록시)로 업데이트 완료.");
                 return;
               }
@@ -2561,7 +2493,9 @@
               const xmlText = await response.text();
               // XML 유효성 검증
               if (xmlText.includes('<rss') || xmlText.includes('<channel>') || xmlText.includes('<item>')) {
-                if (parseNaverRssAndRenderBlog(xmlText)) {
+                const blogOk = parseNaverRssAndRenderBlog(xmlText);
+                parseNaverRssAndRenderProperties(xmlText);
+                if (blogOk) {
                   console.log(`실시간 RSS(${proxyUrl})로 업데이트 완료.`);
                   return;
                 }
