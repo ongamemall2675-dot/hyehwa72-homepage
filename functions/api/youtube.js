@@ -37,6 +37,10 @@ export async function onRequest(context) {
       const publishedMatch = entry.match(/<published>([^<]+)<\/published>/);
       const descMatch = entry.match(/<media:description>([\s\S]*?)<\/media:description>/);
       const thumbMatch = entry.match(/<media:thumbnail[^>]+url="([^"]+)"/);
+      // Extract view count from media:statistics views attribute
+      const viewCountMatch = entry.match(/<media:statistics\s+views="([^"]+)"/);
+      // Extract star rating count (likes)
+      const starRatingMatch = entry.match(/<media:starRating[^>]+count="([^"]+)"/);
       
       if (videoIdMatch) {
         const videoId = videoIdMatch[1];
@@ -52,13 +56,17 @@ export async function onRequest(context) {
         const published = publishedMatch ? publishedMatch[1] : '';
         const description = descMatch ? descMatch[1] : '';
         const thumbnail = thumbMatch ? thumbMatch[1] : `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+        const viewCount = viewCountMatch ? parseInt(viewCountMatch[1], 10) : 0;
+        const likeCount = starRatingMatch ? parseInt(starRatingMatch[1], 10) : 0;
         
         videos.push({
           videoId,
           title,
           published,
           description,
-          thumbnail
+          thumbnail,
+          viewCount,
+          likeCount
         });
       }
     }
