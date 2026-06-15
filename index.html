@@ -931,6 +931,49 @@
       align-self: flex-start;
     }
 
+    /* 조회수 뱃지 — 유튜브 그리드/갤러리 카드 공통 */
+    .yt-view-count {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.82);
+      margin-top: 4px;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    }
+
+    .yt-view-count i {
+      font-size: 0.6rem;
+      opacity: 0.85;
+    }
+
+    /* 조회수 TOP 뱃지 (1위 강조) */
+    .view-rank-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #070b13;
+      font-size: 0.58rem;
+      font-weight: 900;
+      padding: 3px 7px;
+      border-radius: 50px;
+      z-index: 6;
+      letter-spacing: 0.03em;
+      box-shadow: 0 2px 8px rgba(212,175,55,0.35);
+    }
+
+    /* 블로그 카드 내 조회수 */
+    .blog-view-count {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 0.68rem;
+      color: var(--text-light);
+      margin-left: auto;
+    }
+
     /* Channel CTA row */
     .yt-channel-cta {
       display: grid;
@@ -3114,6 +3157,15 @@
 
     // Render 9 videos in a 3×3 grid
 
+    // 조회수 한국식 포맷 (12345 → 1.2만, 1234 → 1,234)
+    function formatViewCount(n) {
+      if (!n || n <= 0) return '';
+      if (n >= 100000000) return (n / 100000000).toFixed(1).replace(/\.0$/, '') + '억';
+      if (n >= 10000) return (n / 10000).toFixed(1).replace(/\.0$/, '') + '만';
+      if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + '천';
+      return n.toLocaleString();
+    }
+
     function renderYoutubeVideos() {
       const grid = document.getElementById("yt-grid-container");
       if (!grid) return;
@@ -3136,12 +3188,17 @@
           ? `<span class="yt-grid-card-badge">Shorts</span>`
           : (video.isMock ? `<span class="yt-grid-card-badge" style="background:var(--primary);color:#070b13;">준비중</span>` : "");
 
+        const viewHtml = (!video.isMock && video.viewCount > 0)
+          ? `<span class="yt-view-count"><i class="fa-solid fa-eye"></i> ${formatViewCount(video.viewCount)}회</span>`
+          : '';
+
         card.innerHTML = `
           <img src="${video.thumbnail}" referrerpolicy="no-referrer" alt="${escapeHtml(video.title)}" loading="lazy">
           <div class="yt-grid-card-play"><i class="fa-solid fa-play"></i></div>
           <div class="yt-grid-card-overlay">
             ${badgeHtml}
             <p class="yt-grid-card-title">${escapeHtml(video.title)}</p>
+            ${viewHtml}
           </div>
         `;
 
@@ -3371,6 +3428,7 @@
           <div class="gallery-overlay">
             <span class="gallery-tag">일상영상(Vlog)</span>
             <h3 class="gallery-title">${escapeHtml(vlog.title)}</h3>
+            ${(!vlog.isMock && vlog.viewCount > 0) ? `<span class="yt-view-count"><i class="fa-solid fa-eye"></i> ${formatViewCount(vlog.viewCount)}회</span>` : ''}
           </div>
         `;
         
