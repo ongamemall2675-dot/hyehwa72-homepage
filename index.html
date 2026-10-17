@@ -2331,6 +2331,32 @@
         <h2 class="title">네이버 블로그 추천 매물</h2>
       </div>
 
+      <div class="h72-live" id="h72-live" style="display:none">
+        <h3 style="margin:0 0 14px;font-size:1.15rem">🏠 혜화72 실시간 추천 매물</h3>
+        <div id="h72-live-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin-bottom:28px"></div>
+      </div>
+      <script>
+      (async () => {
+        try {
+          const L = await (await fetch('https://admin.hyehwa72.org/sync/pub/listings')).json();
+          if (!Array.isArray(L) || !L.length) return;
+          const e = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+          const won = v => { v = Number(v) || 0; if (!v) return ''; return v >= 10000 ? (v / 10000).toFixed(v % 10000 ? 1 : 0).replace(/\.0$/, '') + '억' : v.toLocaleString() + '만'; };
+          const price = p => p.price ? '매매 ' + won(p.price) : (Number(p.rent) ? `월세 ${won(p.deposit)} / ${won(p.rent)}` : (p.deposit ? '전세 ' + won(p.deposit) : '가격 문의'));
+          document.getElementById('h72-live-grid').innerHTML = L.map(p => `
+            <a href="tel:02-766-0720" style="display:block;text-decoration:none;color:inherit;border:1px solid rgba(0,0,0,.08);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.05)">
+              <div style="aspect-ratio:4/3;background:#eef1f5 ${p.thumb ? `url('${p.thumb}') center/cover` : ''};display:flex;align-items:flex-end;padding:8px">
+                <span style="background:#1f4fd8;color:#fff;border-radius:20px;padding:3px 10px;font-size:.8rem">${e(p.cat || '')}</span></div>
+              <div style="padding:12px 14px">
+                <div style="font-weight:800;font-size:1.05rem;color:#1f4fd8">${e(price(p))}</div>
+                <div style="margin-top:4px;font-size:.9rem;color:#333">${e([p.dong, p.floor, p.area_py].filter(Boolean).join(' · '))}${p.premium && /없|무/.test(p.premium) ? ' · 무권리' : ''}</div>
+                ${p.ad_desc ? `<div style="margin-top:6px;font-size:.82rem;color:#666;line-height:1.5;max-height:3.1em;overflow:hidden">${e(p.ad_desc.replace(/\n/g, ' '))}</div>` : ''}
+                <div style="margin-top:8px;font-size:.8rem;color:#999">매물번호 ${p.id} · 문의 02-766-0720</div></div></a>`).join('');
+          document.getElementById('h72-live').style.display = '';
+        } catch (err) { /* 업무관리 서버 응답 없으면 블로그 매물만 표시 */ }
+      })();
+      </script>
+
       <div class="properties-grid" id="properties-grid">
         <!-- 네이버 블로그 추천 매물 카테고리의 글이 이곳에 렌더링됩니다. -->
       </div>
