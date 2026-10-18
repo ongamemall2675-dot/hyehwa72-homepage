@@ -2076,6 +2076,16 @@
       color: var(--text-muted);
       line-height: 1.75;
     }
+
+    .staff-link {
+      display: inline-block;
+      margin-left: 12px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      opacity: 0.8;
+    }
+    .staff-link:hover { opacity: 1; text-decoration: underline; }
   </style>
 
   <!-- ===== AEO/GEO JSON-LD 구조화 데이터 ===== -->
@@ -2716,6 +2726,8 @@
     
     <div class="copyright">
       &copy; 2026 Daehakro Hyehwa72 Real Estate. All rights reserved.
+      <!-- 업무관리(admin.hyehwa72.org)는 Cloudflare Access 로그인 뒤에 있음 -->
+      <a href="https://admin.hyehwa72.org" target="_blank" rel="noopener" class="staff-link"><i class="fa-solid fa-lock"></i> 직원 업무관리</a>
     </div>
   </footer>
 
