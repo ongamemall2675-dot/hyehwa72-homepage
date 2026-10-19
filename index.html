@@ -2354,7 +2354,7 @@
           const won = v => { v = Number(v) || 0; if (!v) return ''; return v >= 10000 ? (v / 10000).toFixed(v % 10000 ? 1 : 0).replace(/\.0$/, '') + '억' : v.toLocaleString() + '만'; };
           const price = p => p.price ? '매매 ' + won(p.price) : (Number(p.rent) ? `월세 ${won(p.deposit)} / ${won(p.rent)}` : (p.deposit ? '전세 ' + won(p.deposit) : '가격 문의'));
           document.getElementById('h72-live-grid').innerHTML = L.map(p => `
-            <a href="#listing-${p.id}" onclick="event.preventDefault();h72Open(${p.id})" style="display:block;cursor:pointer;text-decoration:none;color:inherit;border:1px solid rgba(0,0,0,.08);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.05)">
+            <a href="/listing/${p.id}" onclick="event.preventDefault();h72Open(${p.id})" style="display:block;cursor:pointer;text-decoration:none;color:inherit;border:1px solid rgba(0,0,0,.08);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.05)">
               <div style="aspect-ratio:4/3;background:#eef1f5 ${p.thumb ? `url('${p.thumb}') center/cover` : ''};display:flex;align-items:flex-end;padding:8px">
                 <span style="background:#1f4fd8;color:#fff;border-radius:20px;padding:3px 10px;font-size:.8rem">${e(p.cat || '')}</span></div>
               <div style="padding:12px 14px">

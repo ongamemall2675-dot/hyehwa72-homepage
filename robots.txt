@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://hyehwa72.org/sitemap.xml
+Sitemap: https://hyehwa72.org/listings-sitemap.xml
