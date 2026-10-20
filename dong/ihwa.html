@@ -26,8 +26,8 @@ dt{font-weight:700;margin-top:14px}dd{margin:4px 0 0}
   const L = (await (await fetch('https://admin.hyehwa72.org/sync/pub/listings')).json()).filter(p => new RegExp('^이화동').test(p.dong || ''));
   if (!L.length) return;
   const e = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const won = v => { v = Number(v) || 0; if (!v) return ''; return v >= 10000 ? (v / 10000).toFixed(v % 10000 ? 1 : 0).replace(/\.0$/, '') + '억' : v.toLocaleString() + '만'; };
-  const price = p => p.price ? '매매 ' + won(p.price) : (Number(p.rent) ? '월세 ' + won(p.deposit) + ' / ' + won(p.rent) : (p.deposit ? '전세 ' + won(p.deposit) : '가격 문의'));
+  const won = v => { const m = String(v ?? '').match(/^\s*([\d,]+)/); const n = typeof v === 'number' ? v : (m ? Number(m[1].replace(/,/g, '')) : 0); if (!n) return ''; const nt = typeof v === 'number' ? '' : (/부\.?\s*미포|부별|부가세\s*별도/.test(String(v)) ? '(VAT 별도)' : ''); return (n >= 10000 ? (n / 10000).toFixed(n % 10000 ? 1 : 0).replace(/\.0$/, '') + '억' : n.toLocaleString() + '만') + (nt ? ' ' + nt : ''); };
+  const price = p => p.price ? '매매 ' + won(p.price) : (parseInt(String(p.rent ?? '').replace(/,/g, '')) ? '월세 ' + won(p.deposit) + ' / ' + won(p.rent) : (p.deposit ? '전세 ' + won(p.deposit) : '가격 문의'));
   document.getElementById('dong-live-grid').innerHTML = L.map(p => '<a href="/listing/' + p.id + '" class="box" style="display:block;margin:0;padding:0;overflow:hidden;text-decoration:none;color:inherit">'
     + '<div style="aspect-ratio:4/3;background:var(--line) ' + (p.thumb ? "url('" + p.thumb + "') center/cover" : '') + '"></div>'
     + '<div style="padding:10px 12px"><b style="color:var(--pri)">' + e(price(p)) + '</b><div class="sub">' + e([p.cat, p.dong, p.floor, p.area_py].filter(Boolean).join(' · ')) + '</div><div class="sub">매물번호 ' + p.id + ' · 자세히 ›</div></div></a>').join('');

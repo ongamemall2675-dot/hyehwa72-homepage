@@ -7,7 +7,10 @@ const OFFICE = {
   near: '혜화역 4번 출구 도보 2~3분, 우리은행 옆', reg: '11110-2021-00036', ceo: '김훈',
 };
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const won = v => { const n = Number(v); if (!n) return ''; return n >= 10000 ? `${Math.floor(n / 10000)}억${n % 10000 ? ' ' + (n % 10000).toLocaleString() + '만' : ''}원` : `${n.toLocaleString()}만원`; };
+// 10-20: 금액 칸에 '230만원(부.미포)'·'160(부별)'처럼 글자가 섞여도 앞 숫자로 표시하고 나머지는 괄호 메모로
+const numOf = v => { if (typeof v === 'number') return v; const m = String(v ?? '').match(/^\s*([\d,]+(?:\.\d+)?)/); return m ? Number(m[1].replace(/,/g, '')) : 0; };
+const noteOf = v => typeof v === 'number' ? '' : String(v ?? '').replace(/^\s*[\d,]+(?:\.\d+)?\s*(만원|만)?/, '').replace(/부\.?\s*미포|부별|부가세\s*별도/, '(부가세 별도)').trim();
+const won = v => { const n = numOf(v); if (!n) return ''; const s = n >= 10000 ? `${Math.floor(n / 10000)}억${n % 10000 ? ' ' + (n % 10000).toLocaleString() + '만' : ''}원` : `${n.toLocaleString()}만원`; const nt = noteOf(v); return nt ? `${s} ${nt}` : s; };
 const HY = [37.58218, 127.00196];
 function walk(p) {
   const v = parseInt(String(p.walk_min || '').replace(/\D/g, ''), 10);
@@ -18,7 +21,7 @@ function walk(p) {
   return { min: Math.max(1, Math.round(m * 1.3 / 70)), how: '직선거리 기준 추정' };
 }
 function info(p) {
-  const deal = p.deal || (/매매/.test(p.cat || '') ? '매매' : '월세');
+  const deal = (p.deal !== '매매' && numOf(p.rent) > 0) ? '월세' : (p.deal || (/매매/.test(p.cat || '') ? '매매' : '월세')); // 월세가 있으면 월세로
   const kind = p.sub_kind || p.bldg_type || p.cat || '매물';
   const price = deal === '매매' ? `매매가 ${won(p.price)}` : deal === '전세' ? `전세 ${won(p.deposit)}` : `보증금 ${won(p.deposit)} / 월세 ${won(p.rent)}`;
   const mg = p.mgmt == null || p.mgmt === '' ? '' : Number(p.mgmt) === 0 ? '관리비 없음' : `관리비 ${typeof p.mgmt === 'number' ? p.mgmt + '만원' : p.mgmt}`;
@@ -51,7 +54,7 @@ export async function onRequest({ params }) {
     [`이 매물은 어디에 문의하나요?`, `${OFFICE.name}(${OFFICE.tel})로 문의하시면 현장 안내와 상담을 도와드립니다. 사무소는 ${OFFICE.near}에 있습니다.`],
   ].filter(Boolean);
   const photos = (p.photos || []).slice(0, 12).map(x => `${API}/photo/${x}`);
-  const priceNum = (I.deal === '매매' ? p.price : I.deal === '전세' ? p.deposit : p.rent) || null;
+  const priceNum = numOf(I.deal === '매매' ? p.price : I.deal === '전세' ? p.deposit : p.rent) || null;
   const ld = [
     { '@context': 'https://schema.org', '@type': 'RealEstateListing', name: title, url, description: summary, datePosted: checked || undefined, image: photos.slice(0, 5),
       offers: priceNum ? { '@type': 'Offer', price: Number(priceNum) * 10000, priceCurrency: 'KRW', businessFunction: I.deal === '매매' ? 'http://purl.org/goodrelations/v1#Sell' : 'http://purl.org/goodrelations/v1#LeaseOut', availability: 'https://schema.org/InStock' } : undefined,
