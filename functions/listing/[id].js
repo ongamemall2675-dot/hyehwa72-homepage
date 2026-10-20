@@ -9,7 +9,7 @@ const OFFICE = {
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 // 10-20: 금액 칸에 '230만원(부.미포)'·'160(부별)'처럼 글자가 섞여도 앞 숫자로 표시하고 나머지는 괄호 메모로
 const numOf = v => { if (typeof v === 'number') return v; const m = String(v ?? '').match(/^\s*([\d,]+(?:\.\d+)?)/); return m ? Number(m[1].replace(/,/g, '')) : 0; };
-const noteOf = v => typeof v === 'number' ? '' : String(v ?? '').replace(/^\s*[\d,]+(?:\.\d+)?\s*(만원|만)?/, '').replace(/부\.?\s*미포|부별|부가세\s*별도/, '(부가세 별도)').trim();
+const noteOf = v => typeof v === 'number' ? '' : String(v ?? '').replace(/^\s*[\d,]+(?:\.\d+)?\s*(만원|만)?/, '').replace(/\(?\s*(부\.?\s*미포|부별|부가세\s*별도)\s*\)?/, '(부가세 별도)').trim();
 const won = v => { const n = numOf(v); if (!n) return ''; const s = n >= 10000 ? `${Math.floor(n / 10000)}억${n % 10000 ? ' ' + (n % 10000).toLocaleString() + '만' : ''}원` : `${n.toLocaleString()}만원`; const nt = noteOf(v); return nt ? `${s} ${nt}` : s; };
 const HY = [37.58218, 127.00196];
 function walk(p) {
