@@ -2086,6 +2086,17 @@
       opacity: 0.8;
     }
     .staff-link:hover { opacity: 1; text-decoration: underline; }
+  /* 2026-10-20 모바일 상단 정리: 로고 글자가 한 글자씩 세로로 깨지고 방문자 배지·검색창이 겹치던 문제 */
+    .logo { white-space: nowrap; }
+    @media (max-width: 640px) {
+      .navbar { padding: 0 4%; gap: 8px; }
+      .logo { font-size: 1.05rem; gap: 6px; flex-shrink: 0; }
+      .logo span { display: none; }
+      .visitor-badge { display: none !important; }
+      .nav-actions { gap: 8px; min-width: 0; }
+      .search-box-container { display: none; }
+      .btn-contact-top span { display: none; }
+    }
   </style>
 
   <!-- ===== AEO/GEO JSON-LD 구조화 데이터 ===== -->
@@ -2096,8 +2107,10 @@
       {
         "@type": "RealEstateAgent",
         "@id": "https://hyehwa72.org/#business",
-        "name": "대학로 혜화72 공인중개사 사무소",
-        "alternateName": ["혜화72", "대학로 혜화72 부동산", "혜화72 부동산", "대학로혜화72"],
+        "name": "대학로혜화72공인중개사사무소",
+        "legalName": "대학로혜화72공인중개사사무소",
+        "alternateName": ["대학로 혜화72 공인중개사 사무소", "혜화72 부동산", "대학로 혜화72 부동산", "혜화72"],
+        "identifier": { "@type": "PropertyValue", "name": "중개사무소 등록번호", "value": "11110-2021-00036" },
         "description": "혜화동·대학로 전문 공인중개사 김훈의 대학로 혜화72 공인중개사 사무소입니다. 상가, 주택, 오피스텔, 한옥 임대·매매 중개를 전문으로 합니다. 유튜브 채널과 네이버 블로그를 통해 최신 매물 정보를 투명하게 공개합니다.",
         "url": "https://hyehwa72.org/",
         "image": "https://hyehwa72.org/profile.jpg",
@@ -2105,27 +2118,28 @@
           "@type": "ImageObject",
           "url": "https://hyehwa72.org/profile.jpg"
         },
-        "telephone": ["+82-10-3160-2675", "+82-2-766-0720"],
+        "telephone": "+82-2-766-0720",
+        "contactPoint": [{ "@type": "ContactPoint", "telephone": "+82-2-766-0720", "contactType": "대표전화", "areaServed": "KR", "availableLanguage": "ko" }, { "@type": "ContactPoint", "telephone": "+82-10-3160-2675", "contactType": "휴대폰·문자(대표 김훈)", "areaServed": "KR", "availableLanguage": "ko" }],
         "email": "ongamemall@naver.com",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "창경궁로 266 1층",
+          "streetAddress": "창경궁로 266, 복지빌딩 1층 (혜화동)",
           "addressLocality": "종로구",
           "addressRegion": "서울특별시",
-          "postalCode": "03083",
+          "postalCode": "03077",
           "addressCountry": "KR"
         },
         "geo": {
           "@type": "GeoCoordinates",
-          "latitude": 37.5824,
-          "longitude": 126.9993
+          "latitude": 37.58479,
+          "longitude": 127.00084
         },
         "openingHoursSpecification": [
           {
             "@type": "OpeningHoursSpecification",
             "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
-            "opens": "09:00",
-            "closes": "18:00"
+            "opens": "10:00",
+            "closes": "19:00"
           }
         ],
         "areaServed": {
@@ -2149,7 +2163,7 @@
         "@id": "https://hyehwa72.org/#person-kimhun",
         "name": "김훈",
         "jobTitle": "공인중개사 & 유튜브 크리에이터",
-        "description": "혜화동 토박이로 혜화초등학교 72회 졸업생. 혜화동에서 13년 이상 공인중개사로 활동하며 대학로 혜화72 공인중개사 사무소를 운영하고 있습니다. 유튜브와 네이버 블로그를 통해 혜화동·대학로 부동산 정보를 공유하는 크리에이터입니다.",
+        "description": "혜화동 토박이로 혜화초등학교 72회 졸업생. 혜화동에서 15년째 공인중개사로 활동하며 대학로 혜화72 공인중개사 사무소를 운영하고 있습니다. 유튜브와 네이버 블로그를 통해 혜화동·대학로 부동산 정보를 공유하는 크리에이터입니다.",
         "worksFor": { "@id": "https://hyehwa72.org/#business" },
         "knowsAbout": ["혜화동 부동산", "대학로 상가 임대", "한옥 주택 중개", "종로구 오피스텔", "부동산 법률 컨설팅", "부동산 중개"],
         "sameAs": [
@@ -2166,7 +2180,7 @@
             "name": "대학로 혜화72 공인중개사 사무소 연락처는 어떻게 되나요?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "대학로 혜화72 공인중개사 사무소의 연락처는 휴대폰 010-3160-2675, 사무실 02-766-0720입니다. 카카오톡 채널을 통한 채팅 문의도 가능합니다. 사무소 주소는 서울 종로구 창경궁로 266 1층이며, 혜화역 4번 출구에서 도보 2~3분, 우리은행 바로 옆입니다."
+              "text": "대학로 혜화72 공인중개사 사무소의 대표전화는 02-766-0720이며, 휴대폰·문자는 010-3160-2675(대표 김훈)입니다. 카카오톡 채널을 통한 채팅 문의도 가능합니다. 사무소 주소는 서울 종로구 창경궁로 266 1층이며, 혜화역 4번 출구에서 도보 2~3분, 우리은행 바로 옆입니다."
             }
           },
           {
@@ -2267,7 +2281,7 @@
       </button>
       
       <!-- Top contact link -->
-      <a href="tel:010-3160-2675" class="btn-contact-top">
+      <a href="tel:02-766-0720" class="btn-contact-top">
         <i class="fa-solid fa-phone"></i>
         <span>전화 상담</span>
       </a>
@@ -2292,7 +2306,7 @@
         </div>
         
         <div class="profile-contacts">
-          <a href="tel:010-3160-2675" class="profile-contact-btn">
+          <a href="tel:02-766-0720" class="profile-contact-btn">
             <i class="fa-solid fa-phone"></i>
             <span>전화 상담</span>
           </a>
@@ -2432,12 +2446,12 @@
 
       <!-- Outlinks -->
       <div class="property-outlinks-grid">
-        <a href="https://new.land.naver.com/houses?ms=2AMLqo,3ziDez,19&amp;a=DDDGG:JWJT:SGJT:VL&amp;e=RETAIL&amp;articleNo=2627544486&amp;realtorId=sungshinhana" target="_blank" class="property-outlink-card naver-out">
+        <a href="https://map.naver.com/p/entry/place/1756757051" target="_blank" class="property-outlink-card naver-out">
           <div class="property-outlink-left">
             <i class="fa-solid fa-map-location-dot property-outlink-icon"></i>
             <div class="property-outlink-text">
-              <h4>네이버 부동산에서 혜화동 매물 더 보기</h4>
-              <p>네이버 부동산에 등록된 혜화역 인근 실시간 전체 매물 목록</p>
+              <h4>네이버 지도에서 사무소 보기</h4>
+              <p>위치·영업시간·길찾기 (혜화역 4번 출구 도보 2~3분)</p>
             </div>
           </div>
           <i class="fa-solid fa-chevron-right property-outlink-arrow"></i>
@@ -2584,7 +2598,7 @@
             <i class="fa-solid fa-chevron-down faq-chevron"></i>
           </button>
           <div class="faq-answer" id="faq-ans-1" role="region" aria-labelledby="faq-btn-1" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-            <p class="faq-answer-inner" itemprop="text">대학로 혜화72 공인중개사 사무소의 연락처는 휴대폰 <strong>010-3160-2675</strong>, 사무실 <strong>02-766-0720</strong>입니다. 카카오톡 채널을 통한 채팅 문의도 가능합니다. 사무소 주소는 서울 종로구 창경궁로 266 1층이며, 혜화역 4번 출구에서 도보 2~3분, 우리은행 바로 옆입니다.</p>
+            <p class="faq-answer-inner" itemprop="text">대학로 혜화72 공인중개사 사무소의 대표전화는 <strong>02-766-0720</strong>이며, 휴대폰·문자는 <strong>010-3160-2675</strong>(대표 김훈)입니다. 카카오톡 채널을 통한 채팅 문의도 가능합니다. 사무소 주소는 서울 종로구 창경궁로 266 1층이며, 혜화역 4번 출구에서 도보 2~3분, 우리은행 바로 옆입니다.</p>
           </div>
         </div>
 
@@ -2673,9 +2687,16 @@
       </div>
 
       <div class="contact-grid">
-        <!-- Call -->
-        <a href="tel:010-3160-2675" class="contact-card">
+        <!-- 대표전화 (2026-10-20 대표번호 02-766-0720로 통일) -->
+        <a href="tel:02-766-0720" class="contact-card">
           <i class="fa-solid fa-phone"></i>
+          <span class="contact-label">대표전화</span>
+          <span class="contact-val">02-766-0720</span>
+        </a>
+
+        <!-- Mobile -->
+        <a href="tel:010-3160-2675" class="contact-card">
+          <i class="fa-solid fa-mobile-screen"></i>
           <span class="contact-label">대표 휴대폰</span>
           <span class="contact-val">010-3160-2675</span>
         </a>
@@ -2685,13 +2706,6 @@
           <i class="fa-solid fa-envelope-open-text"></i>
           <span class="contact-label">문자 문의</span>
           <span class="contact-val">메시지 보내기</span>
-        </a>
-
-        <!-- Landline -->
-        <a href="tel:02-766-0720" class="contact-card">
-          <i class="fa-solid fa-building-user"></i>
-          <span class="contact-label">사무실 전화</span>
-          <span class="contact-val">02-766-0720</span>
         </a>
 
         <!-- Map Location -->
@@ -2714,8 +2728,9 @@
           대학로 혜화72<span>공인중개사 사무소</span>
         </h3>
         <p class="footer-info">
-          상호: 대학로 혜화72 공인중개사 사무소 | 대표: 김훈 | 개설등록번호: 제 11110-2021-00036 호<br>
-          주소: 서울 종로구 창경궁로 266 (혜화동) 1층 | 연락처: 010-3160-2675, 02-766-0720
+          상호: 대학로혜화72공인중개사사무소 | 대표: 김훈 | 개설등록번호: 제 11110-2021-00036 호<br>
+          주소: 서울 종로구 창경궁로 266, 복지빌딩 1층 (혜화동) · 혜화역 4번 출구 도보 2~3분 | 대표전화: 02-766-0720 · 휴대폰 010-3160-2675
+        <br>동네별 시세·매물: <a href="/dong/hyehwa">혜화동</a> · <a href="/dong/myeongnyun">명륜동</a> · <a href="/dong/dongsung">동숭동</a> · <a href="/dong/ihwa">이화동</a> · <a href="/dong/yeongeon">연건동</a>
         </p>
       </div>
       <div>
@@ -3021,6 +3036,13 @@
           
           if (NAVER_BLOG_PROPERTY_CATEGORY_NO || !PROPERTY_CATEGORY_NAME || cleanCategory === cleanFilter) {
             matchedItems.push(item);
+          }
+        }
+        // 2026-10-20: '추천 매물' 카테고리 글이 없으면 칸이 비던 문제 → 최근 매물 글(제목에 거래·매물 단어)로 대신 채움
+        if (!matchedItems.length) {
+          for (let i = 0; i < items.length; i++) {
+            const t = items[i].querySelector("title")?.textContent || "";
+            if (/월세|전세|매매|보증금|상가|사무실|원룸|투룸|빌라|주택|오피스텔/.test(t)) matchedItems.push(items[i]);
           }
         }
         
