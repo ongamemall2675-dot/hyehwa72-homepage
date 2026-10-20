@@ -2351,12 +2351,12 @@
     <!-- 3. Real Estate Listings Section (추천 매물 쇼케이스) -->
     <section id="properties">
       <div class="section-header">
-        <span class="subtitle">NAVER BLOG LISTINGS</span>
-        <h2 class="title">네이버 블로그 추천 매물</h2>
+        <span class="subtitle">HYEHWA72 LISTINGS</span>
+        <h2 class="title">혜화72 추천 매물</h2>
       </div>
 
       <div class="h72-live" id="h72-live" style="display:none">
-        <h3 style="margin:0 0 14px;font-size:1.15rem">🏠 혜화72 실시간 추천 매물</h3>
+        <h3 style="margin:0 0 14px;font-size:1.15rem">🏠 지금 계약 가능한 매물</h3>
         <div id="h72-live-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin-bottom:28px"></div>
       </div>
       <script>
@@ -2440,6 +2440,7 @@
       })();
       </script>
 
+      <h3 id="blog-prop-h" style="display:none;margin:0 0 14px;font-size:1.05rem;opacity:.85">📝 네이버 블로그 매물 소개</h3>
       <div class="properties-grid" id="properties-grid">
         <!-- 네이버 블로그 추천 매물 카테고리의 글이 이곳에 렌더링됩니다. -->
       </div>
@@ -3048,6 +3049,7 @@
         
         if (matchedItems.length > 0) {
           propertiesGrid.innerHTML = "";
+          const bh = document.getElementById("blog-prop-h"); if (bh) bh.style.display = "";
           // 최대 3개 추천매물 카드 노출
           const limit = Math.min(matchedItems.length, 3);
           for (let i = 0; i < limit; i++) {

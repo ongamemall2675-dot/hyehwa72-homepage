@@ -20,6 +20,20 @@ dt{font-weight:700;margin-top:14px}dd{margin:4px 0 0}
 <h1>혜화동 부동산 시세와 매물 안내</h1>
 <p class="sub">2026년 10월 20일 기준 · 작성 혜화동 토박이 15년차 대표 공인중개사 김훈 (중개사무소 등록번호 11110-2021-00036)</p>
 <div class="box"><b>요약</b><br>대학로혜화72공인중개사사무소가 있는 동네로, 혜화역 4번 출구·혜화로터리·창경궁로 주변입니다. 최근 1년 동안 저희 사무소에 들어온 혜화동 매물은 113건이고, 가장 많은 것은 원룸 월세(57건)입니다. 상가 월세 중간값은 보증금 3,000만원 / 월세 225만원입니다.</div>
+<div id="dong-live" style="display:none"><h2>지금 계약 가능한 매물</h2><div id="dong-live-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px"></div></div>
+<script>
+(async () => { try {
+  const L = (await (await fetch('https://admin.hyehwa72.org/sync/pub/listings')).json()).filter(p => new RegExp('^혜화동').test(p.dong || ''));
+  if (!L.length) return;
+  const e = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const won = v => { v = Number(v) || 0; if (!v) return ''; return v >= 10000 ? (v / 10000).toFixed(v % 10000 ? 1 : 0).replace(/\.0$/, '') + '억' : v.toLocaleString() + '만'; };
+  const price = p => p.price ? '매매 ' + won(p.price) : (Number(p.rent) ? '월세 ' + won(p.deposit) + ' / ' + won(p.rent) : (p.deposit ? '전세 ' + won(p.deposit) : '가격 문의'));
+  document.getElementById('dong-live-grid').innerHTML = L.map(p => '<a href="/listing/' + p.id + '" class="box" style="display:block;margin:0;padding:0;overflow:hidden;text-decoration:none;color:inherit">'
+    + '<div style="aspect-ratio:4/3;background:var(--line) ' + (p.thumb ? "url('" + p.thumb + "') center/cover" : '') + '"></div>'
+    + '<div style="padding:10px 12px"><b style="color:var(--pri)">' + e(price(p)) + '</b><div class="sub">' + e([p.cat, p.dong, p.floor, p.area_py].filter(Boolean).join(' · ')) + '</div><div class="sub">매물번호 ' + p.id + ' · 자세히 ›</div></div></a>').join('');
+  document.getElementById('dong-live').style.display = '';
+} catch (err) {} })();
+</script>
 <h2>혜화동 월세·전세 시세는 얼마인가요?</h2>
 <table><thead><tr><th>종류</th><th>거래</th><th>희망 가격 중간값</th><th>건수</th></tr></thead><tbody>
 <tr><td>원룸</td><td>월세</td><td>보증금 1,000만원 / 월세 60만원</td><td>57건</td></tr>
