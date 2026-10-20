@@ -10,6 +10,7 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': 
 // 10-20: 금액 칸에 '230만원(부.미포)'·'160(부별)'처럼 글자가 섞여도 앞 숫자로 표시하고 나머지는 괄호 메모로
 const numOf = v => { if (typeof v === 'number') return v; const m = String(v ?? '').match(/^\s*([\d,]+(?:\.\d+)?)/); return m ? Number(m[1].replace(/,/g, '')) : 0; };
 const noteOf = v => typeof v === 'number' ? '' : String(v ?? '').replace(/^\s*[\d,]+(?:\.\d+)?\s*(만원|만)?/, '').replace(/\(?\s*(부\.?\s*미포|부별|부가세\s*별도)\s*\)?/, '(부가세 별도)').trim();
+const sampleKey = p => { const t = [p.bldg_type, p.cat, p.sub_kind].join(' '), f = String(p.floor || '') + ' ' + (p.sub_kind || ''); if (/상가/.test(t)) return /지하|B\d/i.test(f) ? 'shop_basement' : /(^|\D)1\s*[층,.~]|1층/.test(f) && !/2층 이상/.test(f) ? 'shop_1f' : 'shop_upper'; if (/사무실|지식산업/.test(t)) return 'office'; if (/원룸|오피스텔/.test(t)) return 'oneroom'; if (/건물/.test(t)) return 'building'; if (/빌라|아파트|주택|다가구|단독|투룸|3룸/.test(t)) return 'house'; return 'shop_1f'; };
 const won = v => { const n = numOf(v); if (!n) return ''; const s = n >= 10000 ? `${Math.floor(n / 10000)}억${n % 10000 ? ' ' + (n % 10000).toLocaleString() + '만' : ''}원` : `${n.toLocaleString()}만원`; const nt = noteOf(v); return nt ? `${s} ${nt}` : s; };
 const HY = [37.58218, 127.00196];
 function walk(p) {
@@ -88,7 +89,7 @@ footer{font-size:13px;color:#7A6A5E;border-top:1px solid #E4D8C6;padding:18px 0 
 <p class="sum">${esc(summary)}</p>
 <h2>매물 한눈에 보기</h2><table>${rows.map(([k, v]) => `<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join('')}</table>
 ${desc ? `<h2>매물 설명</h2><p>${desc}</p>` : ''}
-${photos.length ? `<h2>사진</h2><div class="ph">${photos.map((s, i) => `<img src="${s}" alt="${esc(I.where + ' ' + I.kind + ' 사진 ' + (i + 1))}" loading="lazy">`).join('')}</div>` : ''}
+${photos.length ? `<h2>사진</h2><div class="ph">${photos.map((s, i) => `<img src="${s}" alt="${esc(I.where + ' ' + I.kind + ' 사진 ' + (i + 1))}" loading="lazy">`).join('')}</div>` : `<h2>사진</h2><figure style="margin:0"><img src="/img/sample/${sampleKey(p)}.jpg" alt="견본 이미지 - 실제 매물 사진 아님" loading="lazy" onerror="this.closest('figure').remove()" style="width:100%;max-width:640px;border-radius:10px"><figcaption style="color:#c0392b;font-weight:700;font-size:.9rem;margin-top:6px">⚠ 견본 이미지(AI 생성, 같은 종류 공간의 예시)입니다. 실제 매물 사진이 아니며, 현장 사진은 문의 시 안내해 드립니다.</figcaption></figure>`}
 ${p.youtube_url || p.shorts_url ? `<h2>영상</h2><p><a href="${esc(p.youtube_url || p.shorts_url)}" rel="noopener" target="_blank">매물 영상 보기</a></p>` : ''}
 <h2>자주 묻는 질문</h2><dl class="faq">${faq.map(([q, a]) => `<dt>Q. ${esc(q)}</dt><dd>A. ${esc(a)}</dd>`).join('')}</dl>
 <div class="box"><b>이 매물, 직접 보고 싶으신가요?</b><br>혜화동 토박이 15년, ${OFFICE.name}가 현장 안내와 상담을 도와드립니다.<br><a class="call" href="tel:027660720" style="display:inline-block;margin-top:10px">☎ ${OFFICE.tel}</a> <a href="/#listings" style="color:#F6EADB;margin-left:10px">다른 매물 보기</a></div>
