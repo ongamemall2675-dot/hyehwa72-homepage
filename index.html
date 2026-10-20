@@ -2369,8 +2369,9 @@
           const price = p => p.price ? '매매 ' + won(p.price) : (parseInt(String(p.rent ?? '').replace(/,/g, '')) ? `월세 ${won(p.deposit)} / ${won(p.rent)}` : (p.deposit ? '전세 ' + won(p.deposit) : '가격 문의'));
           document.getElementById('h72-live-grid').innerHTML = L.map(p => `
             <a href="/listing/${p.id}" onclick="event.preventDefault();h72Open(${p.id})" style="display:block;cursor:pointer;text-decoration:none;color:inherit;border:1px solid rgba(0,0,0,.08);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.05)">
-              <div style="aspect-ratio:4/3;background:#eef1f5 ${p.thumb ? `url('${p.thumb}') center/cover` : ''};display:flex;align-items:flex-end;padding:8px">
-                <span style="background:#1f4fd8;color:#fff;border-radius:20px;padding:3px 10px;font-size:.8rem">${e(p.cat || '')}</span></div>
+              <div style="aspect-ratio:4/3;background:${p.thumb ? `#eef1f5 url('${p.thumb}') center/cover` : 'linear-gradient(135deg,#1e2b45,#3b4f7a)'};display:flex;flex-direction:column;justify-content:space-between;padding:8px">
+                ${p.thumb ? '<span></span>' : `<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;gap:4px"><div style="font-size:1.6rem">📷</div><div style="font-weight:700">현장 사진 준비 중</div><div style="font-size:.82rem;opacity:.85">${e([p.dong, p.floor].filter(Boolean).join(' · '))}</div><div style="font-size:.75rem;opacity:.7">방문 안내 02-766-0720</div></div>`}
+                <span style="align-self:flex-start;background:#1f4fd8;color:#fff;border-radius:20px;padding:3px 10px;font-size:.8rem">${e(p.cat || '')}</span></div>
               <div style="padding:12px 14px">
                 <div style="font-weight:800;font-size:1.05rem;color:#1f4fd8">${e(price(p))}</div>
                 <div style="margin-top:4px;font-size:.9rem;color:#333">${e([p.dong, p.floor, p.area_py].filter(Boolean).join(' · '))}${p.premium && /없|무/.test(p.premium) ? ' · 무권리' : ''}</div>
