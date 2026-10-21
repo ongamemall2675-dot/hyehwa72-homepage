@@ -1,1 +1,1 @@
-매물 견본 이미지(AI 생성, 실제 사진 아님). 현장 사진이 없는 매물에만 "견본 이미지" 표시와 함께 홈페이지에서 사용. 광고 플랫폼·구조화 데이터(JSON-LD)·og:image에는 쓰지 않음. 파일: shop_1f, shop_upper, shop_basement, office, oneroom, house, building (.jpg). 원본: 보관소 99_보관/첨부/sample_<key>.jpg
+매물 견본 이미지(AI 생성). 현장 사진이 없는 매물에만 "견본 이미지" 표시와 함께 홈페이지에서 사용. 광고 플랫폼·구조화 데이터(JSON-LD)·og:image에는 쓰지 않음. 파일: shop_1f, shop_upper, shop_basement, office, oneroom, house, building (.jpg). 원본: 보관소 99_보관/첨부/sample_<key>.jpg
