@@ -2376,7 +2376,7 @@
             <a href="/listing/${p.id}" onclick="event.preventDefault();h72Open(${p.id})" style="display:block;cursor:pointer;text-decoration:none;color:inherit;border:1px solid rgba(0,0,0,.08);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.05)">
               <div style="aspect-ratio:4/3;background:${p.thumb ? `#eef1f5 url('${p.thumb}') center/cover` : `linear-gradient(rgba(20,28,45,.55),rgba(20,28,45,.55)), url('/img/sample/${sampleKey(p)}.jpg') center/cover, linear-gradient(135deg,#1e2b45,#3b4f7a)`};display:flex;flex-direction:column;justify-content:space-between;padding:8px">
                 ${p.thumb ? '<span></span>' : `<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;gap:4px"><div style="font-size:.72rem;background:#fff;color:#c0392b;font-weight:800;border-radius:6px;padding:2px 8px">견본 이미지</div><div style="font-weight:700;margin-top:4px">현장 사진 준비 중</div><div style="font-size:.82rem;opacity:.85">${e([p.dong, p.floor].filter(Boolean).join(' · '))}</div><div style="font-size:.75rem;opacity:.7">방문 안내 02-766-0720</div></div>`}
-                <span style="align-self:flex-start;background:#1f4fd8;color:#fff;border-radius:20px;padding:3px 10px;font-size:.8rem">${e(p.cat || '')}</span></div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap">${p.hp_pick ? `<span style="background:${p.hp_pick === '급매' ? '#e8590c' : '#f59f00'};color:#fff;border-radius:20px;padding:3px 10px;font-size:.8rem;font-weight:800">${p.hp_pick === '급매' ? '🔥 급매' : '⭐ 추천'}</span>` : ''}<span style="background:#1f4fd8;color:#fff;border-radius:20px;padding:3px 10px;font-size:.8rem">${e(p.cat || '')}</span></div></div>
               <div style="padding:12px 14px">
                 <div style="font-weight:800;font-size:1.05rem;color:#1f4fd8">${e(price(p))}</div>
                 <div style="margin-top:4px;font-size:.9rem;color:#333">${e([p.dong, p.floor, p.area_py].filter(Boolean).join(' · '))}${p.premium && /없|무/.test(p.premium) ? ' · 무권리' : ''}</div>
@@ -2388,12 +2388,23 @@
           const groups = GROUPS.map(([k, label]) => [k, label, L.filter(p => p.cat === k)]);
           groups.push(['etc', '기타 매물', L.filter(p => !known.has(p.cat))]);
           const shown = groups.filter(g => g[2].length);
-          document.getElementById('h72-live-nav').innerHTML = shown.length > 1 ? shown.map(([k, label, arr]) => `<a href="#h72-cat-${k}" style="padding:6px 14px;border-radius:20px;background:#eef2fb;color:#1f4fd8;font-size:.9rem;font-weight:700;text-decoration:none">${e(label)} ${arr.length}</a>`).join('') : '';
-          document.getElementById('h72-live-grid').innerHTML = shown.map(([k, label, arr]) => `
+          // 첫 화면: 분류마다 8개(추천·급매 먼저, 다음 최신 접수순 — 서버가 정렬) + [전체 보기]. 분류를 누르면 그 분류 매물을 전부 보여 준다 (2026-10-21 대표 결정)
+          const PER = 8, chip = on => `padding:6px 14px;border-radius:20px;border:0;cursor:pointer;font-size:.9rem;font-weight:700;background:${on ? '#1f4fd8' : '#eef2fb'};color:${on ? '#fff' : '#1f4fd8'}`;
+          const grid = arr => `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px">${arr.map(card).join('')}</div>`;
+          window.h72Cat = (sel, scroll) => {
+            document.getElementById('h72-live-nav').innerHTML = shown.length > 1 ? `<button type="button" onclick="h72Cat(null,1)" style="${chip(!sel)}">전체 분류</button>` + shown.map(([k, label, arr]) => `<button type="button" onclick="h72Cat('${k}',1)" style="${chip(sel === k)}">${e(label)} ${arr.length}</button>`).join('') : '';
+            document.getElementById('h72-live-grid').innerHTML = shown.filter(g => !sel || g[0] === sel).map(([k, label, arr]) => `
             <div id="h72-cat-${k}" style="scroll-margin-top:90px;margin-bottom:26px">
               <h4 style="margin:0 0 12px;font-size:1.05rem">혜화동·대학로 ${e(label)} <span style="color:#1f4fd8">${arr.length}건</span></h4>
-              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px">${arr.map(card).join('')}</div>
+              ${grid(sel ? arr : arr.slice(0, PER))}
+              ${!sel && arr.length > PER ? `<div style="text-align:center;margin-top:14px"><button type="button" onclick="h72Cat('${k}',1)" style="${chip(false)};padding:10px 22px">${e(label)} 전체 ${arr.length}건 보기 ›</button></div>` : ''}
+              ${sel ? `<div style="text-align:center;margin-top:14px"><button type="button" onclick="h72Cat(null,1)" style="${chip(false)};padding:10px 22px">‹ 다른 분류도 보기</button></div>` : ''}
             </div>`).join('');
+            if (scroll) document.getElementById('h72-live').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            try { history.replaceState(null, '', sel ? '#cat-' + sel : location.pathname + location.search); } catch {}
+          };
+          const hc = location.hash.match(/^#cat-(.+)$/), hk = hc && decodeURIComponent(hc[1]);
+          h72Cat(shown.some(g => g[0] === hk) ? hk : null);
           document.getElementById('h72-live').style.display = '';
           const m = location.hash.match(/^#listing-(\d+)$/); if (m) h72Open(+m[1]);
         } catch (err) { /* 업무관리 서버 응답 없으면 블로그 매물만 표시 */ }
