@@ -2357,18 +2357,22 @@
 
       <div class="h72-live" id="h72-live" style="display:none">
         <h3 style="margin:0 0 14px;font-size:1.15rem">🏠 지금 계약 가능한 매물</h3>
-        <div id="h72-live-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin-bottom:28px"></div>
+        <div id="h72-live-nav" style="display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px"></div>
+        <div id="h72-live-grid" style="margin-bottom:28px"></div>
       </div>
       <script>
       (async () => {
         try {
-          const L = await (await fetch('https://admin.hyehwa72.org/sync/pub/listings')).json();
-          if (!Array.isArray(L) || !L.length) return;
+          const L0 = await (await fetch('https://admin.hyehwa72.org/sync/pub/listings')).json();
+          if (!Array.isArray(L0)) return;
+          // 원룸은 회전이 빨라 홈페이지 목록에서 뺀다 (2026-10-21 대표 결정)
+          const L = L0.filter(p => p.cat !== '원룸임대');
+          if (!L.length) return;
           const e = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
           const won = v => { const m = String(v ?? '').match(/^\s*([\d,]+)/); const n = typeof v === 'number' ? v : (m ? Number(m[1].replace(/,/g, '')) : 0); if (!n) return ''; const nt = typeof v === 'number' ? '' : (/부\.?\s*미포|부별|부가세\s*별도/.test(String(v)) ? '(VAT 별도)' : ''); return (n >= 10000 ? (n / 10000).toFixed(n % 10000 ? 1 : 0).replace(/\.0$/, '') + '억' : n.toLocaleString() + '만') + (nt ? ' ' + nt : ''); };
           const sampleKey = p => { const t = [p.bldg_type, p.cat, p.sub_kind].join(' '), f = String(p.floor || '') + ' ' + (p.sub_kind || ''); if (/상가/.test(t)) return /지하|B\d/i.test(f) ? 'shop_basement' : /(^|\D)1\s*[층,.~]|1층/.test(f) && !/2층 이상/.test(f) ? 'shop_1f' : 'shop_upper'; if (/사무실|지식산업/.test(t)) return 'office'; if (/원룸|오피스텔/.test(t)) return 'oneroom'; if (/건물/.test(t)) return 'building'; if (/빌라|아파트|주택|다가구|단독|투룸|3룸/.test(t)) return 'house'; return 'shop_1f'; };
           const price = p => p.price ? '매매 ' + won(p.price) : (parseInt(String(p.rent ?? '').replace(/,/g, '')) ? `월세 ${won(p.deposit)} / ${won(p.rent)}` : (p.deposit ? '전세 ' + won(p.deposit) : '가격 문의'));
-          document.getElementById('h72-live-grid').innerHTML = L.map(p => `
+          const card = p => `
             <a href="/listing/${p.id}" onclick="event.preventDefault();h72Open(${p.id})" style="display:block;cursor:pointer;text-decoration:none;color:inherit;border:1px solid rgba(0,0,0,.08);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.05)">
               <div style="aspect-ratio:4/3;background:${p.thumb ? `#eef1f5 url('${p.thumb}') center/cover` : `linear-gradient(rgba(20,28,45,.55),rgba(20,28,45,.55)), url('/img/sample/${sampleKey(p)}.jpg') center/cover, linear-gradient(135deg,#1e2b45,#3b4f7a)`};display:flex;flex-direction:column;justify-content:space-between;padding:8px">
                 ${p.thumb ? '<span></span>' : `<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;gap:4px"><div style="font-size:.72rem;background:#fff;color:#c0392b;font-weight:800;border-radius:6px;padding:2px 8px">견본 이미지 · 실제 매물 아님</div><div style="font-weight:700;margin-top:4px">현장 사진 준비 중</div><div style="font-size:.82rem;opacity:.85">${e([p.dong, p.floor].filter(Boolean).join(' · '))}</div><div style="font-size:.75rem;opacity:.7">방문 안내 02-766-0720</div></div>`}
@@ -2377,7 +2381,19 @@
                 <div style="font-weight:800;font-size:1.05rem;color:#1f4fd8">${e(price(p))}</div>
                 <div style="margin-top:4px;font-size:.9rem;color:#333">${e([p.dong, p.floor, p.area_py].filter(Boolean).join(' · '))}${p.premium && /없|무/.test(p.premium) ? ' · 무권리' : ''}</div>
                 ${p.ad_desc ? `<div style="margin-top:6px;font-size:.82rem;color:#666;line-height:1.5;max-height:3.1em;overflow:hidden">${e(p.ad_desc.replace(/\n/g, ' '))}</div>` : ''}
-                <div style="margin-top:8px;font-size:.8rem;color:#999">매물번호 ${p.id} · 자세히 보기 ›</div></div></a>`).join('');
+                <div style="margin-top:8px;font-size:.8rem;color:#999">매물번호 ${p.id} · 자세히 보기 ›</div></div></a>`;
+          // 분류별로 묶어서 보여 준다. 순서 = 사무소 주력 순
+          const GROUPS = [['상가임대', '상가 임대'], ['사무실임대', '사무실 임대'], ['건물매매', '건물 매매'], ['단독다가구매매', '단독·다가구 매매'], ['빌라연립매매', '빌라·연립 매매'], ['아파트', '아파트'], ['오피스텔', '오피스텔'], ['투룸임대', '투룸 임대'], ['3룸이상임대', '3룸 이상 임대']];
+          const known = new Set(GROUPS.map(g => g[0]));
+          const groups = GROUPS.map(([k, label]) => [k, label, L.filter(p => p.cat === k)]);
+          groups.push(['etc', '기타 매물', L.filter(p => !known.has(p.cat))]);
+          const shown = groups.filter(g => g[2].length);
+          document.getElementById('h72-live-nav').innerHTML = shown.length > 1 ? shown.map(([k, label, arr]) => `<a href="#h72-cat-${k}" style="padding:6px 14px;border-radius:20px;background:#eef2fb;color:#1f4fd8;font-size:.9rem;font-weight:700;text-decoration:none">${e(label)} ${arr.length}</a>`).join('') : '';
+          document.getElementById('h72-live-grid').innerHTML = shown.map(([k, label, arr]) => `
+            <div id="h72-cat-${k}" style="scroll-margin-top:90px;margin-bottom:26px">
+              <h4 style="margin:0 0 12px;font-size:1.05rem">혜화동·대학로 ${e(label)} <span style="color:#1f4fd8">${arr.length}건</span></h4>
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px">${arr.map(card).join('')}</div>
+            </div>`).join('');
           document.getElementById('h72-live').style.display = '';
           const m = location.hash.match(/^#listing-(\d+)$/); if (m) h72Open(+m[1]);
         } catch (err) { /* 업무관리 서버 응답 없으면 블로그 매물만 표시 */ }
