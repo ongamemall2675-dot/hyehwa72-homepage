@@ -2400,7 +2400,7 @@
               ${!sel && arr.length > PER ? `<div style="text-align:center;margin-top:14px"><button type="button" onclick="h72Cat('${k}',1)" style="${chip(false)};padding:10px 22px">${e(label)} 전체 ${arr.length}건 보기 ›</button></div>` : ''}
               ${sel ? `<div style="text-align:center;margin-top:14px"><button type="button" onclick="h72Cat(null,1)" style="${chip(false)};padding:10px 22px">‹ 다른 분류도 보기</button></div>` : ''}
             </div>`).join('');
-            if (scroll) document.getElementById('h72-live').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (scroll) { const nv = document.getElementById('h72-live-nav'); window.scrollTo({ top: nv.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' }); }
             try { history.replaceState(null, '', sel ? '#cat-' + sel : location.pathname + location.search); } catch {}
           };
           const hc = location.hash.match(/^#cat-(.+)$/), hk = hc && decodeURIComponent(hc[1]);
