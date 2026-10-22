@@ -13,13 +13,17 @@ const noteOf = v => typeof v === 'number' ? '' : String(v ?? '').replace(/^\s*[\
 const sampleKey = p => { const t = [p.bldg_type, p.cat, p.sub_kind].join(' '), f = String(p.floor || '') + ' ' + (p.sub_kind || ''); if (/상가/.test(t)) return /지하|B\d/i.test(f) ? 'shop_basement' : /(^|\D)1\s*[층,.~]|1층/.test(f) && !/2층 이상/.test(f) ? 'shop_1f' : 'shop_upper'; if (/사무실|지식산업/.test(t)) return 'office'; if (/원룸|오피스텔/.test(t)) return 'oneroom'; if (/건물/.test(t)) return 'building'; if (/빌라|아파트|주택|다가구|단독|투룸|3룸/.test(t)) return 'house'; return 'shop_1f'; };
 const won = v => { const n = numOf(v); if (!n) return ''; const s = n >= 10000 ? `${Math.floor(n / 10000)}억${n % 10000 ? ' ' + (n % 10000).toLocaleString() + '만' : ''}원` : `${n.toLocaleString()}만원`; const nt = noteOf(v); return nt ? `${s} ${nt}` : s; };
 const HY = [37.58218, 127.00196];
+// 10-22: 가까운 지하철역 기준 (업무관리 near_st = 카카오맵). 없으면 혜화역 1.5km 안일 때만 혜화역
 function walk(p) {
   const v = parseInt(String(p.walk_min || '').replace(/\D/g, ''), 10);
-  if (v > 0) return { min: v, how: '카카오맵 도보 길찾기 기준' };
+  let st = null; try { st = (typeof p.near_st === 'string' ? JSON.parse(p.near_st) : p.near_st)?.st?.[0] || null; } catch {}
+  if (st) { const name = st.name + (st.lines?.length ? `(${st.lines.join('·')})` : ''); return v > 0 ? { st: st.name, name, min: v, how: '카카오맵 도보 길찾기 기준' } : { st: st.name, name, min: st.min || Math.max(1, Math.round(st.m * 1.3 / 70)), how: `직선 약 ${st.m}m 기준 추정` }; }
+  if (v > 0) return { st: '혜화역', name: '혜화역(4호선)', min: v, how: '카카오맵 도보 길찾기 기준' };
   if (!p.lat || !p.lng) return null;
   const R = 6371000, r = x => x * Math.PI / 180, a = r(p.lat - HY[0]), b = r(p.lng - HY[1]);
   const m = 2 * R * Math.asin(Math.sqrt(Math.sin(a / 2) ** 2 + Math.cos(r(HY[0])) * Math.cos(r(p.lat)) * Math.sin(b / 2) ** 2));
-  return { min: Math.max(1, Math.round(m * 1.3 / 70)), how: '직선거리 기준 추정' };
+  if (m > 1500) return null;
+  return { st: '혜화역', name: '혜화역(4호선)', min: Math.max(1, Math.round(m * 1.3 / 70)), how: '직선거리 기준 추정' };
 }
 function info(p) {
   const deal = (p.deal !== '매매' && numOf(p.rent) > 0) ? '월세' : (p.deal || (/매매/.test(p.cat || '') ? '매매' : '월세')); // 월세가 있으면 월세로
@@ -37,19 +41,19 @@ export async function onRequest({ params }) {
   if (!res.ok) return new Response(notFound(), { status: 404, headers: { 'content-type': 'text/html; charset=utf-8' } });
   const p = await res.json();
   const I = info(p), url = `${SITE}/listing/${id}`;
-  const title = `${I.where} ${I.kind} ${I.deal}${I.w ? ` · 혜화역 도보 ${I.w.min}분` : ''} | 대학로 혜화72`;
-  const summary = `${I.where}에 있는 ${I.kind} ${I.deal} 매물입니다. ${[I.area, I.price, I.mg].filter(Boolean).join(', ')}${I.w ? `이며 혜화역까지 도보 약 ${I.w.min}분(${I.w.how})` : ''}입니다.`;
+  const title = `${I.where} ${I.kind} ${I.deal}${I.w ? ` · ${I.w.st} 도보 ${I.w.min}분` : ''} | 대학로 혜화72`;
+  const summary = `${I.where}에 있는 ${I.kind} ${I.deal} 매물입니다. ${[I.area, I.price, I.mg].filter(Boolean).join(', ')}${I.w ? `이며 ${I.w.name}까지 도보 약 ${I.w.min}분(${I.w.how})` : ''}입니다.`;
   const checked = String(p.updated_at || '').slice(0, 10);
   const rows = [
     ['소재지', `${I.where} (상세 위치는 상담 시 안내)`], ['종류', [p.bldg_type, p.sub_kind].filter(Boolean).join(' · ') || p.cat], ['거래', I.deal],
     ['가격', I.price], ['관리비', I.mg.replace(/^관리비\s*/, '')], ['권리금', p.premium ? (/없|무/.test(String(p.premium)) || p.premium === 0 ? '없음' : won(p.premium) || p.premium) : ''],
     ['면적', I.area], ['층', [p.floor, p.total_floors && `총 ${p.total_floors}`].filter(Boolean).join(' / ')], ['방·욕실', [p.rooms, p.baths].filter(Boolean).join(' / ')],
     ['방향', p.direction], ['주차', p.parking], ['엘리베이터', p.elevator], ['건축물 용도', p.usage], ['사용승인일', p.approval_date], ['입주가능일', p.move_in],
-    ['혜화역', I.w ? `도보 약 ${I.w.min}분 (${I.w.how})` : ''], ['정보 확인일', checked],
+    [I.w ? I.w.name : '가까운 역', I.w ? `도보 약 ${I.w.min}분 (${I.w.how})` : ''], ['정보 확인일', checked],
   ].filter(([, v]) => v);
   const faq = [
     [`이 ${I.kind}의 가격은 얼마인가요?`, `${I.price}${I.mg ? `, ${I.mg}` : ''}입니다. (${checked} 기준, 계약 전 변동 여부를 확인해 주세요)`],
-    I.w && [`혜화역에서 얼마나 걸리나요?`, `혜화역에서 도보 약 ${I.w.min}분입니다 (${I.w.how}).`],
+    I.w && [`${I.w.st}에서 얼마나 걸리나요?`, `${I.w.name}에서 도보 약 ${I.w.min}분입니다 (${I.w.how}).`],
     p.parking && [`주차가 되나요?`, `주차: ${p.parking}.`],
     p.move_in && [`언제 입주할 수 있나요?`, `입주가능일: ${p.move_in}.`],
     [`이 매물은 어디에 문의하나요?`, `${OFFICE.name}(${OFFICE.tel})로 문의하시면 현장 안내와 상담을 도와드립니다. 사무소는 ${OFFICE.near}에 있습니다.`],
