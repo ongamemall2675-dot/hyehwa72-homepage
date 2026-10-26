@@ -41,6 +41,7 @@ export async function onRequest({ params }) {
   if (!res.ok) return new Response(notFound(), { status: 404, headers: { 'content-type': 'text/html; charset=utf-8' } });
   const p = await res.json();
   const I = info(p), url = `${SITE}/listing/${id}`;
+  const rel = await related(p);
   const title = `${I.where} ${I.kind} ${I.deal}${I.w ? ` · ${I.w.st} 도보 ${I.w.min}분` : ''} | 대학로 혜화72`;
   const summary = `${I.where}에 있는 ${I.kind} ${I.deal} 매물입니다. ${[I.area, I.price, I.mg].filter(Boolean).join(', ')}${I.w ? `이며 ${I.w.name}까지 도보 약 ${I.w.min}분(${I.w.how})` : ''}입니다.`;
   const checked = String(p.updated_at || '').slice(0, 10);
@@ -84,7 +85,7 @@ header{background:#FFFBF4;border-bottom:1px solid #E4D8C6}header .w{display:flex
 .sum{background:#FFFBF4;border:1px solid #E4D8C6;border-left:5px solid #9E3D2A;border-radius:12px;padding:16px 18px;font-size:17px}
 h2{font-size:21px;margin:30px 0 10px;border-left:4px solid #9E3D2A;padding-left:10px}table{width:100%;border-collapse:collapse;background:#FFFBF4}th,td{border:1px solid #E4D8C6;padding:9px 12px;text-align:left;vertical-align:top}th{width:28%;background:#F3E9DC;font-weight:600}
 .ph{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}.ph img{width:100%;border-radius:10px;aspect-ratio:4/3;object-fit:cover}
-.faq dt{font-weight:700;margin-top:14px}.faq dd{margin:4px 0 0}.by{font-size:14px;color:#7A6A5E;margin-top:26px}.box{background:#2A2320;color:#EADBC9;border-radius:14px;padding:20px 22px;margin:30px 0}.box b{color:#fff;font-size:18px}
+.rel{padding-left:20px}.rel li{margin:6px 0}.faq dt{font-weight:700;margin-top:14px}.faq dd{margin:4px 0 0}.by{font-size:14px;color:#7A6A5E;margin-top:26px}.box{background:#2A2320;color:#EADBC9;border-radius:14px;padding:20px 22px;margin:30px 0}.box b{color:#fff;font-size:18px}
 footer{font-size:13px;color:#7A6A5E;border-top:1px solid #E4D8C6;padding:18px 0 40px}</style></head><body>
 <header><div class="w"><a href="/" style="text-decoration:none;color:inherit"><b>대학로 혜화72</b></a><a class="call" href="tel:027660720">☎ ${OFFICE.tel}</a></div></header>
 <main class="w">
@@ -95,6 +96,7 @@ footer{font-size:13px;color:#7A6A5E;border-top:1px solid #E4D8C6;padding:18px 0 
 ${desc ? `<h2>매물 설명</h2><p>${desc}</p>` : ''}
 ${photos.length ? `<h2>사진</h2><div class="ph">${photos.map((s, i) => `<img src="${s}" alt="${esc(I.where + ' ' + I.kind + ' 사진 ' + (i + 1))}" loading="lazy">`).join('')}</div>` : `<h2>사진</h2><figure style="margin:0"><img src="/img/sample/${sampleKey(p)}.jpg" alt="견본 이미지" loading="lazy" onerror="this.closest('figure').remove()" style="width:100%;max-width:640px;border-radius:10px"><figcaption style="color:#c0392b;font-weight:700;font-size:.9rem;margin-top:6px">견본 이미지</figcaption></figure>`}
 ${p.youtube_url || p.shorts_url ? `<h2>영상</h2><p><a href="${esc(p.youtube_url || p.shorts_url)}" rel="noopener" target="_blank">매물 영상 보기</a></p>` : ''}
+${rel.length ? `<h2>이 매물과 비슷한 매물</h2><ul class="rel">${rel.map(x => { const J = info(x); return `<li><a href="/listing/${x.id}">${esc(J.where)} ${esc(J.kind)} ${esc(J.deal)}</a> · ${esc(J.price)}${x.floor ? ' · ' + esc(x.floor) : ''}${x.area_py ? ' · ' + esc(x.area_py) : ''}</li>`; }).join('')}</ul>` : ''}
 <h2>자주 묻는 질문</h2><dl class="faq">${faq.map(([q, a]) => `<dt>Q. ${esc(q)}</dt><dd>A. ${esc(a)}</dd>`).join('')}</dl>
 <div class="box"><b>이 매물, 직접 보고 싶으신가요?</b><br>혜화동 토박이 15년, ${OFFICE.name}가 현장 안내와 상담을 도와드립니다.<br><a class="call" href="tel:027660720" style="display:inline-block;margin-top:10px">☎ ${OFFICE.tel}</a> <a href="/#listings" style="color:#F6EADB;margin-left:10px">다른 매물 보기</a></div>
 <p class="by">✍ 작성·확인: ${OFFICE.name} 대표 공인중개사 ${OFFICE.ceo} (혜화동 토박이, 혜화역 일대 15년 중개) · 정보 확인일 ${esc(checked)} · 계약 전 현재 거래 가능 여부를 꼭 확인하세요.</p>
@@ -102,6 +104,17 @@ ${p.youtube_url || p.shorts_url ? `<h2>영상</h2><p><a href="${esc(p.youtube_ur
 <footer><div class="w">${OFFICE.name} · 대표 ${OFFICE.ceo} · 등록번호 ${OFFICE.reg} · ${OFFICE.addr} (${OFFICE.near}) · ☎ ${OFFICE.tel}</div></footer>
 </body></html>`;
   return new Response(html, { headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'public, max-age=300' } });
+}
+// 10-26 대표: 비슷한 매물 6개 (같은 분류 먼저 → 같은 동 → 가까운 거리 → 비슷한 가격). 검색엔진이 다른 매물 페이지도 따라가게 내부 링크
+async function related(p) {
+  try {
+    const r = await fetch(`${API}/listings`, { cf: { cacheTtl: 300 } }); if (!r.ok) return [];
+    const L = (await r.json()).filter(x => x.cat !== '원룸임대' && x.id !== p.id);
+    const sale = x => numOf(x.price) > 0 || /매매/.test(x.cat || ''), amt = x => sale(x) ? numOf(x.price) : numOf(x.rent) * 100 + numOf(x.deposit);
+    const km = x => p.lat && x.lat ? Math.hypot(p.lat - x.lat, (p.lng - x.lng) * 0.79) * 111 : 3, pa = amt(p) || 1;
+    const score = x => (x.cat === p.cat ? 0 : 5) + (x.dong === p.dong ? 0 : 1) + Math.min(km(x), 3) + Math.min(Math.abs(Math.log((amt(x) || 1) / pa)), 3) * 0.8;
+    return L.filter(x => sale(x) === sale(p)).sort((a, b) => score(a) - score(b)).slice(0, 6);
+  } catch { return []; }
 }
 function notFound() {
   return `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="robots" content="noindex"><title>거래가 끝났거나 비공개된 매물 | 대학로 혜화72</title></head><body style="font-family:sans-serif;padding:40px"><h1>거래가 끝났거나 비공개된 매물입니다</h1><p>비슷한 매물은 <a href="/#listings">추천 매물</a>에서 보시거나 02-766-0720으로 문의해 주세요.</p></body></html>`;

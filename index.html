@@ -2367,6 +2367,7 @@
           if (!Array.isArray(L0)) return;
           // 원룸은 회전이 빨라 홈페이지 목록에서 뺀다 (2026-10-21 대표 결정)
           const L = L0.filter(p => p.cat !== '원룸임대');
+          window.h72List = L; // 상세 창 '비슷한 매물'에서 씀
           if (!L.length) return;
           const e = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
           const won = v => { const m = String(v ?? '').match(/^\s*([\d,]+)/); const n = typeof v === 'number' ? v : (m ? Number(m[1].replace(/,/g, '')) : 0); if (!n) return ''; const nt = typeof v === 'number' ? '' : (/부\.?\s*미포|부별|부가세\s*별도/.test(String(v)) ? '(VAT 별도)' : ''); return (n >= 10000 ? (n / 10000).toFixed(n % 10000 ? 1 : 0).replace(/\.0$/, '') + '억' : n.toLocaleString() + '만') + (nt ? ' ' + nt : ''); };
@@ -2389,6 +2390,7 @@
           // 분류별로 묶어서 보여 준다. 순서 = 사무소 주력 순
           const GROUPS = [['상가임대', '상가 임대'], ['상가매매', '상가 매매'], ['사무실임대', '사무실 임대'], ['건물매매', '건물 매매'], ['단독다가구매매', '단독·다가구 매매'], ['빌라연립매매', '빌라·연립 매매'], ['아파트', '아파트'], ['오피스텔', '오피스텔'], ['투룸임대', '투룸 임대'], ['3룸이상임대', '3룸 이상 임대']];
           const known = new Set(GROUPS.map(g => g[0]));
+          window.h72CatKey = c => known.has(c) ? c : 'etc';
           const groups = GROUPS.map(([k, label]) => [k, label, L.filter(p => p.cat === k)]);
           groups.push(['etc', '기타 매물', L.filter(p => !known.has(p.cat))]);
           const shown = groups.filter(g => g[2].length);
@@ -2430,6 +2432,25 @@
         const won = v => { const m = String(v ?? '').match(/^\s*([\d,]+)/); const n = typeof v === 'number' ? v : (m ? Number(m[1].replace(/,/g, '')) : 0); if (!n) return ''; const nt = typeof v === 'number' ? '' : (/부\.?\s*미포|부별|부가세\s*별도/.test(String(v)) ? '(VAT 별도)' : ''); return (n >= 10000 ? (n / 10000).toFixed(n % 10000 ? 1 : 0).replace(/\.0$/, '') + '억' : n.toLocaleString() + '만') + (nt ? ' ' + nt : ''); };
         const price = p => p.price ? '매매 ' + won(p.price) : (parseInt(String(p.rent ?? '').replace(/,/g, '')) ? `월세 ${won(p.deposit)} / ${won(p.rent)}` : (p.deposit ? '전세 ' + won(p.deposit) : '가격 문의'));
         const M = document.getElementById('h72-modal');
+        // 10-26 대표: 매물 상세 아래 '비슷한 매물' — 같은 분류 먼저, 가까운 거리·비슷한 가격 순 6개. 누르면 그 매물로 바뀜
+        const num = v => { if (typeof v === 'number') return v; const m = String(v ?? '').match(/^\s*([\d,]+(?:\.\d+)?)/); return m ? Number(m[1].replace(/,/g, '')) : 0; };
+        const isSale = x => num(x.price) > 0 || /매매/.test(x.cat || '');
+        const amt = x => isSale(x) ? num(x.price) : num(x.rent) * 100 + num(x.deposit);
+        const km = (a, b) => a.lat && b.lat ? Math.hypot(a.lat - b.lat, (a.lng - b.lng) * 0.79) * 111 : 3;
+        window.h72Rel = async p => {
+          const box = document.getElementById('h72m-rel'); if (!box) return;
+          let L = window.h72List; if (!L) { try { L = (await (await fetch(API + 'listings')).json()).filter(x => x.cat !== '원룸임대'); window.h72List = L; } catch { return; } }
+          const pa = amt(p) || 1, score = x => (x.cat === p.cat ? 0 : 5) + (x.dong === p.dong ? 0 : 1) + Math.min(km(p, x), 3) + Math.min(Math.abs(Math.log((amt(x) || 1) / pa)), 3) * 0.8 - (x.hp_pick ? 0.3 : 0);
+          const R = L.filter(x => x.id !== p.id && isSale(x) === isSale(p)).sort((a, b) => score(a) - score(b)).slice(0, 6);
+          if (!R.length) return;
+          const th = x => x.thumb ? `#eef1f5 url('${x.thumb}') center/cover` : `linear-gradient(rgba(20,28,45,.45),rgba(20,28,45,.45)), url('/img/sample/${sampleKey(x)}.jpg') center/cover, #1e2b45`;
+          box.innerHTML = `<div style="border-top:1px solid #eee;margin-top:18px;padding-top:14px"><b style="display:block;margin-bottom:10px">🏠 이 매물과 비슷한 매물</b>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px">${R.map(x => `
+              <a href="/listing/${x.id}" onclick="event.preventDefault();h72Open(${x.id});document.getElementById('h72-modal').scrollTop=0" style="display:block;text-decoration:none;color:inherit;border:1px solid #eee;border-radius:10px;overflow:hidden;background:#fff">
+                <div style="position:relative;aspect-ratio:16/10;background:${th(x)}">${x.thumb ? '' : '<span style="position:absolute;left:6px;top:6px;background:#fff;color:#c0392b;font-weight:800;border-radius:5px;padding:1px 6px;font-size:.7rem">견본 이미지</span>'}<span style="position:absolute;right:6px;bottom:6px;background:#1f4fd8;color:#fff;border-radius:12px;padding:2px 8px;font-size:.72rem">${e(x.cat || '')}</span></div>
+                <div style="padding:8px 10px"><div style="font-weight:800;color:#1f4fd8;font-size:.95rem">${e(price(x))}</div><div style="font-size:.82rem;color:#555;margin-top:2px">${e([x.dong, x.floor, x.area_py].filter(Boolean).join(' · '))}</div><div style="font-size:.75rem;color:#999;margin-top:2px">매물번호 ${x.id} ›</div></div></a>`).join('')}</div>
+            <div style="text-align:center;margin-top:12px"><a href="#cat-${encodeURIComponent(p.cat || '')}" onclick="event.preventDefault();h72Close();window.h72Cat&&h72Cat(h72CatKey('${e(p.cat || '')}'),1)" style="color:#1f4fd8;font-weight:700;font-size:.9rem;text-decoration:none">${e(p.cat || '')} 매물 전체 보기 ›</a></div></div>`;
+        };
         window.h72Close = () => { M.style.display = 'none'; document.body.style.overflow = ''; if (location.hash.startsWith('#listing-')) history.replaceState(null, '', location.pathname + location.search); };
         document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && M.style.display !== 'none') h72Close(); });
         window.h72Open = async id => {
@@ -2459,7 +2480,9 @@
                 <button type="submit" style="width:100%;padding:12px;border:0;border-radius:10px;background:#222;color:#fff;font-weight:700;cursor:pointer">문의 보내기</button>
                 <p id="h72m-msg" style="margin:8px 0 0;font-size:.9rem"></p>
               </form>
+              <div id="h72m-rel"></div>
             </div>`;
+          h72Rel(p);
           document.getElementById('h72m-form').onsubmit = async ev => {
             ev.preventDefault(); const f = ev.target, msg = document.getElementById('h72m-msg'), btn = f.querySelector('button');
             btn.disabled = true; btn.textContent = '보내는 중...';
