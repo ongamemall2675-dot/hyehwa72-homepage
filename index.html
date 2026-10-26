@@ -3275,25 +3275,6 @@
         description: "대학로 혜화72 부동산은 어떤 부동산일까?\n\n대학로혜화72공인중개사사무소 대표 김훈의 공식 소개 및 브랜드 스토리 영상입니다.\n혜화동 골목 이야기와 부동산 매물, 자산 컨설팅 정보들을 유튜브 채널에서 다룹니다.\n많은 구독과 알림 설정 부탁드립니다!",
         thumbnail: "https://i3.ytimg.com/vi/boSFPGcrHAk/hqdefault.jpg",
         isShort: true
-      },
-      // Mock Long-form videos to populate the long-form tab beautifully
-      {
-        videoId: "mock_long_1",
-        title: "[준비 중] 혜화동 고즈넉한 한옥 단독주택 매매 현장 투어",
-        published: "2026-06-11T12:00:00+00:00",
-        description: "혜화동 골목에 숨겨진 보물 같은 한옥 주택 내부 실사 투어 영상입니다.\n리모델링 한옥 주택의 외관과 전통 중정 마당, 내부 편의 시설을 상세히 분석합니다.\n(현재 편집 중이며 곧 유튜브에 업로드될 예정입니다.)",
-        thumbnail: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=600",
-        isShort: false,
-        isMock: true
-      },
-      {
-        videoId: "mock_long_2",
-        title: "[준비 중] 대학로 상권 분석 및 1층 상가 임대 계약 법률 컨설팅",
-        published: "2026-06-10T12:00:00+00:00",
-        description: "대학로 1층 상가 임대 및 권리 계약 진행 시 반드시 알아야 할 법률 체크리스트와 상권 트렌드 분석 강의입니다.\n공인중개사 김훈 대표의 꿀팁이 담겨 있습니다.\n(현재 기획 중이며 곧 만나보실 수 있습니다.)",
-        thumbnail: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=600",
-        isShort: false,
-        isMock: true
       }
     ];
 
@@ -3310,23 +3291,16 @@
           }
         }
         
-        // If API fails or returns empty, load default mocks
-        if (!loadedVideos || loadedVideos.length === 0 || loadedVideos.error) {
-          console.log("유튜브: API 로드 실패 또는 데이터 없음. 기본 Mock 데이터를 사용합니다.");
-          youtubeVideos = [...DEFAULT_YOUTUBE_VIDEOS];
-        } else {
-          // Merge loaded videos from API and check if we have any long form
-          const hasLongForm = loadedVideos.some(v => !v.isShort);
-          if (!hasLongForm) {
-            // Add mock long-form videos so the long-form tab is not empty
-            const mockLongs = DEFAULT_YOUTUBE_VIDEOS.filter(v => !v.isShort);
-            youtubeVideos = [...loadedVideos, ...mockLongs];
-          } else {
-            youtubeVideos = loadedVideos;
-          }
+        // API 실패 시: 저장본(youtube_videos.json) → 기본 목록 순서로 사용. "준비 중" 가짜 카드는 쓰지 않는다 (2026-10-26)
+        if (!Array.isArray(loadedVideos) || loadedVideos.length === 0) {
+          try {
+            const saved = await fetch('./youtube_videos.json', { signal: AbortSignal.timeout(3000) });
+            if (saved.ok) loadedVideos = await saved.json();
+          } catch (e) {}
         }
+        youtubeVideos = (Array.isArray(loadedVideos) && loadedVideos.length) ? loadedVideos : [...DEFAULT_YOUTUBE_VIDEOS];
       } catch (error) {
-        console.warn("유튜브 RSS 로드 중 예외 발생, 기본 데이터를 유지합니다:", error.message);
+        console.warn("유튜브 목록 로드 중 예외 발생, 기본 데이터를 유지합니다:", error.message);
         youtubeVideos = [...DEFAULT_YOUTUBE_VIDEOS];
       }
       
