@@ -2410,9 +2410,10 @@
             try { history.replaceState(null, '', sel ? '#cat-' + sel : location.pathname + location.search); } catch {}
           };
           const hc = location.hash.match(/^#cat-(.+)$/), hk = hc && decodeURIComponent(hc[1]);
+          const m = location.hash.match(/^#listing-(\d+)$/); // h72Cat 이 주소를 지우기 전에 읽어 둔다 (10-26)
           h72Cat(shown.some(g => g[0] === hk) ? hk : null);
           document.getElementById('h72-live').style.display = '';
-          const m = location.hash.match(/^#listing-(\d+)$/); if (m) h72Open(+m[1]);
+          if (m) h72Open(+m[1]);
         } catch (err) { /* 업무관리 서버 응답 없으면 블로그 매물만 표시 */ }
       })();
       </script>
