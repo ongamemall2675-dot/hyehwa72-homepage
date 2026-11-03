@@ -2584,7 +2584,7 @@
                 const items = [...x.getElementsByTagName('item')].slice(0, 3);
                 document.getElementById('tistory-grid').innerHTML = items.map(it => {
                   const g = t => it.getElementsByTagName(t)[0]?.textContent || '';
-                  const d = g('description'), img = (d.match(/<img[^>]+src=["']([^"']+)/i) || [])[1] || '/profile.jpg';
+                  const d = g('description'), img = ([...d.matchAll(/<img[^>]+src=["']([^"']+)/gi)].map(m => m[1]).find(s => !/tistory_admin|stat/.test(s)) || '/profile.jpg').replace(/^\/\//, 'https://');
                   const sum = d.replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 90);
                   const dt = new Date(g('pubDate')), ds = isNaN(dt) ? '' : `${dt.getFullYear()}. ${String(dt.getMonth() + 1).padStart(2, '0')}. ${String(dt.getDate()).padStart(2, '0')}`;
                   return `<a href="${esc(g('link'))}" target="_blank" rel="noopener" class="blog-feed-card"><div class="blog-feed-thumb-box"><img class="blog-feed-thumb" src="${esc(img)}" referrerpolicy="no-referrer" loading="lazy" alt="${esc(g('title'))}"></div><div class="blog-feed-info"><div class="blog-feed-header"><span class="blog-feed-tag">${esc(g('category') || '티스토리')}</span><span class="blog-feed-date">${ds}</span></div><h3 class="blog-feed-title">${esc(g('title'))}</h3><p class="blog-feed-summary">${esc(sum)}…</p><span class="blog-feed-more">티스토리 글 보기 <i class="fa-solid fa-arrow-right"></i></span></div></a>`;
