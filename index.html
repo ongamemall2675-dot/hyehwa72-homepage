@@ -2573,6 +2573,25 @@
                 </div>
               </a>
             </div>
+            <!-- 티스토리 최신 글 (2026-11-03) -->
+            <h3 style="margin:34px 0 14px;font-size:1.15rem;text-align:center">티스토리 최신 글 <a href="https://ongamemall.tistory.com" target="_blank" rel="noopener" style="font-size:.85rem;font-weight:600;margin-left:8px">전체 보기 ›</a></h3>
+            <div class="blog-feed-grid" id="tistory-grid"></div>
+            <script>
+            (async () => {
+              try {
+                const x = new DOMParser().parseFromString(await (await fetch('/api/tistory')).text(), 'text/xml');
+                const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+                const items = [...x.getElementsByTagName('item')].slice(0, 3);
+                document.getElementById('tistory-grid').innerHTML = items.map(it => {
+                  const g = t => it.getElementsByTagName(t)[0]?.textContent || '';
+                  const d = g('description'), img = (d.match(/<img[^>]+src=["']([^"']+)/i) || [])[1] || '/profile.jpg';
+                  const sum = d.replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 90);
+                  const dt = new Date(g('pubDate')), ds = isNaN(dt) ? '' : `${dt.getFullYear()}. ${String(dt.getMonth() + 1).padStart(2, '0')}. ${String(dt.getDate()).padStart(2, '0')}`;
+                  return `<a href="${esc(g('link'))}" target="_blank" rel="noopener" class="blog-feed-card"><div class="blog-feed-thumb-box"><img class="blog-feed-thumb" src="${esc(img)}" referrerpolicy="no-referrer" loading="lazy" alt="${esc(g('title'))}"></div><div class="blog-feed-info"><div class="blog-feed-header"><span class="blog-feed-tag">${esc(g('category') || '티스토리')}</span><span class="blog-feed-date">${ds}</span></div><h3 class="blog-feed-title">${esc(g('title'))}</h3><p class="blog-feed-summary">${esc(sum)}…</p><span class="blog-feed-more">티스토리 글 보기 <i class="fa-solid fa-arrow-right"></i></span></div></a>`;
+                }).join('');
+              } catch (e) { const g = document.getElementById('tistory-grid'); if (g) g.previousElementSibling.style.display = 'none'; }
+            })();
+            </script>
           </div>
         </div>
       </div>
