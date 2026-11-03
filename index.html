@@ -2914,9 +2914,11 @@
       if (items.length > 0 && blogGrid) {
         blogGrid.innerHTML = "";
         // 최신 글 4개 노출
-        const limit = Math.min(items.length, 4);
+        const SKIP = /인포크링크|링크 연결|^테스트/; // 공지성 글 제외(11-03)
+        const list = [...items].filter(it => !SKIP.test(it.querySelector('title')?.textContent || ''));
+        const limit = Math.min(list.length, 4);
         for (let i = 0; i < limit; i++) {
-          const item = items[i];
+          const item = list[i];
           const titleRaw = item.querySelector("title")?.textContent || "새로운 블로그 글";
           const title = titleRaw.replace(/^\[.*?\]\s*/, "").trim() || titleRaw;
           const link = item.querySelector("link")?.textContent || "https://blog.naver.com/" + NAVER_BLOG_ID;
