@@ -2258,7 +2258,6 @@
       <a href="#properties">추천매물</a>
       <a href="#feeds">소셜콘텐츠</a>
       <a href="#youtube">최신영상</a>
-      <a href="#gallery">갤러리</a>
       <a href="#faq">FAQ</a>
       <a href="#contact">간편문의</a>
     </div>
@@ -2394,8 +2393,8 @@
           const groups = GROUPS.map(([k, label]) => [k, label, L.filter(p => p.cat === k)]);
           groups.push(['etc', '기타 매물', L.filter(p => !known.has(p.cat))]);
           const shown = groups.filter(g => g[2].length);
-          // 첫 화면: 분류마다 8개(추천·급매 먼저, 다음 최신 접수순 — 서버가 정렬) + [전체 보기]. 분류를 누르면 그 분류 매물을 전부 보여 준다 (2026-10-21 대표 결정)
-          const PER = 8, chip = on => `padding:6px 14px;border-radius:20px;border:0;cursor:pointer;font-size:.9rem;font-weight:700;background:${on ? '#1f4fd8' : '#eef2fb'};color:${on ? '#fff' : '#1f4fd8'}`;
+          // 첫 화면: 분류마다 4개(2026-11-03 대표: 페이지 길이 줄임)(추천·급매 먼저, 다음 최신 접수순 — 서버가 정렬) + [전체 보기]. 분류를 누르면 그 분류 매물을 전부 보여 준다 (2026-10-21 대표 결정)
+          const PER = 4, chip = on => `padding:6px 14px;border-radius:20px;border:0;cursor:pointer;font-size:.9rem;font-weight:700;background:${on ? '#1f4fd8' : '#eef2fb'};color:${on ? '#fff' : '#1f4fd8'}`;
           const grid = arr => `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px">${arr.map(card).join('')}</div>`;
           window.h72Cat = (sel, scroll) => {
             document.getElementById('h72-live-nav').innerHTML = shown.length > 1 ? `<button type="button" onclick="h72Cat(null,1)" style="${chip(!sel)}">전체 분류</button>` + shown.map(([k, label, arr]) => `<button type="button" onclick="h72Cat('${k}',1)" style="${chip(sel === k)}">${e(label)} ${arr.length}</button>`).join('') : '';
@@ -2615,7 +2614,7 @@
     </section>
 
     <!-- 5. 혜화동 일상 (Vlog) Section -->
-    <section id="gallery">
+    <section id="gallery" hidden><!-- 2026-11-03 대표: 혜화동 일상 숨김 -->
       <div class="section-header">
         <span class="subtitle">DAILY VLOG CHANNEL</span>
         <h2 class="title">혜화동 일상</h2>
@@ -2994,6 +2993,7 @@
           const blogGrid = document.querySelector(".blog-feed-grid");
           if (posts.length > 0 && blogGrid) {
             blogGrid.innerHTML = "";
+            posts.splice(0, posts.length, ...posts.filter(p => !/인포크링크|링크 연결|^테스트/.test(p.title || '')));
             const limit = Math.min(posts.length, 4);
             for (let i = 0; i < limit; i++) {
               const post = posts[i];
@@ -3623,7 +3623,7 @@
       loadNaverBlogFeed();
       loadPropertiesFeed();
       loadYoutubeFeed();
-      loadDailyVlogFeed();
+      // loadDailyVlogFeed(); 일상 숨김(11-03)
       applySearchFilter();
       initFaqAccordion();
     });
