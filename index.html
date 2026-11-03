@@ -3647,5 +3647,27 @@
     });
   </script>
 
+<!-- 은은한 움직임 (2026-11-03): 스크롤하면 한 번만 부드럽게 나타남. 반복 움직임 없음. 움직임 줄이기 설정이면 끔 -->
+<style>
+@media (prefers-reduced-motion: no-preference){
+  .h72-rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+  .h72-rv.on{opacity:1;transform:none}
+  .blog-feed-card,.faq-item,#h72-live-grid a,#h72-live-grid [onclick]{transition:transform .25s ease,box-shadow .25s ease}
+  .blog-feed-card:hover,#h72-live-grid [onclick]:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.25)}
+  .hero-section h1,.hero-section h2{animation:h72in .9s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes h72in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+}
+</style>
+<script>
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } }), { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+  const mark = root => root.querySelectorAll('.section-header, .blog-feed-card, .faq-item, #h72-live-grid h4, #h72-live-grid > div > div > *, .youtube-section a, #contact .section-header ~ *').forEach((el, i) => {
+    if (el.dataset.rv || el.getBoundingClientRect().top < innerHeight * .9) return; el.dataset.rv = 1;
+    el.classList.add('h72-rv'); el.style.transitionDelay = (i % 4) * 70 + 'ms'; io.observe(el);
+  });
+  addEventListener('load', () => { mark(document); new MutationObserver(() => mark(document)).observe(document.body, { childList: true, subtree: true }); });
+})();
+</script>
 </body>
 </html>
