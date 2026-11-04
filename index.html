@@ -2097,6 +2097,20 @@
       .search-box-container { display: none; }
       .btn-contact-top span { display: none; }
     }
+    /* 2026-11-04 오시는 길 지도 */
+    .visit-box { display:grid; grid-template-columns:1fr; gap:16px; margin-top:24px; }
+    @media (min-width:768px){ .visit-box { grid-template-columns:3fr 2fr; } }
+    .visit-map { position:relative; min-height:300px; border:1px solid var(--border); border-radius:var(--border-radius-md); overflow:hidden; box-shadow:var(--shadow); }
+    .visit-map iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+    .visit-info { background:var(--card-bg); border:1px solid var(--border); border-radius:var(--border-radius-md); padding:24px; box-shadow:var(--shadow); }
+    .visit-info h3 { font-size:1.05rem; margin-bottom:14px; color:var(--text); }
+    .visit-info dl { display:grid; grid-template-columns:auto 1fr; gap:10px 14px; font-size:0.88rem; line-height:1.5; }
+    .visit-info dt { color:var(--text-light); font-weight:600; }
+    .visit-info dd { margin:0; color:var(--text); }
+    .visit-info dd a { color:var(--primary); font-weight:700; }
+    .visit-btns { display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
+    .visit-btns a { flex:1 1 auto; text-align:center; padding:10px 12px; border:1px solid var(--border); border-radius:var(--border-radius-sm); font-size:0.8rem; font-weight:700; color:var(--text); transition:border-color var(--transition-fast), color var(--transition-fast); }
+    .visit-btns a:hover { border-color:var(--primary); color:var(--primary); }
   </style>
 
   <!-- ===== AEO/GEO JSON-LD 구조화 데이터 ===== -->
@@ -2788,6 +2802,27 @@
           <span class="contact-label">사무실 오시는 길</span>
           <span class="contact-val">창경궁로 266 1층</span>
         </a>
+      </div>
+      <!-- 2026-11-04 오시는 길: 지도 + 영업시간 + 길찾기 (영상 '신뢰 프로페셔널형' 참고) -->
+      <div class="visit-box">
+        <div class="visit-map">
+          <iframe title="대학로혜화72공인중개사사무소 위치 지도" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            src="https://maps.google.com/maps?q=%EC%84%9C%EC%9A%B8%20%EC%A2%85%EB%A1%9C%EA%B5%AC%20%EC%B0%BD%EA%B2%BD%EA%B6%81%EB%A1%9C%20266&z=17&hl=ko&output=embed"></iframe>
+        </div>
+        <div class="visit-info">
+          <h3>사무실 오시는 길</h3>
+          <dl>
+            <dt>주소</dt><dd>서울 종로구 창경궁로 266, 복지빌딩 1층 (혜화동)</dd>
+            <dt>지하철</dt><dd>4호선 혜화역 4번 출구 도보 2~3분, 우리은행 바로 옆</dd>
+            <dt>영업시간</dt><dd>월~토 10:00~19:00 · 일요일 휴무</dd>
+            <dt>전화</dt><dd><a href="tel:02-766-0720">02-766-0720</a></dd>
+          </dl>
+          <div class="visit-btns">
+            <a href="https://map.naver.com/v5/search/서울%20종로구%20창경궁로%20266" target="_blank" rel="noopener">네이버 지도</a>
+            <a href="https://map.kakao.com/link/search/서울 종로구 창경궁로 266" target="_blank" rel="noopener">카카오맵</a>
+            <a href="https://www.google.com/maps/search/?api=1&query=서울%20종로구%20창경궁로%20266" target="_blank" rel="noopener">구글 지도</a>
+          </div>
+        </div>
       </div>
     </section>
 
