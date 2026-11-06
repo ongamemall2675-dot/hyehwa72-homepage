@@ -3693,12 +3693,12 @@ body.light-mode .n72,html.light .n72{color:#c98a00;text-shadow:none}
 <button onclick="h72Pg('end')" title="맨 아래로">⤓</button>
 </div>
 <style>
-#h72-pgbar{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:9000;display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 6px;border-radius:999px;background:rgba(15,23,42,.72);backdrop-filter:blur(8px);border:1px solid rgba(212,175,55,.35);box-shadow:0 4px 18px rgba(0,0,0,.25)}
-#h72-pgbar button{width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.08);color:#f5d77a;font-size:15px;cursor:pointer;line-height:1}
+#h72-pgbar{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:9000;display:flex;flex-direction:column;align-items:center;gap:8px;padding:10px 8px;border-radius:999px;background:rgba(15,23,42,.72);backdrop-filter:blur(8px);border:1px solid rgba(212,175,55,.35);box-shadow:0 4px 18px rgba(0,0,0,.25)}
+#h72-pgbar button{width:50px;height:50px;border-radius:50%;border:0;background:rgba(255,255,255,.1);color:#f5d77a;font-size:22px;font-weight:700;cursor:pointer;line-height:1}
 #h72-pgbar button:hover{background:#d4af37;color:#111}
-#h72-pgtrack{position:relative;width:6px;height:120px;border-radius:6px;background:rgba(255,255,255,.15);cursor:pointer}
-#h72-pgthumb{position:absolute;left:0;top:0;width:6px;height:24px;border-radius:6px;background:#d4af37}
-@media(max-width:768px){#h72-pgbar{right:8px;padding:6px 4px;gap:4px}#h72-pgbar button{width:30px;height:30px;font-size:13px}#h72-pgtrack{height:70px}}
+#h72-pgtrack{position:relative;width:14px;height:200px;border-radius:8px;background:rgba(255,255,255,.18);cursor:pointer;box-shadow:0 0 0 12px transparent}
+#h72-pgthumb{position:absolute;left:0;top:0;width:14px;height:44px;border-radius:8px;background:#d4af37}
+@media(max-width:768px){#h72-pgbar{right:6px;padding:8px 5px;gap:6px}#h72-pgbar button{width:44px;height:44px;font-size:19px}#h72-pgtrack{width:12px;height:110px}#h72-pgthumb{width:12px;height:34px}}
 </style>
 <script>
 function h72Pg(d){const H=document.documentElement.scrollHeight;if(d==='top')return scrollTo({top:0,behavior:'smooth'});if(d==='end')return scrollTo({top:H,behavior:'smooth'});scrollBy({top:d*innerHeight*0.85,behavior:'smooth'})}
