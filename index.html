@@ -3685,5 +3685,29 @@ body.light-mode .n72,html.light .n72{color:#c98a00;text-shadow:none}
 <script>
 (function(){function run(){var sel='.logo,h1,h2,h3,h4,.section-tag,strong,b,footer';document.querySelectorAll(sel).forEach(function(root){var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),ns=[],n;while(n=w.nextNode()){if(/혜화\s?72/.test(n.nodeValue)&&!(n.parentNode.closest&&n.parentNode.closest('.n72,script,style')))ns.push(n)}ns.forEach(function(t){var f=document.createDocumentFragment();t.nodeValue.split(/(72)/).forEach(function(p,i,a){if(p==='72'&&/혜화\s?$/.test(a[i-1]||'')){var s=document.createElement('span');s.className='n72';s.textContent='72';f.appendChild(s)}else if(p)f.appendChild(document.createTextNode(p))});t.parentNode.replaceChild(f,t)})})}document.readyState==='loading'?document.addEventListener('DOMContentLoaded',run):run()})();
 </script>
+<div id="h72-pgbar" aria-label="페이지 이동">
+<button onclick="h72Pg('top')" title="맨 위로">⤒</button>
+<button onclick="h72Pg(-1)" title="위로 한 화면">▲</button>
+<div id="h72-pgtrack" title="눌러서 그 위치로 이동"><div id="h72-pgthumb"></div></div>
+<button onclick="h72Pg(1)" title="아래로 한 화면">▼</button>
+<button onclick="h72Pg('end')" title="맨 아래로">⤓</button>
+</div>
+<style>
+#h72-pgbar{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:9000;display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 6px;border-radius:999px;background:rgba(15,23,42,.72);backdrop-filter:blur(8px);border:1px solid rgba(212,175,55,.35);box-shadow:0 4px 18px rgba(0,0,0,.25)}
+#h72-pgbar button{width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.08);color:#f5d77a;font-size:15px;cursor:pointer;line-height:1}
+#h72-pgbar button:hover{background:#d4af37;color:#111}
+#h72-pgtrack{position:relative;width:6px;height:120px;border-radius:6px;background:rgba(255,255,255,.15);cursor:pointer}
+#h72-pgthumb{position:absolute;left:0;top:0;width:6px;height:24px;border-radius:6px;background:#d4af37}
+@media(max-width:768px){#h72-pgbar{right:8px;padding:6px 4px;gap:4px}#h72-pgbar button{width:30px;height:30px;font-size:13px}#h72-pgtrack{height:70px}}
+</style>
+<script>
+function h72Pg(d){const H=document.documentElement.scrollHeight;if(d==='top')return scrollTo({top:0,behavior:'smooth'});if(d==='end')return scrollTo({top:H,behavior:'smooth'});scrollBy({top:d*innerHeight*0.85,behavior:'smooth'})}
+(function(){const tr=document.getElementById('h72-pgtrack'),th=document.getElementById('h72-pgthumb');
+function upd(){const H=document.documentElement.scrollHeight-innerHeight;const r=H>0?scrollY/H:0;th.style.top=(r*(tr.clientHeight-th.clientHeight))+'px'}
+addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();
+let drag=false;function go(e){const b=tr.getBoundingClientRect(),y=(e.touches?e.touches[0].clientY:e.clientY);const r=Math.min(1,Math.max(0,(y-b.top)/b.height));scrollTo({top:r*(document.documentElement.scrollHeight-innerHeight),behavior:drag?'auto':'smooth'})}
+tr.addEventListener('mousedown',e=>{go(e);drag=true;e.preventDefault()});addEventListener('mousemove',e=>{if(drag)go(e)});addEventListener('mouseup',()=>drag=false);
+tr.addEventListener('touchstart',e=>{drag=true;go(e)},{passive:true});tr.addEventListener('touchmove',e=>{go(e)},{passive:true});tr.addEventListener('touchend',()=>drag=false)})();
+</script>
 </body>
 </html>
