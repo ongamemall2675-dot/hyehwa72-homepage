@@ -3675,5 +3675,14 @@
   addEventListener('load', () => { mark(document); new MutationObserver(() => mark(document)).observe(document.body, { childList: true, subtree: true }); });
 })();
 </script>
+<!-- 2026-11-06 대표: 숫자 72 강조 (글자는 그대로, 모양만) -->
+<style>
+.n72{color:#f5b301;font-weight:900;font-size:1.22em;letter-spacing:-.02em;padding:0 .06em;text-shadow:0 0 14px rgba(245,179,1,.45);font-variant-numeric:lining-nums}
+.logo .n72{font-size:1.35em}
+body.light-mode .n72,html.light .n72{color:#c98a00;text-shadow:none}
+</style>
+<script>
+(function(){function run(){var sel='.logo,h1,h2,h3,h4,.section-tag,strong,b,footer';document.querySelectorAll(sel).forEach(function(root){var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),ns=[],n;while(n=w.nextNode()){if(/혜화\s?72/.test(n.nodeValue)&&!(n.parentNode.closest&&n.parentNode.closest('.n72,script,style')))ns.push(n)}ns.forEach(function(t){var f=document.createDocumentFragment();t.nodeValue.split(/(72)/).forEach(function(p,i,a){if(p==='72'&&/혜화\s?$/.test(a[i-1]||'')){var s=document.createElement('span');s.className='n72';s.textContent='72';f.appendChild(s)}else if(p)f.appendChild(document.createTextNode(p))});t.parentNode.replaceChild(f,t)})})}document.readyState==='loading'?document.addEventListener('DOMContentLoaded',run):run()})();
+</script>
 </body>
 </html>
