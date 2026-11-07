@@ -23,7 +23,7 @@ export async function onRequestGet({ request }) {
     vr && `같은 기간 연립·다세대 전월세 신고 ${vr.n}건의 보증금 중간값은 ${man(vr.dep)}, 월세 중간값은 ${man(vr.rent)}입니다.`,
   ].filter(Boolean);
 
-  const oursT = `<table><thead><tr><th>구분</th><th>매물 수</th><th>매매가 / 보증금</th><th>월세</th><th>전용 3.3㎡당</th></tr></thead><tbody>${ours.map(o => `<tr><td>${esc(o.cat)} · ${esc(o.deal)}</td><td>${o.n}</td><td>${man(o.deal === '매매' ? o.price : o.dep)}</td><td>${o.deal === '월세' ? man(o.rent) : '-'}</td><td>${o.ppy ? man(o.ppy) + (o.deal === '월세' ? ' (월세)' : '') : '-'}</td></tr>`).join('')}</tbody></table>`;
+  const oursT = `<table><thead><tr><th>구분</th><th>매물 수</th><th>매매가 / 보증금</th><th>월세</th><th>전용 3.3㎡당</th></tr></thead><tbody>${ours.map(o => `<tr><td>${esc(o.cat)} · ${esc(o.deal)}</td><td>${o.n}</td><td>${man(o.deal === '매매' ? o.price : o.dep)}</td><td>${o.deal === '월세' ? man(o.rent) : '-'}</td><td>${o.ppy && (o.deal !== '매매' || /빌라|오피스텔|아파트/.test(o.cat)) ? man(o.ppy) + (o.deal === '월세' ? ' (월세)' : '') : '-'}</td></tr>`).join('')}</tbody></table>`;
   const realT = `<table><thead><tr><th>종류</th><th>신고 건수</th><th>거래가 / 보증금</th><th>월세</th><th>3.3㎡당</th></tr></thead><tbody>${real.map(r => `<tr><td>${esc(r.label)}</td><td>${r.n}</td><td>${man(r.isRent ? r.dep : r.price)}</td><td>${r.isRent ? man(r.rent) + (r.rentShare != null ? ` <small>(월세 낀 계약 ${r.rentShare}%)</small>` : '') : '-'}</td><td>${!r.isRent && r.ppy ? man(r.ppy) : '-'}</td></tr>`).join('')}</tbody></table>`;
   const dongs = d.area || [];
   const dongT = real.length ? `<table><thead><tr><th>종류</th>${dongs.map(x => `<th>${esc(x)}</th>`).join('')}</tr></thead><tbody>${real.map(r => `<tr><td>${esc(r.label)}</td>${dongs.map(x => { const v = r.dongs?.[x]; return `<td>${v ? `${man(r.isRent ? v.rent || v.dep : v.price)}<br><small>${v.n}건${r.isRent ? (v.rent ? ' · 월세' : ' · 보증금') : ''}</small>` : '-'}</td>`; }).join('')}</tr>`).join('')}</tbody></table>` : '';
@@ -31,7 +31,7 @@ export async function onRequestGet({ request }) {
 
   const faq = [
     ['대학로·혜화동 1층 상가 월세는 얼마인가요?', lines[0] || ''],
-    ['혜화동 원룸 월세 시세는?', lines[2] || ''],
+    ['대학로·혜화동 원룸 월세 시세는?', lines[2] || ''],
     ['이 시세표는 어떤 자료로 만들었나요?', `혜화72부동산(대학로혜화72공인중개사사무소)이 접수한 계약 가능 매물의 호가 중간값과, 국토교통부 실거래가 신고 자료(해제 거래 제외)의 중간값입니다. 매일 아침 자동으로 다시 계산합니다. 기준 ${day}.`],
   ].filter(x => x[1]);
   const ld = [
@@ -51,7 +51,7 @@ export async function onRequestGet({ request }) {
 <p><small>기준 ${esc(d.at || '')} · 혜화동·명륜동·동숭동·이화동·연건동 · 매일 아침 자동 갱신 · 작성 대학로혜화72공인중개사사무소 (대표 공인중개사 김훈, 등록번호 11110-2021-00036)</small></p>
 <div class="ans">${lines.map(l => `<p>${esc(l)}</p>`).join('')}</div>
 <h2>① 혜화72부동산 접수 매물 기준 (호가 중간값)</h2>
-<p><small>사무소에 접수된 계약 가능 매물이 부르는 값의 중간값입니다. 실제 계약가와 다를 수 있습니다. 매물 2건 이상인 구분만 표시.</small></p>
+<p><small>사무소에 접수된 계약 가능 매물이 부르는 값의 중간값입니다. 실제 계약가와 다를 수 있습니다. 매물 2건 이상인 구분만 표시. 단독·건물·상가 매매는 대지 면적 기준이 달라 3.3㎡당 값을 싣지 않습니다.</small></p>
 <div class="wrap">${oursT}</div>
 ${real.length ? `<h2>② 국토교통부 실거래 기준 (${ym(from)}~${ym(to)} 신고분 중간값)</h2>
 <p><small>국토교통부 실거래가 신고 자료에서 위 5개 동만 골라 계산했습니다. 해제된 거래는 뺐습니다. 신고 후 공개까지 보통 한 달쯤 걸려 최근 달은 건수가 적습니다. 상가 임대 실거래는 국토부가 공개하지 않습니다.</small></p>
