@@ -2965,7 +2965,7 @@
           const category = item.querySelector("category")?.textContent || "블로그";
           
           // 본문 내용 중 이미지 태그의 src 추출 (썸네일 자동 연동)
-          let thumbnail = "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=600";
+          let thumbnail = "/profile.jpg";
           const imgRegex = /<img[^>]+src=["']([^"'>\s]+)["']/ig;
           let match;
           while ((match = imgRegex.exec(rawDesc)) !== null) {
@@ -2995,7 +2995,7 @@
           card.className = "blog-feed-card";
           card.innerHTML = `
             <div class="blog-feed-thumb-box">
-              <img class="blog-feed-thumb" src="${thumbnail}" referrerpolicy="no-referrer" alt="${escapeHtml(title)}" onerror="this.src='https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=600'">
+              <img class="blog-feed-thumb" src="${thumbnail}" referrerpolicy="no-referrer" alt="${escapeHtml(title)}" onerror="this.src='/profile.jpg'">
             </div>
             <div class="blog-feed-info">
               <div class="blog-feed-header">
@@ -3044,7 +3044,7 @@
               card.className = "blog-feed-card";
               card.innerHTML = `
                 <div class="blog-feed-thumb-box">
-                  <img class="blog-feed-thumb" src="${post.thumbnail || ''}" referrerpolicy="no-referrer" alt="${escapeHtml(post.title || '')}" onerror="this.src='https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=600'">
+                  <img class="blog-feed-thumb" src="${post.thumbnail || ''}" referrerpolicy="no-referrer" alt="${escapeHtml(post.title || '')}" onerror="this.src='/profile.jpg'">
                 </div>
                 <div class="blog-feed-info">
                   <div class="blog-feed-header">
