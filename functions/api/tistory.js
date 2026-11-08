@@ -6,7 +6,7 @@ const isDefault = u => !u || /openGraph%2Fopengraph\.png|openGraph\/opengraph\.p
 export async function onRequest() {
   const xml = await (await fetch('https://ongamemall.tistory.com/rss', UA)).text();
   const items = xml.split('<item>').slice(1, 11).map(s => {
-    const g = t => dec((s.match(new RegExp(`<${t}>([\\s\\S]*?)</${t}>`)) || [])[1] || '').trim();
+    const g = t => dec(dec((s.match(new RegExp(`<${t}>([\\s\\S]*?)</${t}>`)) || [])[1] || '')).trim();
     return { title: g('title'), link: g('link'), category: g('category'), date: g('pubDate'), summary: dec(g('description').replace(/<[^>]+>/g, ' ')).replace(/https?:\/\/\S+/g, '').replace(/\s+/g, ' ').trim().slice(0, 90) };
   });
   await Promise.all(items.map(async it => {
