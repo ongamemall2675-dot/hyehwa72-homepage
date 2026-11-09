@@ -38,7 +38,9 @@ function info(p) {
 export async function onRequest({ params }) {
   const id = Number(params.id);
   const res = await fetch(`${API}/listing/${id}`, { cf: { cacheTtl: 300 } });
-  if (!res.ok) return new Response(notFound(), { status: 404, headers: { 'content-type': 'text/html; charset=utf-8' } });
+  // 11-09: 거래 끝·비공개 매물은 410(영구 삭제)+noindex 로 알려 구글이 빨리 색인에서 뺀다 (서치콘솔 404 경고 대응)
+  if (res.status === 404) return new Response(notFound(), { status: 410, headers: { 'content-type': 'text/html; charset=utf-8', 'x-robots-tag': 'noindex' } });
+  if (!res.ok) return new Response(notFound(), { status: 503, headers: { 'content-type': 'text/html; charset=utf-8', 'retry-after': '600' } });
   const p = await res.json();
   const I = info(p), url = `${SITE}/listing/${id}`;
   const rel = await related(p);
