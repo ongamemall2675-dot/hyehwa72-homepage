@@ -1,4 +1,5 @@
 // 티스토리 최신 글 (2026-11-03): RSS에는 사진이 없어서 글 페이지의 og:image 를 함께 읽어 JSON 으로 준다
+// 2026-11-13: 자동 발행 글은 그림이 R2(pub-…r2.dev)에 있어 og:image 가 기본 그림 → 본문 첫 R2 사진도 인정(전엔 빈칸 → 홈페이지가 대표 얼굴로 대체).
 // 2026-11-08: 본문이 빈 글은 건너뛰고, og:image 가 티스토리 기본 그림이면 본문 첫 사진을 쓴다. 캐시 10분.
 const dec = s => s.replace(/<!\[CDATA\[|\]\]>/g, '').replace(/&mdash;/g, '—').replace(/&middot;/g, '·').replace(/&frac12;/g, '½').replace(/&nbsp;/g, ' ').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
 const UA = { headers: { 'User-Agent': 'Mozilla/5.0' } };
@@ -16,7 +17,7 @@ export async function onRequest() {
       const i0 = h.indexOf('contents_style');
       const body = i0 > 0 ? h.slice(i0, h.indexOf('<!-- System - START', i0) > 0 ? h.indexOf('<!-- System - START', i0) : i0 + 200000) : '';
       it.empty = body.replace(/<[^>]+>/g, '').replace(/\s+/g, '').length < 30;
-      const first = (body.match(/<img[^>]+src="(https:\/\/(?:blog\.kakaocdn\.net|t1\.daumcdn\.net|img1\.daumcdn\.net)[^"]+)"/) || [])[1] || '';
+      const first = (body.match(/<img[^>]+src="(https:\/\/(?:blog\.kakaocdn\.net|t1\.daumcdn\.net|img1\.daumcdn\.net|pub-[a-z0-9]+\.r2\.dev)[^"]+)"/) || [])[1] || '';
       it.image = isDefault(og) ? first : og;
       if (!it.summary) it.summary = dec((h.match(/property="og:description"\s+content="([^"]+)"/) || [])[1] || '').slice(0, 90);
     } catch { it.image = ''; it.empty = false; }
