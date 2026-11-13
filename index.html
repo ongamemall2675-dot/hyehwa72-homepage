@@ -2604,7 +2604,7 @@ const LISTING_BASE = '/' + 'listing/';
             <script>
             (async () => {
               try {
-                const items = await (await fetch('/api/tistory?v=3')).json();
+                const items = await (await fetch('/api/tistory?v=4')).json();
                 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
                 document.getElementById('tistory-grid').innerHTML = items.slice(0, 4).map(it => {
                   const dt = new Date(it.date), ds = isNaN(dt) ? '' : `${dt.getFullYear()}. ${String(dt.getMonth() + 1).padStart(2, '0')}. ${String(dt.getDate()).padStart(2, '0')}`;

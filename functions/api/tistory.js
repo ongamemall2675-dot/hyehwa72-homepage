@@ -17,7 +17,7 @@ export async function onRequest() {
       const i0 = h.indexOf('contents_style');
       const body = i0 > 0 ? h.slice(i0, h.indexOf('<!-- System - START', i0) > 0 ? h.indexOf('<!-- System - START', i0) : i0 + 200000) : '';
       it.empty = body.replace(/<[^>]+>/g, '').replace(/\s+/g, '').length < 30;
-      const first = (body.match(/<img[^>]+src="(https:\/\/(?:blog\.kakaocdn\.net|t1\.daumcdn\.net|img1\.daumcdn\.net|pub-[a-z0-9]+\.r2\.dev)[^"]+)"/) || [])[1] || '';
+      const first = [...body.matchAll(/<img[^>]+src="(https:\/\/(?:blog\.kakaocdn\.net|t1\.daumcdn\.net|img1\.daumcdn\.net|pub-[a-z0-9]+\.r2\.dev)[^"]+)"/g)].map(m => m[1]).find(u => !/&lt;|<|span/i.test(u)) || '';
       it.image = isDefault(og) ? first : og;
       if (!it.summary) it.summary = dec((h.match(/property="og:description"\s+content="([^"]+)"/) || [])[1] || '').slice(0, 90);
     } catch { it.image = ''; it.empty = false; }
