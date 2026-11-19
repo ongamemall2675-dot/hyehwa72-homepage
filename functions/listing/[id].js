@@ -76,7 +76,7 @@ export async function onRequest({ params }) {
       { '@type': 'ListItem', position: 1, name: '홈', item: SITE + '/' }, { '@type': 'ListItem', position: 2, name: '추천 매물', item: SITE + '/#listings' }, { '@type': 'ListItem', position: 3, name: title, item: url }] },
   ];
   const desc = esc(p.ad_desc || '').replace(/\n/g, '<br>');
-  const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google-adsense-account" content="ca-pub-6231268240767660"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6231268240767660" crossorigin="anonymous"></script>
 <title>${esc(title)}</title><meta name="description" content="${esc(summary)}"><link rel="canonical" href="${url}">
 <meta property="og:type" content="article"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(summary)}"><meta property="og:url" content="${url}">${photos[0] ? `<meta property="og:image" content="${photos[0]}">` : ''}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">

@@ -39,7 +39,7 @@ export async function onRequestGet({ request }) {
     { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
   ];
 
-  const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google-adsense-account" content="ca-pub-6231268240767660"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6231268240767660" crossorigin="anonymous"></script>
 <title>대학로·혜화동 상가·원룸·빌라 시세표 (${esc(day)} 기준) | 혜화72부동산</title>
 <meta name="description" content="${esc((lines[0] || '대학로 일대 부동산 시세표') + ' 국토부 실거래 중간값과 함께 매일 갱신.')}">
 <link rel="canonical" href="https://hyehwa72.org/market">
