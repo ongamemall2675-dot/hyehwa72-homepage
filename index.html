@@ -3818,5 +3818,36 @@ let drag=false;function go(e){const b=tr.getBoundingClientRect(),y=(e.touches?e.
 tr.addEventListener('mousedown',e=>{go(e);drag=true;e.preventDefault()});addEventListener('mousemove',e=>{if(drag)go(e)});addEventListener('mouseup',()=>drag=false);
 tr.addEventListener('touchstart',e=>{drag=true;go(e)},{passive:true});tr.addEventListener('touchmove',e=>{go(e)},{passive:true});tr.addEventListener('touchend',()=>drag=false)})();
 </script>
+
+  <!-- 2026-11-26 방문자: 손님 방문은 업무관리 서버에 숫자만 기록, 업무관리 로그인 브라우저(h72admin)에만 통계 칸 표시(대표 본인 방문은 안 셈) -->
+  <script>(function(){var A='https://admin.hyehwa72.org',ADM=/(?:^|;\s*)h72admin=1/.test(document.cookie);if(ADM||navigator.webdriver)return;try{var k='h72v_'+new Date(Date.now()+324e5).toISOString().slice(0,10),u=!localStorage.getItem(k);if(u)localStorage.setItem(k,'1');var b=JSON.stringify({p:location.pathname,r:document.referrer,u:u?1:0});if(!(navigator.sendBeacon&&navigator.sendBeacon(A+'/sync/pub/hit',new Blob([b],{type:'text/plain'}))))fetch(A+'/sync/pub/hit',{method:'POST',body:b,mode:'no-cors',keepalive:true})}catch(e){}})();</script>
+  <style>
+    #h72v{position:fixed;left:14px;top:84px;z-index:1001;font-size:.86rem;font-family:inherit;color:#fff;max-width:min(360px,calc(100vw - 28px))}
+    #h72v .bar{background:#111c;backdrop-filter:blur(6px);border:2px solid #E8202A;border-radius:999px;padding:7px 14px;cursor:pointer;font-weight:800;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+    #h72v .bar b{color:#ffd43b;font-size:1.05rem}
+    #h72v .box{display:none;margin-top:8px;background:#111e;border:1px solid #444;border-radius:14px;padding:12px 14px;box-shadow:0 10px 24px rgba(0,0,0,.4)}
+    #h72v.open .box{display:block}#h72v table{width:100%;border-collapse:collapse;margin:4px 0 10px}#h72v td{padding:2px 4px}#h72v td:last-child{text-align:right;font-weight:700}
+    #h72v .days{display:flex;align-items:flex-end;gap:3px;height:54px;margin:6px 0 2px}#h72v .days i{flex:1;background:#E8202A;border-radius:3px 3px 0 0;min-height:2px}
+    #h72v h4{margin:8px 0 2px;font-size:.82rem;color:#ffd43b}#h72v small{opacity:.7}
+    @media (max-width:900px){#h72v{top:72px}}
+  </style>
+  <script>
+  (function(){
+    if(!(/(?:^|;\s*)h72admin=1/.test(document.cookie)||/[?&]h72stats/.test(location.search)))return;
+    var el=document.createElement('div');el.id='h72v';el.innerHTML='<div class="bar">👀 방문자 불러오는 중…</div><div class="box"></div>';document.body.appendChild(el);
+    var bar=el.querySelector('.bar'),box=el.querySelector('.box');bar.onclick=function(){el.classList.toggle('open')};
+    var n=function(x){return (x||0).toLocaleString()};
+    fetch('https://admin.hyehwa72.org/api/visits',{credentials:'include'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(v){
+      bar.innerHTML='👀 오늘 <b>'+n(v.today.uv)+'</b>명 · 어제 '+n(v.yesterday.uv)+' · 7일 '+n(v.d7.uv)+' · 30일 '+n(v.d30.uv)+' ▾';
+      var mx=Math.max.apply(null,(v.days||[]).map(function(d){return d.uv}).concat([1]));
+      box.innerHTML='<small>방문자 = 하루 한 번만 세는 사람 수 · 조회 = 페이지 열린 횟수 · 대표님 방문 제외'+(v.since?' · '+v.since+'부터 집계':'')+'</small>'
+        +'<table><tr><td>오늘</td><td>'+n(v.today.uv)+'명 / 조회 '+n(v.today.pv)+'</td></tr><tr><td>어제</td><td>'+n(v.yesterday.uv)+'명 / 조회 '+n(v.yesterday.pv)+'</td></tr><tr><td>최근 7일</td><td>'+n(v.d7.uv)+'명 / 조회 '+n(v.d7.pv)+'</td></tr><tr><td>최근 30일</td><td>'+n(v.d30.uv)+'명 / 조회 '+n(v.d30.pv)+'</td></tr><tr><td>누적</td><td>'+n(v.total.uv)+'명 / 조회 '+n(v.total.pv)+'</td></tr></table>'
+        +'<h4>최근 14일 방문자</h4><div class="days">'+(v.days||[]).map(function(d){return '<i title="'+d.d+' · '+d.uv+'명" style="height:'+Math.round(d.uv/mx*100)+'%"></i>'}).join('')+'</div>'
+        +'<h4>어디서 왔나 (7일)</h4><table>'+((v.src7||[]).map(function(s){return '<tr><td>'+s.src+'</td><td>'+n(s.uv)+'명 / '+n(s.pv)+'</td></tr>'}).join('')||'<tr><td>아직 기록 없음</td><td></td></tr>')+'</table>'
+        +'<h4>많이 본 페이지 (7일)</h4><table>'+((v.page7||[]).map(function(s){return '<tr><td>'+({'/':'첫 화면','/listing':'매물 상세','/dong':'동네 페이지','/market':'시세표','/jiwon':'지원금'}[s.path]||s.path)+'</td><td>'+n(s.pv)+'</td></tr>'}).join('')||'<tr><td>아직 기록 없음</td><td></td></tr>')+'</table>'
+        +'<h4>예전 카운터 (hits.sh, 누적)</h4><img src="https://hits.sh/github.com/ongamemall2675-dot/hyehwa72-homepage.svg?label=VISITORS&color=79C83D&view=total" alt="" style="height:20px">';
+    }).catch(function(){bar.innerHTML='👀 방문자: 업무관리 로그인이 필요합니다 (눌러서 로그인)';bar.onclick=function(){window.open('https://admin.hyehwa72.org/','_blank')}});
+  })();
+  </script>
 </body>
 </html>
