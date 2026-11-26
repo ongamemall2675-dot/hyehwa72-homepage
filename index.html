@@ -3820,7 +3820,7 @@ tr.addEventListener('touchstart',e=>{drag=true;go(e)},{passive:true});tr.addEven
 </script>
 
   <!-- 2026-11-26 방문자: 손님 방문은 업무관리 서버에 숫자만 기록, 업무관리 로그인 브라우저(h72admin)에만 통계 칸 표시(대표 본인 방문은 안 셈) -->
-  <script>(function(){var A='https://admin.hyehwa72.org',ADM=/(?:^|;\s*)h72admin=1/.test(document.cookie);if(ADM||navigator.webdriver)return;try{var k='h72v_'+new Date(Date.now()+324e5).toISOString().slice(0,10),u=!localStorage.getItem(k);if(u)localStorage.setItem(k,'1');var b=JSON.stringify({p:location.pathname,r:document.referrer,u:u?1:0});if(!(navigator.sendBeacon&&navigator.sendBeacon(A+'/sync/pub/hit',new Blob([b],{type:'text/plain'}))))fetch(A+'/sync/pub/hit',{method:'POST',body:b,mode:'no-cors',keepalive:true})}catch(e){}})();</script>
+  <script>(function(){var A='https://admin.hyehwa72.org',ADM=/(?:^|;\s*)h72admin=1/.test(document.cookie);try{if(/[?&]h72stats/.test(location.search))localStorage.setItem('h72stats','1');if(localStorage.getItem('h72stats'))ADM=true}catch(e){}if(ADM||navigator.webdriver)return;try{var k='h72v_'+new Date(Date.now()+324e5).toISOString().slice(0,10),u=!localStorage.getItem(k);if(u)localStorage.setItem(k,'1');var b=JSON.stringify({p:location.pathname,r:document.referrer,u:u?1:0});if(!(navigator.sendBeacon&&navigator.sendBeacon(A+'/sync/pub/hit',new Blob([b],{type:'text/plain'}))))fetch(A+'/sync/pub/hit',{method:'POST',body:b,mode:'no-cors',keepalive:true})}catch(e){}})();</script>
   <style>
     #h72v{position:fixed;left:14px;top:84px;z-index:1001;font-size:.86rem;font-family:inherit;color:#fff;max-width:min(360px,calc(100vw - 28px))}
     #h72v .bar{background:#111c;backdrop-filter:blur(6px);border:2px solid #E8202A;border-radius:999px;padding:7px 14px;cursor:pointer;font-weight:800;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.35)}
@@ -3833,7 +3833,7 @@ tr.addEventListener('touchstart',e=>{drag=true;go(e)},{passive:true});tr.addEven
   </style>
   <script>
   (function(){
-    if(!(/(?:^|;\s*)h72admin=1/.test(document.cookie)||/[?&]h72stats/.test(location.search)))return;
+    var SH=false;try{SH=!!localStorage.getItem('h72stats')}catch(e){}if(!(/(?:^|;\s*)h72admin=1/.test(document.cookie)||/[?&]h72stats/.test(location.search)||SH))return;
     var el=document.createElement('div');el.id='h72v';el.innerHTML='<div class="bar">👀 방문자 불러오는 중…</div><div class="box"></div>';document.body.appendChild(el);
     var bar=el.querySelector('.bar'),box=el.querySelector('.box');bar.onclick=function(){el.classList.toggle('open')};
     var n=function(x){return (x||0).toLocaleString()};
