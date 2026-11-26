@@ -2099,6 +2099,20 @@
       .search-box-container { display: none; }
       .btn-contact-top span { display: none; }
     }
+  
+    /* 2026-11-26 리뉴얼(신뢰형) */
+    .rn72{color:#E8202A;-webkit-text-stroke:2px #fff;paint-order:stroke fill;text-shadow:0 2px 6px rgba(0,0,0,.35);font-weight:900;font-size:1.15em}
+    .rn-trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin:22px 0 8px}
+    .rn-trust div{background:var(--card-bg);border:1px solid rgba(128,128,128,.25);border-radius:14px;padding:12px 16px;display:flex;flex-direction:column;gap:3px;word-break:keep-all}
+    .rn-trust b{font-size:.78rem;opacity:.7}.rn-trust span{font-weight:700;font-size:.95rem}
+    .rn-sec{margin-top:70px}.rn-lead{text-align:center;max-width:720px;margin:-6px auto 22px;opacity:.85;word-break:keep-all}
+    .rn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+    .rn-grid-2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.rn-grid-dong{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+    .rn-card{background:var(--card-bg);border:1px solid rgba(128,128,128,.25);border-radius:16px;padding:20px;word-break:keep-all;color:inherit;text-decoration:none;display:flex;flex-direction:column;gap:8px}
+    .rn-card i{font-size:1.5rem;color:var(--accent)}.rn-card h3{margin:0;font-size:1.08rem}.rn-card p{margin:0;font-size:.92rem;opacity:.85;line-height:1.55}
+    .rn-link{transition:transform .15s,background .15s}.rn-link:hover{transform:translateY(-3px);background:var(--card-bg-hover)}.rn-link span{margin-top:auto;font-weight:700;color:var(--accent);font-size:.88rem}
+    .nav-links a.rn-nav-props{background:#E8202A;color:#fff!important;border-radius:999px;padding:6px 14px;font-weight:800}
+    #report #tistory-grid{margin-top:4px}
   </style>
 
   <!-- ===== AEO/GEO JSON-LD 구조화 데이터 ===== -->
@@ -2273,12 +2287,13 @@
     
     <div class="nav-links">
       <a href="#about">소개</a>
-      <a href="#properties">추천매물</a>
-      <a href="#feeds">소셜콘텐츠</a>
-      <a href="#youtube">최신영상</a>
-      <a href="/jiwon">지원금·혜택</a>
+      <a href="#principles">계약 원칙</a>
+      <a href="#report">리포트</a>
+      <a href="#youtube">영상</a>
+      <a href="#guide">동네 가이드</a>
       <a href="#faq">FAQ</a>
-      <a href="#contact">간편문의</a>
+      <a href="#contact">문의</a>
+      <a href="#properties" class="rn-nav-props">매물 보기</a>
     </div>
 
     <div class="nav-actions">
@@ -2342,9 +2357,9 @@
       <!-- Bio / About Details (Right) -->
       <div class="bio-card">
         <div>
-          <h2>안녕하세요, <br><span>대학로와 혜화동</span>의 이야기를 기록하는 김훈입니다.</h2>
+          <h2>혜화동 토박이 공인중개사, <br><span>대학로 혜화<b class="rn72">72</b></span> 김훈입니다.</h2>
           <div class="bio-text">
-            <p>혜화동과 대학로 골목의 구석구석, 숨겨진 한옥과 역사 깊은 단독주택 그리고 개성 넘치는 상가 매물들의 아름다운 스토리와 가치를 영상으로 담아 대중과 공유합니다.</p>
+            <p>혜화동에서 나고 자라 15년째 이 동네 상가·사무실·주택 거래를 중개하고 있습니다. 매물을 많이 보여 드리는 것보다, 계약 전에 서류와 권리관계를 먼저 확인하고 숫자로 설명하는 것을 원칙으로 합니다.</p>
             <p>단순히 부동산 계약을 중개하는 것을 넘어, 이 매력적인 동네로 발걸음을 옮기는 분들이 골목의 일원으로 따뜻하게 녹아들고 정착할 수 있도록 안전하고 정직한 파트너가 되어 드립니다.</p>
           </div>
           
@@ -2366,7 +2381,337 @@
       </div>
     </section>
 
+    <!-- 2026-11-26 리뉴얼: 신뢰 정보 줄 -->
+    <div class="rn-trust" aria-label="사무소 기본 정보">
+      <div><b>개설등록번호</b><span>제 11110-2021-00036 호</span></div>
+      <div><b>대표 공인중개사</b><span>김훈 · 혜화동 토박이 · 경력 15년</span></div>
+      <div><b>사무소</b><span>종로구 창경궁로 266, 1층 · 혜화역 4번 출구 도보 2~3분</span></div>
+      <div><b>주력</b><span>혜화·명륜·동숭·이화동 상가·사무실·주택·건물</span></div>
+    </div>
+
+    <!-- 2026-11-26 리뉴얼: 계약 원칙 -->
+    <section id="principles" class="rn-sec">
+      <div class="section-header">
+        <span class="subtitle">HOW WE WORK</span>
+        <h2 class="title">혜화<b class="rn72">72</b>는 계약 전에 무엇을 확인하나요?</h2>
+      </div>
+      <p class="rn-lead">계약서를 쓰기 전에 아래 네 가지를 서류로 확인하고, 확인한 내용을 손님께 그대로 보여 드립니다.</p>
+      <div class="rn-grid">
+        <div class="rn-card"><i class="fa-solid fa-file-lines"></i><h3>1. 등기부등본</h3><p>실제 소유자와 계약 상대가 같은지, 압류·가처분이 없는지 확인합니다.</p></div>
+        <div class="rn-card"><i class="fa-solid fa-building-circle-check"></i><h3>2. 건축물대장</h3><p>용도·면적·위반건축물 여부를 대장 원본으로 확인합니다.</p></div>
+        <div class="rn-card"><i class="fa-solid fa-scale-balanced"></i><h3>3. 근저당·선순위</h3><p>보증금이 안전한지 근저당과 선순위 권리를 따져 설명합니다.</p></div>
+        <div class="rn-card"><i class="fa-solid fa-pen-to-square"></i><h3>4. 특약 정리</h3><p>원상복구·권리금·수리 범위처럼 다툼이 잦은 부분을 특약으로 남깁니다.</p></div>
+      </div>
+    </section>
+
+    <!-- 2026-11-26 리뉴얼: 리포트·칼럼 (글이 없으면 자동 숨김) -->
+    <section id="report" class="rn-sec">
+      <div class="section-header">
+        <span class="subtitle">HYEHWA72 REPORT</span>
+        <h2 class="title">대학로 부동산, 지금 숫자로 보면 어떤가요?</h2>
+      </div>
+      <div class="rn-grid rn-grid-2">
+        <a class="rn-card rn-link" href="/market"><i class="fa-solid fa-chart-line"></i><h3>대학로 시세표</h3><p>국토교통부 실거래가로 정리한 혜화·대학로 일대 시세입니다.</p><span>시세표 보기 ›</span></a>
+        <a class="rn-card rn-link" href="/jiwon"><i class="fa-solid fa-hand-holding-dollar"></i><h3>지원금·주민 혜택</h3><p>종로·혜화에서 받을 수 있는 지원금과 혜택을 모았습니다.</p><span>지원금 보기 ›</span></a>
+      </div>
+            <!-- 경제·부동산 칼럼 (2026-11-03) -->
+            <h3 style="margin:34px 0 14px;font-size:1.15rem;text-align:center">티스토리 최신 글 <a href="https://ongamemall.tistory.com" target="_blank" rel="noopener" style="font-size:.85rem;font-weight:600;margin-left:8px">전체 보기 ›</a></h3>
+            <div class="blog-feed-grid" id="tistory-grid"></div>
+            <script>
+            (async () => {
+              try {
+                const items = await (await fetch('/api/tistory?v=4')).json();
+                const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+                document.getElementById('tistory-grid').innerHTML = items.slice(0, 4).map(it => {
+                  const dt = new Date(it.date), ds = isNaN(dt) ? '' : `${dt.getFullYear()}. ${String(dt.getMonth() + 1).padStart(2, '0')}. ${String(dt.getDate()).padStart(2, '0')}`;
+                  const img = it.image && !/no-image|opengraph\.png/.test(it.image) ? it.image : '/profile.jpg';
+                  return `<a href="${esc(it.link)}" target="_blank" rel="noopener" class="blog-feed-card"><div class="blog-feed-thumb-box"><img class="blog-feed-thumb" src="${esc(img)}" referrerpolicy="no-referrer" loading="lazy" alt="${esc(it.title)}"></div><div class="blog-feed-info"><div class="blog-feed-header"><span class="blog-feed-tag">${esc(it.category || '티스토리')}</span><span class="blog-feed-date">${ds}</span></div><h3 class="blog-feed-title">${esc(it.title.replace(/^\[.*?\]\s*/, ''))}</h3><p class="blog-feed-summary">${esc(it.summary)}…</p><span class="blog-feed-more">티스토리 글 보기 <i class="fa-solid fa-arrow-right"></i></span></div></a>`;
+                }).join('');
+              } catch (e) { const g = document.getElementById('tistory-grid'); if (g) g.previousElementSibling.style.display = 'none'; }
+            })();
+            </script>
+    </section>
+
+
     <!-- 3. Real Estate Listings Section (추천 매물 쇼케이스) -->
+
+
+    <!-- 4. Naver Blog Content Preview -->
+
+
+    <!-- 2. YouTube Latest Video Section -->
+    <section id="youtube" class="youtube-section">
+      <div class="section-header">
+        <span class="subtitle">YOUTUBE CHANNEL</span>
+        <h2 class="title">대학로 혜화72 부동산 영상</h2>
+      </div>
+
+      <!-- 3x3 Video Grid -->
+      <div class="yt-grid-9" id="yt-grid-container">
+        <!-- Dynamically populated by JS -->
+      </div>
+
+      <!-- Channel CTA -->
+      <div class="yt-channel-cta">
+        <a href="https://www.youtube.com/channel/UC4LUKIDmLbd3bMAjjGJ18DQ" target="_blank" class="btn-youtube-subscribe">
+          <i class="fa-brands fa-youtube"></i>
+          <span>채널 전체 영상 보기</span>
+        </a>
+        <a href="https://www.youtube.com/channel/UC4LUKIDmLbd3bMAjjGJ18DQ?sub_confirmation=1" target="_blank" class="btn-youtube-subscribe" style="background-color: var(--primary-dark); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);">
+          <i class="fa-solid fa-bell"></i>
+          <span>채널 구독하기</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 2026-11-26 리뉴얼: 동네 가이드 -->
+    <section id="guide" class="rn-sec">
+      <div class="section-header">
+        <span class="subtitle">NEIGHBORHOOD GUIDE</span>
+        <h2 class="title">혜화·대학로 동네별로 무엇이 다른가요?</h2>
+      </div>
+      <div class="rn-grid rn-grid-dong">
+        <a class="rn-card rn-link" href="/dong/hyehwa"><h3>혜화동</h3><p>혜화역·성균관대 사이 주거와 상가</p><span>동네 보기 ›</span></a>
+        <a class="rn-card rn-link" href="/dong/myeongnyun"><h3>명륜동</h3><p>성균관대 앞 원룸·단독·한옥</p><span>동네 보기 ›</span></a>
+        <a class="rn-card rn-link" href="/dong/dongsung"><h3>동숭동</h3><p>마로니에공원·소극장 상권</p><span>동네 보기 ›</span></a>
+        <a class="rn-card rn-link" href="/dong/ihwa"><h3>이화동</h3><p>낙산공원 아래 골목 주택</p><span>동네 보기 ›</span></a>
+        <a class="rn-card rn-link" href="/dong/yeongeon"><h3>연건동</h3><p>서울대병원 옆 주거·사무실</p><span>동네 보기 ›</span></a>
+      </div>
+    </section>
+
+    <!-- 2026-11-26 리뉴얼: 고객 후기. 후기가 생기면 hidden 을 지우고 .rn-grid 안에 카드 추가 -->
+    <section id="reviews" class="rn-sec" hidden>
+      <div class="section-header">
+        <span class="subtitle">REVIEWS</span>
+        <h2 class="title">혜화<b class="rn72">72</b>에서 계약한 분들의 이야기</h2>
+      </div>
+      <div class="rn-grid"></div>
+    </section>
+
+    <section id="feeds" class="feed-tabs-section">
+      <div class="section-header">
+        <span class="subtitle">NAVER BLOG FEED</span>
+        <h2 class="title">네이버 블로그 최신 글</h2>
+      </div>
+
+      <div class="feed-tabs-container">
+        <!-- Panes -->
+        <div class="feed-panes">
+          <!-- Naver Blog Pane -->
+          <div class="feed-pane active" id="tab-blog">
+            <div class="blog-feed-grid">
+              <!-- Post 1 -->
+              <a href="https://blog.naver.com/ongamemall/223253775461" target="_blank" class="blog-feed-card">
+                <div class="blog-feed-thumb-box">
+                  <img class="blog-feed-thumb" src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=300" alt="블로그 포스트 썸네일">
+                </div>
+                <div class="blog-feed-info">
+                  <div class="blog-feed-header">
+                    <span class="blog-feed-tag">중개일지</span>
+                    <span class="blog-feed-date">2026. 06. 02</span>
+                  </div>
+                  <h3 class="blog-feed-title">혜화동 한옥 상가 임대차 계약 완료 후기 & 인테리어 트렌드 분석</h3>
+                  <p class="blog-feed-summary">최근 계약을 마친 혜화역 인근 한옥 상가의 임대차 계약 과정과 한옥 개조 상업 시설의 트렌드를 소개합니다...</p>
+                  <span class="blog-feed-more">블로그 글 상세 페이지 이동 <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+              </a>
+
+              <!-- Post 2 -->
+              <a href="https://blog.naver.com/ongamemall/223253775462" target="_blank" class="blog-feed-card">
+                <div class="blog-feed-thumb-box">
+                  <img class="blog-feed-thumb" src="https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=300" alt="블로그 포스트 썸네일">
+                </div>
+                <div class="blog-feed-info">
+                  <div class="blog-feed-header">
+                    <span class="blog-feed-tag">지원 정책</span>
+                    <span class="blog-feed-date">2026. 05. 24</span>
+                  </div>
+                  <h3 class="blog-feed-title">2026년 종로구 단독주택·한옥 보존 및 개보수 정부 보조금 신청 가이드</h3>
+                  <p class="blog-feed-summary">외관 공사 비용의 최대 70%, 최고 6천만 원까지 무상 보조금을 지원하는 사업 일정 및 필요 서류 총정리...</p>
+                  <span class="blog-feed-more">블로그 글 상세 페이지 이동 <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Platform Redirect Grid -->
+      <div class="mini-sns-grid">
+        <a href="https://www.youtube.com/channel/UC4LUKIDmLbd3bMAjjGJ18DQ" target="_blank" class="mini-sns-btn btn-yt"><i class="fa-brands fa-youtube"></i> YouTube</a>
+        <a href="https://blog.naver.com/ongamemall" target="_blank" class="mini-sns-btn btn-blog"><i class="fa-solid fa-blog"></i> Blog</a>
+        <a href="https://www.instagram.com/realhyehwa72/" target="_blank" class="mini-sns-btn btn-insta"><i class="fa-brands fa-instagram"></i> Instagram</a>
+        <a href="https://www.threads.com/@realhyehwa72" target="_blank" class="mini-sns-btn btn-threads"><i class="fa-solid fa-at"></i> Threads</a>
+        <a href="https://www.tiktok.com/@ongamemall" target="_blank" class="mini-sns-btn btn-tiktok"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+        <a href="https://pf.kakao.com/_virmX/chat" target="_blank" class="mini-sns-btn btn-kakao" style="grid-column: span 2;"><i class="fa-solid fa-comment"></i> Kakao Channel Chat</a>
+      </div>
+    </section>
+
+
+    <!-- 5. 혜화동 일상 (Vlog) Section -->
+    <section id="gallery" hidden><!-- 2026-11-03 대표: 혜화동 일상 숨김 -->
+      <div class="section-header">
+        <span class="subtitle">DAILY VLOG CHANNEL</span>
+        <h2 class="title">혜화동 일상</h2>
+      </div>
+
+      <!-- Gallery Grid — Vlog only, populated by loadDailyVlogFeed() -->
+      <div class="gallery-grid" id="gallery-container">
+        <!-- Dynamically populated -->
+      </div>
+
+      <!-- Vlog Channel CTA -->
+      <div class="yt-channel-cta" style="margin-top: 24px;">
+        <a href="https://www.youtube.com/channel/UCukzU8IRbbMBVV9ogNtUORg" target="_blank" class="btn-youtube-subscribe">
+          <i class="fa-brands fa-youtube"></i>
+          <span>혜화동 일상 채널 전체 보기</span>
+        </a>
+        <a href="https://www.youtube.com/channel/UCukzU8IRbbMBVV9ogNtUORg?sub_confirmation=1" target="_blank" class="btn-youtube-subscribe" style="background-color: var(--primary-dark); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);">
+          <i class="fa-solid fa-bell"></i>
+          <span>일상 채널 구독하기</span>
+        </a>
+      </div>
+    </section>
+
+
+    <!-- 7. FAQ Section (AEO — AI Answer Engine 최적화) -->
+    <section id="faq" aria-label="자주 묻는 질문 — 대학로 혜화72 공인중개사 사무소">
+      <div class="section-header">
+        <span class="subtitle">FAQ · AEO</span>
+        <h2 class="title">자주 묻는 질문</h2>
+      </div>
+
+      <div class="faq-list" itemscope itemtype="https://schema.org/FAQPage">
+
+        <!-- Q1 -->
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-question" aria-expanded="false" id="faq-btn-1" aria-controls="faq-ans-1">
+            <span class="faq-q-icon"><i class="fa-solid fa-q"></i></span>
+            <span itemprop="name">대학로 혜화72 공인중개사 사무소 연락처는 어떻게 되나요?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron"></i>
+          </button>
+          <div class="faq-answer" id="faq-ans-1" role="region" aria-labelledby="faq-btn-1" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p class="faq-answer-inner" itemprop="text">대학로 혜화72 공인중개사 사무소의 대표전화는 <strong>02-766-0720</strong>이며, 휴대폰·문자는 <strong>010-3160-2675</strong>(대표 김훈)입니다. 카카오톡 채널을 통한 채팅 문의도 가능합니다. 사무소 주소는 서울 종로구 창경궁로 266 1층이며, 혜화역 4번 출구에서 도보 2~3분, 우리은행 바로 옆입니다.</p>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-question" aria-expanded="false" id="faq-btn-2" aria-controls="faq-ans-2">
+            <span class="faq-q-icon"><i class="fa-solid fa-q"></i></span>
+            <span itemprop="name">혜화역 근처 상가를 임대하려면 어떻게 해야 하나요?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron"></i>
+          </button>
+          <div class="faq-answer" id="faq-ans-2" role="region" aria-labelledby="faq-btn-2" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p class="faq-answer-inner" itemprop="text">혜화역 근처 상가 임대는 대학로 혜화72 공인중개사 사무소(02-766-0720)에 문의하시면 됩니다. 혜화역·대학로 일대 1층 상가, 복층 상가, 권리금 없는 매물 등 다양한 정보를 보유하고 있습니다. 유튜브 채널과 네이버 블로그에서 실제 매물 영상과 상세 정보를 먼저 확인하실 수 있습니다.</p>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-question" aria-expanded="false" id="faq-btn-3" aria-controls="faq-ans-3">
+            <span class="faq-q-icon"><i class="fa-solid fa-q"></i></span>
+            <span itemprop="name">혜화동 권리금 없는 상가 매물이 있나요?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron"></i>
+          </button>
+          <div class="faq-answer" id="faq-ans-3" role="region" aria-labelledby="faq-btn-3" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p class="faq-answer-inner" itemprop="text">네, 대학로 혜화72 공인중개사 사무소에서는 권리금 없는 혜화역 주변 상가 매물을 다수 보유하고 있습니다. 권리금 없는 매물은 초기 창업 비용 절감에 유리합니다. 현재 매물 현황은 유튜브 채널 또는 네이버 블로그에서 확인하거나 <strong>02-766-0720</strong>으로 문의 주세요.</p>
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-question" aria-expanded="false" id="faq-btn-4" aria-controls="faq-ans-4">
+            <span class="faq-q-icon"><i class="fa-solid fa-q"></i></span>
+            <span itemprop="name">혜화역 근처 오피스텔·사무실 월세 시세는 얼마인가요?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron"></i>
+          </button>
+          <div class="faq-answer" id="faq-ans-4" role="region" aria-labelledby="faq-btn-4" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p class="faq-answer-inner" itemprop="text">혜화역 근처 소규모 사무실의 경우 보증금 500만~1,000만원에 월세 55만~90만원대 매물이 있습니다. 오피스텔은 위치와 면적에 따라 다르며, 대학로 혜화72 공인중개사 사무소(02-766-0720)에 문의하시면 현재 시세와 맞는 매물을 안내해 드립니다.</p>
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-question" aria-expanded="false" id="faq-btn-5" aria-controls="faq-ans-5">
+            <span class="faq-q-icon"><i class="fa-solid fa-q"></i></span>
+            <span itemprop="name">대학로 혜화72는 어떤 부동산 매물을 다루나요?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron"></i>
+          </button>
+          <div class="faq-answer" id="faq-ans-5" role="region" aria-labelledby="faq-btn-5" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p class="faq-answer-inner" itemprop="text">대학로 혜화72 공인중개사 사무소는 혜화동·명륜동·동숭동·이화동 등 대학로 일대의 상가(1층·복층), 한옥 건물, 단독주택, 오피스텔, 소규모 사무실의 임대(전·월세)와 매매를 전문으로 중개합니다. 개업공인중개사 김훈 대표가 직접 매물을 발굴하고 유튜브 영상으로 공개합니다.</p>
+          </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-question" aria-expanded="false" id="faq-btn-6" aria-controls="faq-ans-6">
+            <span class="faq-q-icon"><i class="fa-solid fa-q"></i></span>
+            <span itemprop="name">대학로 혜화72 공인중개사 사무소는 어디에 있나요?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron"></i>
+          </button>
+          <div class="faq-answer" id="faq-ans-6" role="region" aria-labelledby="faq-btn-6" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p class="faq-answer-inner" itemprop="text">대학로 혜화72 공인중개사 사무소는 서울 종로구 창경궁로 266 1층에 위치합니다. 혜화역 4번 출구에서 도보 2~3분, 우리은행 바로 옆입니다. 네이버지도, 카카오맵에서 <strong>'대학로 혜화72 공인중개사 사무소'</strong>로 검색하시면 찾아오실 수 있습니다.</p>
+          </div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-question" aria-expanded="false" id="faq-btn-7" aria-controls="faq-ans-7">
+            <span class="faq-q-icon"><i class="fa-solid fa-q"></i></span>
+            <span itemprop="name">혜화동 한옥 상가는 어떻게 임대할 수 있나요?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron"></i>
+          </button>
+          <div class="faq-answer" id="faq-ans-7" role="region" aria-labelledby="faq-btn-7" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p class="faq-answer-inner" itemprop="text">혜화동에는 1970년대 지어진 전통 한옥 건물 상가가 일부 남아 있습니다. 이러한 희귀 한옥 상가 매물은 시장에 잘 나오지 않아 전문 공인중개사를 통해 구하는 것이 효과적입니다. 대학로 혜화72 공인중개사 사무소(02-766-0720)에 문의하시면 혜화동 한옥 상가 최신 매물 정보를 받아보실 수 있습니다.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- 6. Contact Hub Section -->
+    <section id="contact">
+
+      <div class="section-header">
+        <span class="subtitle">QUICK CONTACT</span>
+        <h2 class="title">김훈 대표 간편 문의</h2>
+      </div>
+
+      <div class="contact-grid">
+        <!-- 대표전화 (2026-10-20 대표번호 02-766-0720로 통일) -->
+        <a href="tel:02-766-0720" class="contact-card">
+          <i class="fa-solid fa-phone"></i>
+          <span class="contact-label">대표전화</span>
+          <span class="contact-val">02-766-0720</span>
+        </a>
+
+        <!-- Mobile -->
+        <a href="tel:010-3160-2675" class="contact-card">
+          <i class="fa-solid fa-mobile-screen"></i>
+          <span class="contact-label">대표 휴대폰</span>
+          <span class="contact-val">010-3160-2675</span>
+        </a>
+
+        <!-- SMS -->
+        <a href="sms:010-3160-2675" class="contact-card">
+          <i class="fa-solid fa-envelope-open-text"></i>
+          <span class="contact-label">문자 문의</span>
+          <span class="contact-val">메시지 보내기</span>
+        </a>
+
+        <!-- Map Location -->
+        <a href="https://map.naver.com/v5/search/서울%20종로구%20창경궁로%20266" target="_blank" class="contact-card">
+          <i class="fa-solid fa-location-dot"></i>
+          <span class="contact-label">사무실 오시는 길</span>
+          <span class="contact-val">창경궁로 266 1층</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 2026-11-26 리뉴얼: 매물 지도는 최하단 -->
     <section id="properties">
       <div class="section-header">
         <span class="subtitle">HYEHWA72 LISTINGS</span>
@@ -2551,269 +2896,6 @@ const LISTING_BASE = '/' + 'listing/';
             </div>
           </div>
           <i class="fa-solid fa-chevron-right property-outlink-arrow"></i>
-        </a>
-      </div>
-    </section>
-
-    <!-- 4. Naver Blog Content Preview -->
-    <section id="feeds" class="feed-tabs-section">
-      <div class="section-header">
-        <span class="subtitle">NAVER BLOG FEED</span>
-        <h2 class="title">네이버 블로그 최신 글</h2>
-      </div>
-
-      <div class="feed-tabs-container">
-        <!-- Panes -->
-        <div class="feed-panes">
-          <!-- Naver Blog Pane -->
-          <div class="feed-pane active" id="tab-blog">
-            <div class="blog-feed-grid">
-              <!-- Post 1 -->
-              <a href="https://blog.naver.com/ongamemall/223253775461" target="_blank" class="blog-feed-card">
-                <div class="blog-feed-thumb-box">
-                  <img class="blog-feed-thumb" src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=300" alt="블로그 포스트 썸네일">
-                </div>
-                <div class="blog-feed-info">
-                  <div class="blog-feed-header">
-                    <span class="blog-feed-tag">중개일지</span>
-                    <span class="blog-feed-date">2026. 06. 02</span>
-                  </div>
-                  <h3 class="blog-feed-title">혜화동 한옥 상가 임대차 계약 완료 후기 & 인테리어 트렌드 분석</h3>
-                  <p class="blog-feed-summary">최근 계약을 마친 혜화역 인근 한옥 상가의 임대차 계약 과정과 한옥 개조 상업 시설의 트렌드를 소개합니다...</p>
-                  <span class="blog-feed-more">블로그 글 상세 페이지 이동 <i class="fa-solid fa-arrow-right"></i></span>
-                </div>
-              </a>
-
-              <!-- Post 2 -->
-              <a href="https://blog.naver.com/ongamemall/223253775462" target="_blank" class="blog-feed-card">
-                <div class="blog-feed-thumb-box">
-                  <img class="blog-feed-thumb" src="https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=300" alt="블로그 포스트 썸네일">
-                </div>
-                <div class="blog-feed-info">
-                  <div class="blog-feed-header">
-                    <span class="blog-feed-tag">지원 정책</span>
-                    <span class="blog-feed-date">2026. 05. 24</span>
-                  </div>
-                  <h3 class="blog-feed-title">2026년 종로구 단독주택·한옥 보존 및 개보수 정부 보조금 신청 가이드</h3>
-                  <p class="blog-feed-summary">외관 공사 비용의 최대 70%, 최고 6천만 원까지 무상 보조금을 지원하는 사업 일정 및 필요 서류 총정리...</p>
-                  <span class="blog-feed-more">블로그 글 상세 페이지 이동 <i class="fa-solid fa-arrow-right"></i></span>
-                </div>
-              </a>
-            </div>
-            <!-- 티스토리 최신 글 (2026-11-03) -->
-            <h3 style="margin:34px 0 14px;font-size:1.15rem;text-align:center">티스토리 최신 글 <a href="https://ongamemall.tistory.com" target="_blank" rel="noopener" style="font-size:.85rem;font-weight:600;margin-left:8px">전체 보기 ›</a></h3>
-            <div class="blog-feed-grid" id="tistory-grid"></div>
-            <script>
-            (async () => {
-              try {
-                const items = await (await fetch('/api/tistory?v=4')).json();
-                const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-                document.getElementById('tistory-grid').innerHTML = items.slice(0, 4).map(it => {
-                  const dt = new Date(it.date), ds = isNaN(dt) ? '' : `${dt.getFullYear()}. ${String(dt.getMonth() + 1).padStart(2, '0')}. ${String(dt.getDate()).padStart(2, '0')}`;
-                  const img = it.image && !/no-image|opengraph\.png/.test(it.image) ? it.image : '/profile.jpg';
-                  return `<a href="${esc(it.link)}" target="_blank" rel="noopener" class="blog-feed-card"><div class="blog-feed-thumb-box"><img class="blog-feed-thumb" src="${esc(img)}" referrerpolicy="no-referrer" loading="lazy" alt="${esc(it.title)}"></div><div class="blog-feed-info"><div class="blog-feed-header"><span class="blog-feed-tag">${esc(it.category || '티스토리')}</span><span class="blog-feed-date">${ds}</span></div><h3 class="blog-feed-title">${esc(it.title.replace(/^\[.*?\]\s*/, ''))}</h3><p class="blog-feed-summary">${esc(it.summary)}…</p><span class="blog-feed-more">티스토리 글 보기 <i class="fa-solid fa-arrow-right"></i></span></div></a>`;
-                }).join('');
-              } catch (e) { const g = document.getElementById('tistory-grid'); if (g) g.previousElementSibling.style.display = 'none'; }
-            })();
-            </script>
-          </div>
-        </div>
-      </div>
-
-      <!-- Quick Platform Redirect Grid -->
-      <div class="mini-sns-grid">
-        <a href="https://www.youtube.com/channel/UC4LUKIDmLbd3bMAjjGJ18DQ" target="_blank" class="mini-sns-btn btn-yt"><i class="fa-brands fa-youtube"></i> YouTube</a>
-        <a href="https://blog.naver.com/ongamemall" target="_blank" class="mini-sns-btn btn-blog"><i class="fa-solid fa-blog"></i> Blog</a>
-        <a href="https://www.instagram.com/realhyehwa72/" target="_blank" class="mini-sns-btn btn-insta"><i class="fa-brands fa-instagram"></i> Instagram</a>
-        <a href="https://www.threads.com/@realhyehwa72" target="_blank" class="mini-sns-btn btn-threads"><i class="fa-solid fa-at"></i> Threads</a>
-        <a href="https://www.tiktok.com/@ongamemall" target="_blank" class="mini-sns-btn btn-tiktok"><i class="fa-brands fa-tiktok"></i> TikTok</a>
-        <a href="https://pf.kakao.com/_virmX/chat" target="_blank" class="mini-sns-btn btn-kakao" style="grid-column: span 2;"><i class="fa-solid fa-comment"></i> Kakao Channel Chat</a>
-      </div>
-    </section>
-
-    <!-- 2. YouTube Latest Video Section -->
-    <section id="youtube" class="youtube-section">
-      <div class="section-header">
-        <span class="subtitle">YOUTUBE CHANNEL</span>
-        <h2 class="title">대학로 혜화72 부동산 영상</h2>
-      </div>
-
-      <!-- 3x3 Video Grid -->
-      <div class="yt-grid-9" id="yt-grid-container">
-        <!-- Dynamically populated by JS -->
-      </div>
-
-      <!-- Channel CTA -->
-      <div class="yt-channel-cta">
-        <a href="https://www.youtube.com/channel/UC4LUKIDmLbd3bMAjjGJ18DQ" target="_blank" class="btn-youtube-subscribe">
-          <i class="fa-brands fa-youtube"></i>
-          <span>채널 전체 영상 보기</span>
-        </a>
-        <a href="https://www.youtube.com/channel/UC4LUKIDmLbd3bMAjjGJ18DQ?sub_confirmation=1" target="_blank" class="btn-youtube-subscribe" style="background-color: var(--primary-dark); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);">
-          <i class="fa-solid fa-bell"></i>
-          <span>채널 구독하기</span>
-        </a>
-      </div>
-    </section>
-
-    <!-- 5. 혜화동 일상 (Vlog) Section -->
-    <section id="gallery" hidden><!-- 2026-11-03 대표: 혜화동 일상 숨김 -->
-      <div class="section-header">
-        <span class="subtitle">DAILY VLOG CHANNEL</span>
-        <h2 class="title">혜화동 일상</h2>
-      </div>
-
-      <!-- Gallery Grid — Vlog only, populated by loadDailyVlogFeed() -->
-      <div class="gallery-grid" id="gallery-container">
-        <!-- Dynamically populated -->
-      </div>
-
-      <!-- Vlog Channel CTA -->
-      <div class="yt-channel-cta" style="margin-top: 24px;">
-        <a href="https://www.youtube.com/channel/UCukzU8IRbbMBVV9ogNtUORg" target="_blank" class="btn-youtube-subscribe">
-          <i class="fa-brands fa-youtube"></i>
-          <span>혜화동 일상 채널 전체 보기</span>
-        </a>
-        <a href="https://www.youtube.com/channel/UCukzU8IRbbMBVV9ogNtUORg?sub_confirmation=1" target="_blank" class="btn-youtube-subscribe" style="background-color: var(--primary-dark); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);">
-          <i class="fa-solid fa-bell"></i>
-          <span>일상 채널 구독하기</span>
-        </a>
-      </div>
-    </section>
-
-
-    <!-- 7. FAQ Section (AEO — AI Answer Engine 최적화) -->
-    <section id="faq" aria-label="자주 묻는 질문 — 대학로 혜화72 공인중개사 사무소">
-      <div class="section-header">
-        <span class="subtitle">FAQ · AEO</span>
-        <h2 class="title">자주 묻는 질문</h2>
-      </div>
-
-      <div class="faq-list" itemscope itemtype="https://schema.org/FAQPage">
-
-        <!-- Q1 -->
-        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-          <button class="faq-question" aria-expanded="false" id="faq-btn-1" aria-controls="faq-ans-1">
-            <span class="faq-q-icon"><i class="fa-solid fa-q"></i></span>
-            <span itemprop="name">대학로 혜화72 공인중개사 사무소 연락처는 어떻게 되나요?</span>
-            <i class="fa-solid fa-chevron-down faq-chevron"></i>
-          </button>
-          <div class="faq-answer" id="faq-ans-1" role="region" aria-labelledby="faq-btn-1" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-            <p class="faq-answer-inner" itemprop="text">대학로 혜화72 공인중개사 사무소의 대표전화는 <strong>02-766-0720</strong>이며, 휴대폰·문자는 <strong>010-3160-2675</strong>(대표 김훈)입니다. 카카오톡 채널을 통한 채팅 문의도 가능합니다. 사무소 주소는 서울 종로구 창경궁로 266 1층이며, 혜화역 4번 출구에서 도보 2~3분, 우리은행 바로 옆입니다.</p>
-          </div>
-        </div>
-
-        <!-- Q2 -->
-        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-          <button class="faq-question" aria-expanded="false" id="faq-btn-2" aria-controls="faq-ans-2">
-            <span class="faq-q-icon"><i class="fa-solid fa-q"></i></span>
-            <span itemprop="name">혜화역 근처 상가를 임대하려면 어떻게 해야 하나요?</span>
-            <i class="fa-solid fa-chevron-down faq-chevron"></i>
-          </button>
-          <div class="faq-answer" id="faq-ans-2" role="region" aria-labelledby="faq-btn-2" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-            <p class="faq-answer-inner" itemprop="text">혜화역 근처 상가 임대는 대학로 혜화72 공인중개사 사무소(02-766-0720)에 문의하시면 됩니다. 혜화역·대학로 일대 1층 상가, 복층 상가, 권리금 없는 매물 등 다양한 정보를 보유하고 있습니다. 유튜브 채널과 네이버 블로그에서 실제 매물 영상과 상세 정보를 먼저 확인하실 수 있습니다.</p>
-          </div>
-        </div>
-
-        <!-- Q3 -->
-        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-          <button class="faq-question" aria-expanded="false" id="faq-btn-3" aria-controls="faq-ans-3">
-            <span class="faq-q-icon"><i class="fa-solid fa-q"></i></span>
-            <span itemprop="name">혜화동 권리금 없는 상가 매물이 있나요?</span>
-            <i class="fa-solid fa-chevron-down faq-chevron"></i>
-          </button>
-          <div class="faq-answer" id="faq-ans-3" role="region" aria-labelledby="faq-btn-3" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-            <p class="faq-answer-inner" itemprop="text">네, 대학로 혜화72 공인중개사 사무소에서는 권리금 없는 혜화역 주변 상가 매물을 다수 보유하고 있습니다. 권리금 없는 매물은 초기 창업 비용 절감에 유리합니다. 현재 매물 현황은 유튜브 채널 또는 네이버 블로그에서 확인하거나 <strong>02-766-0720</strong>으로 문의 주세요.</p>
-          </div>
-        </div>
-
-        <!-- Q4 -->
-        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-          <button class="faq-question" aria-expanded="false" id="faq-btn-4" aria-controls="faq-ans-4">
-            <span class="faq-q-icon"><i class="fa-solid fa-q"></i></span>
-            <span itemprop="name">혜화역 근처 오피스텔·사무실 월세 시세는 얼마인가요?</span>
-            <i class="fa-solid fa-chevron-down faq-chevron"></i>
-          </button>
-          <div class="faq-answer" id="faq-ans-4" role="region" aria-labelledby="faq-btn-4" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-            <p class="faq-answer-inner" itemprop="text">혜화역 근처 소규모 사무실의 경우 보증금 500만~1,000만원에 월세 55만~90만원대 매물이 있습니다. 오피스텔은 위치와 면적에 따라 다르며, 대학로 혜화72 공인중개사 사무소(02-766-0720)에 문의하시면 현재 시세와 맞는 매물을 안내해 드립니다.</p>
-          </div>
-        </div>
-
-        <!-- Q5 -->
-        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-          <button class="faq-question" aria-expanded="false" id="faq-btn-5" aria-controls="faq-ans-5">
-            <span class="faq-q-icon"><i class="fa-solid fa-q"></i></span>
-            <span itemprop="name">대학로 혜화72는 어떤 부동산 매물을 다루나요?</span>
-            <i class="fa-solid fa-chevron-down faq-chevron"></i>
-          </button>
-          <div class="faq-answer" id="faq-ans-5" role="region" aria-labelledby="faq-btn-5" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-            <p class="faq-answer-inner" itemprop="text">대학로 혜화72 공인중개사 사무소는 혜화동·명륜동·동숭동·이화동 등 대학로 일대의 상가(1층·복층), 한옥 건물, 단독주택, 오피스텔, 소규모 사무실의 임대(전·월세)와 매매를 전문으로 중개합니다. 개업공인중개사 김훈 대표가 직접 매물을 발굴하고 유튜브 영상으로 공개합니다.</p>
-          </div>
-        </div>
-
-        <!-- Q6 -->
-        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-          <button class="faq-question" aria-expanded="false" id="faq-btn-6" aria-controls="faq-ans-6">
-            <span class="faq-q-icon"><i class="fa-solid fa-q"></i></span>
-            <span itemprop="name">대학로 혜화72 공인중개사 사무소는 어디에 있나요?</span>
-            <i class="fa-solid fa-chevron-down faq-chevron"></i>
-          </button>
-          <div class="faq-answer" id="faq-ans-6" role="region" aria-labelledby="faq-btn-6" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-            <p class="faq-answer-inner" itemprop="text">대학로 혜화72 공인중개사 사무소는 서울 종로구 창경궁로 266 1층에 위치합니다. 혜화역 4번 출구에서 도보 2~3분, 우리은행 바로 옆입니다. 네이버지도, 카카오맵에서 <strong>'대학로 혜화72 공인중개사 사무소'</strong>로 검색하시면 찾아오실 수 있습니다.</p>
-          </div>
-        </div>
-
-        <!-- Q7 -->
-        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-          <button class="faq-question" aria-expanded="false" id="faq-btn-7" aria-controls="faq-ans-7">
-            <span class="faq-q-icon"><i class="fa-solid fa-q"></i></span>
-            <span itemprop="name">혜화동 한옥 상가는 어떻게 임대할 수 있나요?</span>
-            <i class="fa-solid fa-chevron-down faq-chevron"></i>
-          </button>
-          <div class="faq-answer" id="faq-ans-7" role="region" aria-labelledby="faq-btn-7" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-            <p class="faq-answer-inner" itemprop="text">혜화동에는 1970년대 지어진 전통 한옥 건물 상가가 일부 남아 있습니다. 이러한 희귀 한옥 상가 매물은 시장에 잘 나오지 않아 전문 공인중개사를 통해 구하는 것이 효과적입니다. 대학로 혜화72 공인중개사 사무소(02-766-0720)에 문의하시면 혜화동 한옥 상가 최신 매물 정보를 받아보실 수 있습니다.</p>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- 6. Contact Hub Section -->
-    <section id="contact">
-
-      <div class="section-header">
-        <span class="subtitle">QUICK CONTACT</span>
-        <h2 class="title">김훈 대표 간편 문의</h2>
-      </div>
-
-      <div class="contact-grid">
-        <!-- 대표전화 (2026-10-20 대표번호 02-766-0720로 통일) -->
-        <a href="tel:02-766-0720" class="contact-card">
-          <i class="fa-solid fa-phone"></i>
-          <span class="contact-label">대표전화</span>
-          <span class="contact-val">02-766-0720</span>
-        </a>
-
-        <!-- Mobile -->
-        <a href="tel:010-3160-2675" class="contact-card">
-          <i class="fa-solid fa-mobile-screen"></i>
-          <span class="contact-label">대표 휴대폰</span>
-          <span class="contact-val">010-3160-2675</span>
-        </a>
-
-        <!-- SMS -->
-        <a href="sms:010-3160-2675" class="contact-card">
-          <i class="fa-solid fa-envelope-open-text"></i>
-          <span class="contact-label">문자 문의</span>
-          <span class="contact-val">메시지 보내기</span>
-        </a>
-
-        <!-- Map Location -->
-        <a href="https://map.naver.com/v5/search/서울%20종로구%20창경궁로%20266" target="_blank" class="contact-card">
-          <i class="fa-solid fa-location-dot"></i>
-          <span class="contact-label">사무실 오시는 길</span>
-          <span class="contact-val">창경궁로 266 1층</span>
         </a>
       </div>
     </section>
