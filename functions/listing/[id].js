@@ -31,7 +31,7 @@ function info(p) {
   const price = deal === '매매' ? `매매가 ${won(p.price)}` : deal === '전세' ? `전세 ${won(p.deposit)}` : `보증금 ${won(p.deposit)} / 월세 ${won(p.rent)}`;
   const mg = p.mgmt == null || p.mgmt === '' ? '' : Number(p.mgmt) === 0 ? '관리비 없음' : `관리비 ${typeof p.mgmt === 'number' ? p.mgmt + '만원' : p.mgmt}`;
   const area = [p.excl_m2 && `전용 ${p.excl_m2}㎡ (약 ${Math.round(p.excl_m2 * 0.3025 * 10) / 10}평)`, !p.excl_m2 && p.area_py].filter(Boolean).join('');
-  const w = walk(p), where = [p.gu || '종로구', p.dong].filter(Boolean).join(' ');
+  const w = walk(p), where = p.addr_pub || [p.gu || '종로구', p.dong].filter(Boolean).join(' ');
   return { deal, kind, price, mg, area, w, where };
 }
 
@@ -66,7 +66,7 @@ export async function onRequest({ params }) {
   const ld = [
     { '@context': 'https://schema.org', '@type': 'RealEstateListing', name: title, url, description: summary, datePosted: checked || undefined, image: photos.slice(0, 5),
       offers: priceNum ? { '@type': 'Offer', price: Number(priceNum) * 10000, priceCurrency: 'KRW', businessFunction: I.deal === '매매' ? 'http://purl.org/goodrelations/v1#Sell' : 'http://purl.org/goodrelations/v1#LeaseOut', availability: 'https://schema.org/InStock' } : undefined,
-      contentLocation: { '@type': 'Place', address: { '@type': 'PostalAddress', addressCountry: 'KR', addressRegion: '서울특별시', addressLocality: p.gu || '종로구', streetAddress: p.dong || '' }, ...(p.lat ? { geo: { '@type': 'GeoCoordinates', latitude: p.lat, longitude: p.lng } } : {}) },
+      contentLocation: { '@type': 'Place', address: { '@type': 'PostalAddress', addressCountry: 'KR', addressRegion: '서울특별시', addressLocality: p.gu || '종로구', streetAddress: (p.addr_pub ? String(p.addr_pub).replace(/^\S+구\s*/, '') : p.dong) || '' }, ...(p.lat ? { geo: { '@type': 'GeoCoordinates', latitude: p.lat, longitude: p.lng } } : {}) },
       provider: { '@id': SITE + '/#agent' } },
     { '@context': 'https://schema.org', '@type': 'RealEstateAgent', '@id': SITE + '/#agent', name: OFFICE.name, telephone: OFFICE.tel, url: SITE,
       address: { '@type': 'PostalAddress', streetAddress: '창경궁로 266, 1층', addressLocality: '종로구', addressRegion: '서울특별시', addressCountry: 'KR' },
